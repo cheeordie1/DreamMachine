@@ -1,0 +1,2 @@
+INDEX VERSION 1.122+C:\Users\Nicholas\Documents\GitHub\cs108-Final\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+2038659434.index
