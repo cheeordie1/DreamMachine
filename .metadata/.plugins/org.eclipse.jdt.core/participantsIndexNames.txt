@@ -1,3 +1,0 @@
-INDEX VERSION 1.126
-C:\Users\Nicholas\Documents\GitHub\cs108-Final\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3389204608.index
-\Store
