@@ -1,0 +1,20 @@
+push notification vs/refresh notifications 
+
+password database: hash of password, randomly generated salt
+
+frienship table: 1 colum for first person, one for friend
+    one for entire database
+    three column friendship table
+
+achievement data in the user table of database
+
+Classes
+    User class wraps around database look functions
+        search by: id, friendship, acheivements
+
+
+
+Sending messages
+    Three tables for different types of messages
+        three columns: id from, id to, message
+        Alternatively, we could just have one table with a message type column
