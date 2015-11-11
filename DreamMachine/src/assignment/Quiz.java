@@ -11,7 +11,7 @@ public class Quiz {
 	public Date dateCreated;
 	public int numTimesPlayed;
 	
-	public List <Questions> allQuestions;
+	public List <Question> allQuestions;
 	public List <HighestScore> highestScores;
 	
 	
