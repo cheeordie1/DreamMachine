@@ -1,26 +1,35 @@
 import java.sql.*;
+import java.util.Random;
+import java.security.*;
 
 public class User {
     
-    /* constants */
-    public final int MIN_PASSWORD_SIZE = 8;
+    private final int MIN_PASSWORD_SIZE = 8;
+    private final int SALT_SIZE = 2;
 
-    /* Instance variables */
     private String uid;
-    public String name;
+    public String username;
     public String password;
+    public String retry;
+
+    /* quiz related data */
     public int quizzesTaken;
     public int quizzesMade;
+
+    /* user creation data */
     public ErrorMessages errorMessages;
-    public User(String username, String password, String photo) {
+    public String passwordDigest; 
+    
+    public User(String username) {
         this.errorMessages = new ErrorMessages();
+        this.username = username;
     }
     /* vars needed: quizes owned ~~~~~~ *** ~~~~~ */
     
     /* Attempts to save the given username and password combination. If the
      * two password attempts (password and retry) don't match, or any other
      * criteria for a valid password isn't met, the mapping is not created. */
-    public boolean save(String username, String password, String retry) {
+    public boolean save(/* TODO add photo saving */) {
         boolean success = true;
 
         if(usernameUnavailable(username) || 
@@ -28,6 +37,10 @@ public class User {
            usernameInvalid(username) || 
            passwordInsufficient(password) ||
            passwordMatchFailed(password, retry)) success = false;
+        else {
+          /* SQL to save user info */      
+        }
+        
 
         return success;
     }
@@ -38,6 +51,23 @@ public class User {
 
     public boolean drop() {
         return true;
+    }
+    
+    /* Takes a given password and creates a salt and digest for the given
+     * password. The User class will only store the salt and digest generated
+     * for the password, not the password itself. */
+    public void setPassword(String password) {
+        /* Generate a random salt */
+        this.password = password;
+        Random random = new Random();
+        String salt = "";
+        for(int i = 0; i < SALT_SIZE; i++)
+            salt += Integer.toHexString(random.nextInt());
+        try {
+            MessageDigest md = MessageDigest.getInstance("SHA");
+            password += salt;
+            this.passwordDigest = hexToString(md.digest(password.getBytes()));
+        } catch (NoSuchAlgorithmException ignored) {}
     }
 
     /* ensures the username is not null or empty. If the given username is null
@@ -51,7 +81,7 @@ public class User {
     private boolean usernameUnavailable(String username) {
         /* Query the database for the given username. If there, return false */ 
         String query = 
-            "SELECT FROM " + DBInfo.USER_TABLE + " * WHERE username = " + username;
+            "SELECT * FROM " + DBInfo.USER_TABLE + " WHERE username = " + username;
         ResultSet rs = DBConnection.executeQuery(query);
         
         /* if result set isn't empty, this username can't be used. */
@@ -96,4 +126,16 @@ public class User {
     private boolean passwordInvalid() {
         return true;
     }
+
+    /** utility methods */
+    public static String hexToString(byte[] bytes) {
+		StringBuffer buff = new StringBuffer();
+		for (int i=0; i<bytes.length; i++) {
+			int val = bytes[i];
+			val = val & 0xff;  // remove higher bits, sign
+			if (val<16) buff.append('0'); // leading 0
+			buff.append(Integer.toString(val, 16));
+		}
+		return buff.toString();
+	}
 }
