@@ -5,6 +5,8 @@ public class Question {
 	    RESPONSE, BLANK, CHOICE, PICTURE, MATCHING 
 	}
 	
+	public static final String DELIM = "<>"; 
+	
 	private Type type; 
 	
 	public Question (Type type) {
@@ -23,6 +25,5 @@ public class Question {
 	public String toString() {
 		return "undefined toString Method";
 	}
-	
 
 }
