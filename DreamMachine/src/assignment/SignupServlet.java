@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class HomeServlet
+ * Servlet implementation class SignupServlet
  */
-@WebServlet(description = "Servlet for loading Home page", urlPatterns = { "/home" })
-public class HomeServlet extends HttpServlet {
+@WebServlet(description = "Servlet to handle signing up for an account", urlPatterns = { "/signup" })
+public class SignupServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public HomeServlet() {
+    public SignupServlet() {
         super();
     }
 
@@ -27,9 +27,13 @@ public class HomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String forward = "content/home/home.jsp";
-		RequestDispatcher rd = request.getRequestDispatcher(forward);
-		rd.forward(request, response);
+		if (request.getSession().getAttribute("loggedIn").toString().equals("true")) {
+			response.sendRedirect("http://localhost:8080/DreamMachine/home");
+		} else {
+			String forward = "content/signup/signup.jsp";
+			RequestDispatcher rd = request.getRequestDispatcher(forward);
+			rd.forward(request, response);
+		}
 	}
 
 	/**
