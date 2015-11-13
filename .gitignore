@@ -1,0 +1,9 @@
+/build/
+.metadata/*
+!.metadata/.gitkeep
+*~
+MyDBInfo.java
+DBInfo.java
+DBInfo.class
+*DBInfo*
+Servers/*
