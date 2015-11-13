@@ -8,9 +8,9 @@
         Hello, <%= sess.getAttribute("username") %><br>
         <a id="account-link" href=<%= "/user/" + sess.getAttribute("username") %> >Account</a>
       <% } else { %>
-        <a id="login-link" class="login-link" href="/login">Login</a>
+        <a id="login-link" class="login-link" href="/DreamMachine/login">Login</a>
         <div id="login-separator">|</div>
-        <a id="signup-link" class="login-link" href="/signup">Sign Up</a>
+        <a id="signup-link" class="login-link" href="/DreamMachine/signup">Sign Up</a>
       <% } %>
     </div>
 </div>
