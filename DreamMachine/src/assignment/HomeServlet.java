@@ -27,7 +27,7 @@ public class HomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String forward = "content/home.jsp";
+        String forward = "content/home/home.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher (forward);
 		rd.forward (request, response);
 	}
