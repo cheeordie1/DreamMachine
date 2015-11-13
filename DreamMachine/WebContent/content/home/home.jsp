@@ -5,34 +5,22 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="assets/stylesheets/home.css">
-<jsp:include page="../app.jsp">
-  <jsp:param value="" name=""/>
-</jsp:include>
+<jsp:include page="../app.jsp" />
 <title>Welcome to Dream Machine</title>
 </head>
 <body>
-  <jsp:include page="../header/top-bar.jsp">
-    <jsp:param value="" name=""/>
-  </jsp:include>
+  <jsp:include page="../header/top-bar.jsp" />
   <div id="home-div">
-    <jsp:include page="words.jsp">
-      <jsp:param value="" name=""/>
-    </jsp:include>
+    <jsp:include page="words.jsp" />
     <div id="leaderboards-div">
       <div id="top-played-container">
-        <jsp:include page="top-played.jsp">
-	      <jsp:param value="" name=""/>
-        </jsp:include>
+        <jsp:include page="top-played.jsp" />
       </div>
       <div id="most-quizzes-container">
-        <jsp:include page="most-quizzes.jsp">
-	      <jsp:param value="" name=""/>
-        </jsp:include>
+        <jsp:include page="most-quizzes.jsp" />
       </div>
       <div id="recently-created-container">
-        <jsp:include page="recently-created.jsp">
-	      <jsp:param value="" name=""/>
-        </jsp:include>
+        <jsp:include page="recently-created.jsp" />
       </div>
     </div>
   </div>
