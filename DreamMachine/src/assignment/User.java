@@ -1,3 +1,5 @@
+package assignment;
+
 import java.sql.*;
 import java.util.Random;
 import java.security.*;
@@ -11,6 +13,7 @@ public class User {
     public String username;
     public String password;
     public String retry;
+    public String salt;
 
     /* quiz related data */
     public int quizzesTaken;
@@ -82,7 +85,7 @@ public class User {
         /* Query the database for the given username. If there, return false */ 
         String query = 
             "SELECT * FROM " + DBInfo.USER_TABLE + " WHERE username = " + username;
-        ResultSet rs = DBConnection.executeQuery(query);
+        ResultSet rs = DBConnection.query(query);
         
         /* if result set isn't empty, this username can't be used. */
         try {
