@@ -5,9 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="assets/stylesheets/login.css">
-<jsp:include page="../app.jsp">
-  <jsp:param value="" name=""/>
-</jsp:include>
+<jsp:include page="../app.jsp" />
 <title>Enter Login Info</title>
 </head>
 <body>

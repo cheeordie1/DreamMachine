@@ -1,0 +1,17 @@
+#signup-form-container {
+  border: 2px solid #8F8F8F;
+  background-color: #FFFFFF;
+  height: 55vh;
+  width: 35vw;
+}
+
+#fake-file {
+  position: absolute;
+  z-index: 2;
+}
+
+#real-file {
+  position: absolute;
+  z-index: 1;
+  left: 9px;
+}
