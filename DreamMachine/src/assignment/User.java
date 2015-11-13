@@ -6,44 +6,53 @@ import java.security.*;
 
 public class User {
     
+    /* constants */
     private final int MIN_PASSWORD_SIZE = 8;
     private final int SALT_SIZE = 2;
 
-    private String uid;
-    public String username;
+    /* instance variables */
+    public int uid;
     public String password;
     public String retry;
-    public String salt;
-
-    /* quiz related data */
     public int quizzesTaken;
     public int quizzesMade;
-
-    /* user creation data */
     public ErrorMessages errorMessages;
+
+    /* info for database entry */
+    public String username;
     public String passwordDigest; 
+    public String salt;
     
     public User(String username) {
         this.errorMessages = new ErrorMessages();
         this.username = username;
     }
-    /* vars needed: quizes owned ~~~~~~ *** ~~~~~ */
     
-    /* Attempts to save the given username and password combination. If the
+    /** 
+     * Attempts to save the given username and password combination. If the
      * two password attempts (password and retry) don't match, or any other
-     * criteria for a valid password isn't met, the mapping is not created. */
+     * criteria for a valid password isn't met, the mapping is not created. 
+     */
     public boolean save(/* TODO add photo saving */) {
         boolean success = true;
-
+/*
         if(usernameUnavailable(username) || 
-           usernameEmpty(username) ||
-           usernameInvalid(username) || 
-           passwordInsufficient(password) ||
-           passwordMatchFailed(password, retry)) success = false;
+            usernameEmpty(username) ||
+            usernameInvalid(username) || 
+            passwordInsufficient(password) ||
+            passwordMatchFailed(password, retry)) success = false;
         else {
-          /* SQL to save user info */      
-        }
-        
+            */
+            /* create a new entry for this username password pair */
+            String entry =
+                "INSERT INTO " + DBInfo.USER_TABLE + "(username,salt,digest) VALUES (" +
+                    "\"" + this.username + "\"," +
+                    "\"" + this.salt + "\"," +
+                    "\"" + this.passwordDigest + "\"" +
+                ")";
+            this.uid = DBConnection.insertUpdate(entry);
+            System.out.println(this.uid);
+       // }
 
         return success;
     }
@@ -52,8 +61,8 @@ public class User {
         return false;
     }   
 
-    public boolean drop() {
-        return true;
+    public boolean destroy() {
+        return DBConnection.deleteUpdate(DBInfo.USER_TABLE, this.uid);
     }
     
     /* Takes a given password and creates a salt and digest for the given
@@ -63,12 +72,12 @@ public class User {
         /* Generate a random salt */
         this.password = password;
         Random random = new Random();
-        String salt = "";
+        this.salt = "";
         for(int i = 0; i < SALT_SIZE; i++)
-            salt += Integer.toHexString(random.nextInt());
+            this.salt += Integer.toHexString(random.nextInt());
         try {
             MessageDigest md = MessageDigest.getInstance("SHA");
-            password += salt;
+            password += this.salt;
             this.passwordDigest = hexToString(md.digest(password.getBytes()));
         } catch (NoSuchAlgorithmException ignored) {}
     }

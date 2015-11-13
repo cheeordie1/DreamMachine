@@ -52,63 +52,48 @@ public class DBConnection {
     }
 
     /**
-     * Executes the given update along the connection. This returns true when
-     * the update succeeds in the database specified by the DBInfo file, false
-     * otherwise.
-     * @param query the query to be sent to the SQL database
-     * @return the resulting success of the update call
+     * Deletes from the given table the entry specified by the given uid. 
+     * @param table the table to delete the entry from
+     * @param pid the unique identifier used to search for the entry
      */
-    public static boolean update(String update) {
+    public static boolean deleteUpdate(String table, int pid) {
         try {
-            Statement stmt = con.createStatement();
-            stmt.executeQuery("USE " + DBInfo.MYSQL_DATABASE_NAME);
-            stmt.executeUpdate(update);
-            return true;
-        } catch (SQLException ignored) {
-            return false;
-        }
-    }
+            Statement stmt = null;
     
-    /**
-     * Creates a db tableCreate using the name and keys of the given column map. 
-     * The map must contain column names as keys, where the coorisponding 
-     * value is the type fot that column. For example, the first column of 
-     * the user tableCreate is a user id (uid). This map entry would be 
-     * "uid" --> BIGINT.
-     * @param name the name of the tableCreate to be created
-     * @param columns a hash mapping column names to column types
-     * @return the resulting success of the creation attempt
-     */
-    public static boolean createTable(String name, Map<String, String> columns) {
-        String tableCreate = "CREATE TABLE " + name + "(";
-        for(String columnName : columns.keySet())
-            tableCreate += columnName + " " + columns.get(columnName) + ",";
-        // remove the trailing extra comma, and add the final ')'
-        tableCreate = tableCreate.substring(0, tableCreate.length()-1) + ")";
-        try {
-            Statement stmt = con.createStatement();
+            /* create deletion update */
+            String deleteEntry = "DELETE FROM " + table + " WHERE pid = " + pid;
+            System.out.println(deleteEntry);
+            stmt = con.createStatement();
             stmt.executeQuery("USE " + DBInfo.MYSQL_DATABASE_NAME);
-            stmt.executeUpdate(tableCreate);
+            stmt.executeUpdate(deleteEntry); 
             return true;
         } catch (SQLException ignored) {
-            return false;
+            return false;    
         }
     }
 
     /**
-     * Drops the table of the given name from the database.
-     * @param name the name of the table to drop
-     * @return the resulting success of the table drop
+     * Executes the given insert sql update over the DB connection.
+     * @param sql the sql string used for the insert execution
+     * @return the unique identifier created for this entry
      */
-    public static boolean dropTable(String name) {
+    public static int insertUpdate(String sql) {
         try {
-            Statement stmt = con.createStatement();
+
+            ResultSet rs = null;
+            Statement stmt = null;
+
+            /* create the new MySQL entry */
+            stmt = con.createStatement();
             stmt.executeQuery("USE " + DBInfo.MYSQL_DATABASE_NAME);
-            stmt.executeUpdate("DROP TABLE IF EXISTS " + name);
-            return true;
-        } catch(SQLException ignored) {
-            return false;
-        }
+            stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+            
+            /* return the unique uid */
+            rs = stmt.getGeneratedKeys();
+            if(rs.next()) return rs.getInt(1);
+
+        } catch (SQLException ignored) {}
+        return 0;
     }
 
     /**

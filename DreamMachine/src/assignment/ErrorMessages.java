@@ -18,13 +18,13 @@ public class ErrorMessages {
     public static final String PASSWORD_MATCH_FAILED =
         "The two password entries don't match. Please try again.";
 
-    public Map<String, ArrayList<String>> errors;
+    public Map<Integer, ArrayList<String>> errors;
 
     public ErrorMessages() {
-        this.errors = new HashMap<String, ArrayList<String>>();
+        this.errors = new HashMap<Integer, ArrayList<String>>();
     }
     
-    public void addError(String uid, String message) {
+    public void addError(int uid, String message) {
         ArrayList<String> errorMessages = this.errors.get(uid);
         if(errorMessages == null)
             errorMessages = new ArrayList<String>();
