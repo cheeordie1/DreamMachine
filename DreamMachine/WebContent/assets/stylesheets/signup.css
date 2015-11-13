@@ -1,17 +1,65 @@
+body {
+  overflow-y: hidden;	
+}
+
+.signup-input {
+  height: 2.6vh;
+  width:25vw;	
+}
+
+.signup-subtitles {
+  font: 2vh Tahoma, sans-serif;	
+  color: #9266BD;
+}
+
 #signup-form-container {
+  position: relative;
+  display: inline-table;
+  top: 11vh;
   border: 2px solid #8F8F8F;
   background-color: #FFFFFF;
   height: 55vh;
   width: 35vw;
 }
 
+#signup-title {
+  position: relative;
+  font: 2.9vh "Archivo Narrow", sans-serif;
+  font-weight: bold;
+  color: purple;
+  display: inline-block;
+  margin-top: 5vh;	
+}
+
+#signup-form {
+  position: relative;
+  display: inline-block;
+  margin-top: 3vh;
+}
+
 #fake-file {
-  position: absolute;
+  position: relative;
   z-index: 2;
 }
 
 #real-file {
   position: absolute;
+  pointer-events: none;
   z-index: 1;
-  left: 9px;
+  left: 0.6vw;
+}
+
+#signup-submit {
+  position: relative;
+  margin-top: 4vh;
+  height: 5vw;
+  width: 15vw;
+  font: 2.3vh Tahoma, sans-serif;	
+  color: purple;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eadaf2+0,d7aaed+74,a07b9c+100 */
+  background: #eadaf2; /* Old browsers */
+  background: -moz-linear-gradient(top,  #eadaf2 0%, #d7aaed 74%, #a07b9c 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #eadaf2 0%,#d7aaed 74%,#a07b9c 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #eadaf2 0%,#d7aaed 74%,#a07b9c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eadaf2', endColorstr='#a07b9c',GradientType=0 ); /* IE6-9 */
 }
