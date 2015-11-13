@@ -1,0 +1,32 @@
+.login-link {
+  text-decoration: none;	
+}
+
+.login-link:link {
+  color: #FFFFFF;
+}
+
+.login-link:visited {
+  color: ##9B37C3;
+}
+
+.login-link:hover {
+  color: #D2A6E4;
+}
+
+#login-bar-container {
+  position: absolute;
+  right: 5vw;
+}
+
+#logged-in-text {
+  color: #FFFFFF;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 20px;
+  display:inline-flex;
+}
+
+#login-separator {
+  padding: 0px 10px 0px 10px;	
+}
+

@@ -1,3 +1,5 @@
+package assignment;
+
 import java.sql.*;
 
 /**
@@ -19,9 +21,9 @@ public class DBConnection {
             Class.forName("com.mysql.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                "jdbc:mysql://" + DBInfo.DATABASE_SERVER,
-                DBInfo.USERNAME,
-                DBInfo.PASSWORD);
+                "jdbc:mysql://" + DBInfo.MYSQL_DATABASE_SERVER,
+                DBInfo.MYSQL_USERNAME,
+                DBInfo.MYSQL_PASSWORD);
             return true;
         } catch (SQLException ignored) {
             return false;
@@ -38,10 +40,10 @@ public class DBConnection {
      * @param query the query to be sent to the SQL database
      * @return the result set of the database query
      */
-    public static ResultSet executeQuery(String query) {
+    public static ResultSet query(String query) {
         try {
             Statement stmt = con.createStatement();
-            stmt.executeQuery("USE" + DBInfo.DATABASE_NAME);
+            stmt.executeQuery("USE " + DBInfo.MYSQL_DATABASE_NAME);
             return stmt.executeQuery(query);
         } catch (SQLException ignored) {
             return null;
@@ -55,10 +57,10 @@ public class DBConnection {
      * @param query the query to be sent to the SQL database
      * @return the resulting success of the update call 
      */
-    public static boolean executeUpdate(String update) {
+    public static boolean update(String update) {
         try {
             Statement stmt = con.createStatement();
-            stmt.executeQuery("USE" + DBInfo.DATABASE_NAME);
+            stmt.executeQuery("USE " + DBInfo.MYSQL_DATABASE_NAME);
             stmt.executeUpdate(update);
             return true;
         } catch (SQLException ignored) {
