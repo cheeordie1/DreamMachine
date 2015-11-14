@@ -23,6 +23,7 @@ public class ContextListener implements ServletContextListener {
      * @see ServletContextListener#contextDestroyed(ServletContextEvent)
      */
     public void contextDestroyed(ServletContextEvent arg0) {
+    	DBConnection.closeConnection();
     }
 
 	/**
@@ -30,6 +31,7 @@ public class ContextListener implements ServletContextListener {
      */
     public void contextInitialized(ServletContextEvent arg0) {
         arg0.getServletContext().setAttribute("rint", new Random(28462));
+        DBConnection.connect();
     }
 	
 }
