@@ -102,13 +102,7 @@ public class User {
                 photo.id +
                 ")";
             System.out.println(entry);
-            ResultSet rs = DBConnection.update(entry);
-            try {
-				assert (rs.first() == true);
-				id = rs.getInt("user_id");
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+            id = DBConnection.update(entry);
         }
 
         return success;

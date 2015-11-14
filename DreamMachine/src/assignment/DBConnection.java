@@ -69,17 +69,20 @@ public class DBConnection {
 	 * (provided utility)
 	 * @param update the update string that will be called (not secure from
 	 *        SQL injection)
-	 * @return the result set of the update (Insert, Delete, Update)
+	 * @return the id of the object if it exists of the update (Insert, Delete, Update)
 	 */
-	public static ResultSet update(String update) {
+	public static int update(String update) {
 		try {
 		  Statement stmt = con.createStatement();
-		  stmt.execute(update);
-		  return stmt.getResultSet();
+		  stmt.executeUpdate(update, Statement.RETURN_GENERATED_KEYS);
+		  ResultSet keys = stmt.getGeneratedKeys();
+		  if (!keys.first())
+			  return 0;
+		  return keys.getInt(1);
 		} catch(SQLException e) {
 		  e.printStackTrace();
 		}
-		return null;
+		return 0;
 	}
 
 }
