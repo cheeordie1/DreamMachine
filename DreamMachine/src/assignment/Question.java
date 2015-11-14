@@ -16,7 +16,8 @@ public class Question {
 	private Answer answer; 
 
 	public static final String DELIM = "<>"; 
-	Question (Type type, String questStr, String options) {
+	
+	public Question (Type type, String questStr, String options) {
 		this.id = generateID(); 
 		this.type = type; 
 		this.question = questStr; 

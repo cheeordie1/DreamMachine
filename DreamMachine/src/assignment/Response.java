@@ -10,8 +10,8 @@ public class Response extends Answer {
 	private final int numElem = 2; 
 
 	public Response(String options) {
-		this.numAnswers = answers.size(); 
 		setAnswersFromString(options); 
+		this.numAnswers = answers.size(); 
 	}
 	
 	private void setAnswersFromString(String options) {
