@@ -21,7 +21,7 @@
     %>
       <div class="error-msg"><%= message %></div>
     <% } %>
-    <form id="signup-form" class="hori-center" method="post" action="signup">
+    <form id="signup-form" class="hori-center" method="post" action="signup" enctype="multipart/form-data">
       <label class="signup-subtitles">Enter a Username</label><br>
       <% messages = errors.getErrors(assignment.User.USERNAME_ERROR); %>
         <input type="text" class=<%= !messages.isEmpty() ? "'signup-input error'" : "signup-input" %> name="username">
