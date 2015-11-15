@@ -9,6 +9,12 @@ public class ErrorMessages {
         this.errors = new HashMap<String, List<String>>();
     }
     
+    /**
+     * Add an error message to the hash of string keys to
+     * error messages. 
+     * @param key to identify types of errors.
+     * @param message error to add to the list of errors.
+     */
     public void addError(String key, String message) {
         List<String> errorMessages;
         errorMessages = errors.get(key);
@@ -19,6 +25,12 @@ public class ErrorMessages {
     	errorMessages.add(message);
     }
     
+    /**
+     * Get a list of error messages associated with a given
+     * error type.
+     * @param key to search for a list of errors by
+     * @return List of errors associated with error key.
+     */
     public List<String> getErrors(String key) {
     	List<String> retList = errors.get(key);
     	if (retList == null) retList = new ArrayList<String>();

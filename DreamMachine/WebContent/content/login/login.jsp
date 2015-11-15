@@ -9,6 +9,25 @@
 <title>Enter Login Info</title>
 </head>
 <body>
-
+  <jsp:include page="../header/top-bar.jsp" />
+  <jsp:include page="../layout/splatter-background.jsp" />
+  <div id="login-form-container" class="hori-center">
+    <div id="login-title" class="hori-center">Welcome Back, Dreamer!</div><br>
+    <form id="login-form" class="hori-center" method="post" action="login">
+      <label class="login-subtitles">Username</label><br>
+      <input type="text" class="login-input" name="username"><br><br>
+      <label class="login-subtitles">Password</label><br>
+      <input type="password" class="login-input" name="password"><br><br>
+      <%
+        assignment.ErrorMessages errors = (assignment.ErrorMessages) request.getSession().getAttribute("errors");
+        if (errors == null) errors = new assignment.ErrorMessages(); 
+        java.util.List<String> messages = errors.getErrors(assignment.User.LOGIN_ERROR);
+        for (String message : messages) { 
+      %>
+        <div class="error-msg"><%= message %></div>
+      <% } %>
+      <input id="login-submit" class="hori-center" type="submit" value="Enter Dream">
+    </form>
+  </div>
 </body>
 </html>

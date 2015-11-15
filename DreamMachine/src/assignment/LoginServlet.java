@@ -1,6 +1,7 @@
 package assignment;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -33,6 +34,7 @@ public class LoginServlet extends HttpServlet {
 			String forward = "content/login/login.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(forward);
 			rd.forward(request, response);
+			request.getSession().removeAttribute("errors");
 		}
 	}
 
@@ -40,6 +42,28 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		ErrorMessages errors = new ErrorMessages();
+		if (username == null || username.isEmpty() ||
+			password == null || password.isEmpty()) {
+			errors.addError(User.LOGIN_ERROR, User.LOGIN_EMPTY);
+			request.getSession().setAttribute("errors", errors);
+			response.sendRedirect("http://localhost:8080/DreamMachine/login");
+			return;
+		}
+		List<User> users = User.searchByUsername(username);
+		if (users.isEmpty()) {
+			errors.addError(User.LOGIN_ERROR, User.LOGIN_FAILED);
+			request.getSession().setAttribute("errors", errors);
+			response.sendRedirect("http://localhost:8080/DreamMachine/login");
+		} else {
+			User user = users.get(0);
+			request.getSession().setAttribute("loggedIn", "true");
+			request.getSession().setAttribute("username", user.username);
+			request.getSession().setAttribute("uid", user.id);
+			response.sendRedirect("http://localhost:8080/DreamMachine/home");
+		}
 	}
 
 }
