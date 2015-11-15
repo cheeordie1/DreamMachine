@@ -12,6 +12,16 @@ body {
   color: #9266BD;
 }
 
+.error {
+  border: 2px solid red;	
+}
+
+.error-msg {
+  position: relative;
+  color: #FD2727;
+  font: 1.5vh "Slabo 27px", sans-serif; 	
+}
+
 #signup-form-container {
   position: relative;
   display: inline-table;

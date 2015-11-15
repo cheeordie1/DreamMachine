@@ -24,22 +24,23 @@
     <form id="signup-form" class="hori-center" method="post" action="signup">
       <label class="signup-subtitles">Enter a Username</label><br>
       <% messages = errors.getErrors(assignment.User.USERNAME_ERROR); %>
-        <input type="text" class=<%= messages != null ? "signup-input error" : "signup-input" %> name="username"><br><br>
- 	  <% for (String message : messages) { %>
+        <input type="text" class=<%= !messages.isEmpty() ? "'signup-input error'" : "signup-input" %> name="username">
+        <br><% for (String message : messages) { %>
         <div class="error-msg"><%= message %></div>
-      <% } %>
+        <% } %><br>
         <label class="signup-subtitles">Enter a Password</label><br>
       <% messages = errors.getErrors(assignment.User.PASSWORD_ERROR); %>
-        <input type="password" class=<%= messages != null ? "signup-input error" : "signup-input" %> name="password"><br><br>
-        <% for (String message : messages) { %>
-          <div class="error-msg"><%= message %></div>
-        <% } %>
+        <input type="password" class=<%= !messages.isEmpty() ? "'signup-input error'" : "signup-input" %> name="password">
+        <br><% for (String message : messages) { %>
+        <div class="error-msg"><%= message %></div>
+        <% } %><br>
       <label class="signup-subtitles">Retype Password</label><br>
       <% messages = errors.getErrors(assignment.User.PASSWORD_DUP_ERROR); %>
-        <input type="password" class=<%= messages != null ? "signup-input error" : "signup-input" %> name="re-password"><br><br>
-        <% for (String message : messages) { %>
-          <div class="error-msg"><%= message %></div>
+        <input type="password" class=<%= !messages.isEmpty() ? "'signup-input error'" : "signup-input" %> name="re-password">
+        <br><% for (String message : messages) { %>
+        <div class="error-msg"><%= message %></div>
         <% } %>
+        <br>
       <div id="file-selector">
         <input id="fake-file" type="button" value="Upload Photo">
         <input id="real-file" type="file" name="photo">
