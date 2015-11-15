@@ -72,17 +72,18 @@ public class Question {
 	}
 	
 	
+	/*
+	 * Validates that the question is valid.
+	 * If the question is already in the database then it 
+	 * replaces the entry. Otherwise it adds a new quiz
+	 * to the DBConnection.Question Table. 
+	 */
 	public boolean save() {
 		/*
 		 * Add MARK DOES THISS
 		 */
 		return true; 
 		
-	}
-	
-	private int generateID() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 	
 	public String toString(){

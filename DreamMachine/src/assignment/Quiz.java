@@ -55,7 +55,7 @@ public class Quiz {
 
 	/*
 	 * Validates that the questions are all valid.
-	 * If the table is already in the database then it 
+	 * If the quiz is already in the database then it 
 	 * replaces the entry. Otherwise it adds a new quiz
 	 * to the DBConnection.Quiz Table. 
 	 */
