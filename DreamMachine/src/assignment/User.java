@@ -108,7 +108,7 @@ public class User {
                 "'" + this.username + "'," +
                 "'" + this.salt + "'," +
                 "'" + this.passwordDigest + "'," +
-                photo.id +
+                photo_id +
                 ")";
             System.out.println(entry);
             id = DBConnection.update(entry);

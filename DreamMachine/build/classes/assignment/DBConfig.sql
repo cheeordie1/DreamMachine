@@ -10,3 +10,9 @@ CREATE TABLE users (
     photo_id INT,
     PRIMARY KEY (user_id)
 );
+
+CREATE TABLE photos (
+	photo_id INT NOT NULL AUTO_INCREMENT,
+	url VARCHAR,
+	PRIMARY KEY (photo_id)
+);
