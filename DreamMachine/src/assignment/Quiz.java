@@ -134,12 +134,12 @@ public class Quiz {
 	}
 
 	public boolean isPracticeMode() {
-		return practiceMode;
+		return practiceModeOption;
 	}
 
 
 	public void setPracticeMode(boolean practiceMode) {
-		this.practiceMode = practiceMode;
+		this.practiceModeOption = practiceMode;
 	}
 	
 	public boolean isSinglePage() {

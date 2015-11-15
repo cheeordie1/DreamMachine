@@ -14,11 +14,16 @@ public class Response extends Answer {
 		this.numAnswers = answers.size(); 
 	}
 	
+	public Response() {
+		// TODO Auto-generated constructor stub
+	}
+
 	private void setAnswersFromString(String options) {
 		answers = new ArrayList <ArrayList<String>>(); 
 		int 	start = options.indexOf('[') + 1,
 				end = options.lastIndexOf(']');
 		String data = options.substring(start, end); 
+		
 		
 	
 		// TODO Auto-generated method stub

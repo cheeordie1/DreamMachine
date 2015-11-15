@@ -6,4 +6,8 @@ public class Matching extends Answer {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Matching() {
+		// TODO Auto-generated constructor stub
+	}
+
 }

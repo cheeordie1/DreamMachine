@@ -11,16 +11,36 @@ public class Question {
 	int id; 
 	private Type type; 
 	private String question;
+	private Answer answer; 
+
 	private String imageName; 
 	private boolean containsImage;
-	private Answer answer; 
+
+	private boolean saved; 
 
 	public static final String DELIM = "<>"; 
 	
-	public Question (Type type, String questStr, String options) {
-		this.id = generateID(); 
+	public Question (Type type) {
 		this.type = type; 
-		this.question = questStr; 
+		
+		switch(type) {
+			case RESPONSE: 
+				answer = new Response(); 
+				break;
+		
+			case MULTICHOICE: 
+				answer = new MultiChoice(); 
+				break;
+		
+			case MATCHING: 
+				answer = new Matching(); 
+				break; 
+		}
+	}
+	
+	public Question (Type type, String question, String imageName, String options) {
+		this.type = type; 
+		this.question = question; 
 		
 		this.setContainsImage(false); 
 		this.imageName = null; 
@@ -38,12 +58,26 @@ public class Question {
 				answer = new Matching(options); 
 				break; 
 		}
-	}
-	
-	public Question (Type type, String question, String imageName, String options) {
-		this(type, question, options);
+		
 		this.setContainsImage(imageName.isEmpty() ? false : true); 
 		this.imageName = imageName.isEmpty() ? null : imageName; 
+	}
+	
+	public boolean isValid() {
+		if (!answer.isValid()) return false; 
+		//Check that question exists
+		//Are image parameters valid? 
+		
+		return true; 
+	}
+	
+	
+	public boolean save() {
+		/*
+		 * Add MARK DOES THISS
+		 */
+		return true; 
+		
 	}
 	
 	private int generateID() {
@@ -61,6 +95,10 @@ public class Question {
 		String data = ansStr.substring(start, end); 
 		return new ArrayList<String>(Arrays.asList(data.split(", ")));			
 	}
+	
+	public void setQuestion(String question) {
+		this.question = question;
+	} 
 	
 	public String getQuestion() {
 		return question;

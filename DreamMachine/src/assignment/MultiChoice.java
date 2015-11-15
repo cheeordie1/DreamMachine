@@ -6,4 +6,8 @@ public class MultiChoice extends Answer {
 		// TODO Auto-generated constructor stub
 	}
 
+	public MultiChoice() {
+		// TODO Auto-generated constructor stub
+	}
+
 }
