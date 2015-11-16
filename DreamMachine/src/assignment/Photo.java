@@ -24,7 +24,7 @@ public class Photo {
 	public static final String PHOTO_ERROR = "photo";
 	
 	/* Error Messages */
-	public static final String FILE_EMPTY = "File Part could not be found.";
+	public static final String FILE_EMPTY = "Please upload a photo.";
 	public static final String TYPE_MISMATCH = "File must be a .jpg or .png file.";
 	public static final String FILE_TOO_LARGE = "File size must be < 1 MB.";
 	public static final String FILE_FAIL = "File could not be loaded for some reason.";
@@ -39,8 +39,8 @@ public class Photo {
 	 * @return true if save works, false otherwise.
 	 */
 	public boolean save() {
-		if (fileMissing() || photoTypeWrong() || photoTooLarge()) 
-			return false;
+		if (fileMissing()) return false;
+		if (photoTypeWrong() || photoTooLarge()) return false;
 		String query = "INSERT INTO " + TABLE_NAME + " (data) VALUES(?) ";
 		PreparedStatement stmt = DBConnection.beginStatement(query);
 		try {
@@ -82,7 +82,7 @@ public class Photo {
 	 * @return true if file part is null, false otherwise
 	 */
 	private boolean fileMissing() {
-		if (part == null) {
+		if (part == null || part.getSize() == 0) {
 			errorMessages.addError(PHOTO_ERROR, FILE_EMPTY);
 			return true;
 		}
@@ -109,6 +109,7 @@ public class Photo {
 		String fileName = part.getSubmittedFileName();
 		if (fileName.endsWith(".jpg") || fileName.endsWith(".png"))
 			return false;
+		errorMessages.addError(PHOTO_ERROR, TYPE_MISMATCH);
 		return true;
 	}
 }

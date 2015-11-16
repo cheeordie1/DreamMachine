@@ -1,6 +1,7 @@
 USE c_cs108_cheeawai1;
 
 DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS photos;
 
 CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT,

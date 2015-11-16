@@ -131,7 +131,7 @@ public class DBConnection {
 	public static PreparedStatement beginStatement(String query) {
 		PreparedStatement stmt;
 		try {
-			stmt = con.prepareStatement(query);
+			stmt = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 			return stmt;
 		} catch (SQLException e) {
 			e.printStackTrace();
