@@ -2,21 +2,22 @@ package assignment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.sql.*;
 
 public class Question {
 	public enum Type {
 	    RESPONSE, MULTICHOICE, MATCHING 
 	}
 	
-	int id; 
-	private Type type; 
-	private String question;
-	private Answer answer; 
+	public int id; 
+	public Type type; 
+	public String question;
+	public Answer answer; 
 
-	private String imageName; 
-	private boolean containsImage;
+	public String imageName; 
+	public boolean containsImage; // why is this necessary? can't you just check whether imageName is null?
 
-	private boolean saved; 
+	public boolean saved; 
 
 	public static final String DELIM = "<>"; 
 	
@@ -38,37 +39,43 @@ public class Question {
 		}
 	}
 	
-	public Question (Type type, String question, String imageName, String options) {
-		this.type = type; 
-		this.question = question; 
+	public Question (ResultSet questionData) {
+		try {
+			this.id = questionData.getInt("pid");
+			this.question = questionData.getString("question");
 		
-		this.setContainsImage(false); 
-		this.imageName = null; 
+			String imageName = questionData.getString("imageName");
+			this.setContainsImage(imageName.isEmpty() ? false : true);
+			this.imageName = imageName;
 		
-		switch(type) {
-			case RESPONSE: 
-				answer = new Response(options); 
-				break;
+			this.imageName = questionData.getString("imageName");
 		
-			case MULTICHOICE: 
-				answer = new MultiChoice(options); 
-				break;
+			String options = questionData.getString("options");
+			switch(type) {
+				case RESPONSE: 
+					answer = new Response(options); 
+					break;
+	
+				case MULTICHOICE:
+					answer = new MultiChoice(options);
+					break;
 		
-			case MATCHING: 
-				answer = new Matching(options); 
-				break; 
+				case MATCHING:
+					answer = new Matching(options);
+					break;
+			}
+		} catch (Exception ex) {
+			
 		}
-		
-		this.setContainsImage(imageName.isEmpty() ? false : true); 
-		this.imageName = imageName.isEmpty() ? null : imageName; 
 	}
 	
 	public boolean isValid() {
 		if (!answer.isValid()) return false; 
-		//Check that question exists
-		//Are image parameters valid? 
-		
-		return true; 
+		if (getType() == null || getQuestion() == null ||
+			(containsImage() && getImageName() == null)) {
+			return false;
+		}
+		return true;
 	}
 	
 	
@@ -79,11 +86,14 @@ public class Question {
 	 * to the DBConnection.Question Table. 
 	 */
 	public boolean save() {
-		/*
-		 * Add MARK DOES THISS
-		 */
-		return true; 
-		
+		if (!isValid()) {
+			return false;
+		}
+		//int qid = getQID();
+		String entry = "INSERT INTO questions (qid, type, question, answer, imageName) " +
+				"VALUES("+ id +","+ type +","+ question +","+ answer.toString() +","+ imageName +");";
+		DBConnection.insertUpdate(entry);
+		return true;
 	}
 	
 	public String toString(){
