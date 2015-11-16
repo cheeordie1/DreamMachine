@@ -3,7 +3,7 @@
 }
 
 .login-link:link {
-  color: #FFFFFF;
+  color: #FCE3FF;
 }
 
 .login-link:visited {
@@ -14,19 +14,29 @@
   color: #D2A6E4;
 }
 
+.login-separator {
+  padding: 0px 10px 0px 10px;	
+}
+
 #login-bar-container {
   position: absolute;
   right: 5vw;
 }
 
-#logged-in-text {
+#not-logged-in-text {
   color: #FFFFFF;
   font-family: Tahoma, Geneva, sans-serif;
   font-size: 20px;
   display:inline-flex;
 }
 
-#login-separator {
-  padding: 0px 10px 0px 10px;	
+#logged-in-text {
+  color: #FFFFFF;
+  font-family: Tahoma, Geneva, sans-serif;
+  font-size: 20px;
+  display: inline-block;
 }
 
+#logout-options {
+  display: inline-flex;
+}
