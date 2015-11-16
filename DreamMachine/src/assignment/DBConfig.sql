@@ -1,4 +1,4 @@
-USE c_cs108_jevans2;
+USE c_cs108_cheeawai1;
 
 DROP TABLE IF EXISTS users;
 
