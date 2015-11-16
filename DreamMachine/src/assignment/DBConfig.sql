@@ -13,6 +13,6 @@ CREATE TABLE users (
 
 CREATE TABLE photos (
 	photo_id INT NOT NULL AUTO_INCREMENT,
-	url VARCHAR,
+	data MEDIUMBLOB NOT NULL,
 	PRIMARY KEY (photo_id)
 );
