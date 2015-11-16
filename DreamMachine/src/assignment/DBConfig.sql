@@ -14,6 +14,7 @@ CREATE TABLE users (
 
 CREATE TABLE photos (
 	photo_id INT NOT NULL AUTO_INCREMENT,
+	ftype CHAR(3),
 	data MEDIUMBLOB NOT NULL,
 	PRIMARY KEY (photo_id)
 );

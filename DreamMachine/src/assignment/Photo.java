@@ -2,10 +2,12 @@ package assignment;
 
 import java.io.IOException;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
+import javax.sql.rowset.serial.SerialException;
 
 public class Photo {
 	/* instance variables */
@@ -14,6 +16,7 @@ public class Photo {
 
 	/* database entries */
 	public int id;
+	public String ftype;
 	public SerialBlob data;
 	
 	/* static variables */
@@ -33,6 +36,16 @@ public class Photo {
 		errorMessages = new ErrorMessages();
 	}
 	
+	public Photo(ResultSet rs) {
+		errorMessages = new ErrorMessages();
+		try {
+			id = rs.getInt("photo_id");
+			data = new SerialBlob(rs.getBlob("data"));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * Save a Photo object into the database and returns true if it worked or
 	 * false otherwise. If save fails, errors are supplied to Photo errors.
@@ -41,10 +54,11 @@ public class Photo {
 	public boolean save() {
 		if (fileMissing()) return false;
 		if (photoTypeWrong() || photoTooLarge()) return false;
-		String query = "INSERT INTO " + TABLE_NAME + " (data) VALUES(?) ";
+		String query = "INSERT INTO " + TABLE_NAME + " (ftype, data) VALUES(?,?) ";
 		PreparedStatement stmt = DBConnection.beginStatement(query);
 		try {
-			stmt.setBlob(1, part.getInputStream());
+			stmt.setString(1, ftype);
+			stmt.setBlob(2, part.getInputStream());
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -78,6 +92,25 @@ public class Photo {
 	}
 	
 	/**
+	 * Search the database for a photo with the given id.
+	 * @param photo_id the id of the photo to look for
+	 * @return a Photo object of the given photo if it is found, null
+	 *         otherwise
+	 */
+	public static Photo searchById(int photo_id) {
+		String query = "SELECT * FROM photos WHERE id = " + photo_id;
+		ResultSet rs = DBConnection.query(query);
+		try {
+			if (!rs.first())
+				return null;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return new Photo(rs);
+	}
+	
+	/**
 	 * Return whether the file part is present.
 	 * @return true if file part is null, false otherwise
 	 */
@@ -107,9 +140,32 @@ public class Photo {
 	 */
 	private boolean photoTypeWrong() {
 		String fileName = part.getSubmittedFileName();
-		if (fileName.endsWith(".jpg") || fileName.endsWith(".png"))
+		if (fileName.endsWith(".png")){
+			ftype = "png";
 			return false;
+		} else if (fileName.endsWith(".jpg")) {
+			ftype = "jpg";
+			return false;
+		}
 		errorMessages.addError(PHOTO_ERROR, TYPE_MISMATCH);
 		return true;
+	}
+	
+	/**
+	 * Return a base64 representation of the photo for use as the src of
+	 * an img.
+	 * @return string representation of the data in a photo.
+	 */
+	@Override
+	public String toString() {
+		String bData;
+		try {
+			bData = new String(data.getBytes(0, (int) data.length()));
+		} catch (SerialException e) {
+			e.printStackTrace();
+			return "error";
+		}
+		String dataStr = "data:image/" + ftype + ";base64," + bData;
+		return dataStr;
 	}
 }
