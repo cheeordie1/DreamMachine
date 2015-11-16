@@ -79,7 +79,7 @@ public class User {
      * two password attempts (password and retry) don't match, or any other
      * criteria for a valid password isn't met, the mapping is not created. 
      */
-    public boolean save(/* TODO add photo saving */) {
+    public boolean save() {
         boolean hasEmpty = true;
         hasEmpty = hasEmpty && usernameEmpty() &&
                   passwordEmpty() && repasswordEmpty();
@@ -96,9 +96,9 @@ public class User {
         	photo.part = photoPart;
         	if (!photo.save())
         		{
-        		  for (String error : photo.errorMessages.errors.get(Photo.PHOTO_ERROR))
-        			  errorMessages.addError(PHOTO_ERROR, error);
-        		  return false;
+        			for (String error : photo.errorMessages.errors.get(Photo.PHOTO_ERROR))
+        				errorMessages.addError(PHOTO_ERROR, error);
+        			return false;
         		}
         	photo_id = photo.id;
         	
@@ -110,7 +110,6 @@ public class User {
                 "'" + this.passwordDigest + "'," +
                 photo_id +
                 ")";
-            System.out.println(entry);
             id = DBConnection.update(entry);
         }
 

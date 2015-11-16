@@ -1,8 +1,6 @@
 package assignment;
 
 import java.io.IOException;
-import java.util.Enumeration;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -10,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class SignupServlet
@@ -34,6 +31,7 @@ public class SignupServlet extends HttpServlet {
 		if (request.getSession().getAttribute("loggedIn").toString().equals("true")) {
 			response.sendRedirect("http://localhost:8080/DreamMachine/home");
 		} else {
+			response.setHeader("Content-transfer-encoding", "base64");
 			String forward = "content/signup/signup.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(forward);
 			rd.forward(request, response);
