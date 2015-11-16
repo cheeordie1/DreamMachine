@@ -10,3 +10,4 @@ Servers/*
 .recommenders/*
 RemoteSystemsTempFiles.*
 */.settings/*
+*.swp
