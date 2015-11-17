@@ -50,21 +50,23 @@ public class Quiz {
 	
 	/*
 	 * Creates a query into the Questions table and 
-	 * searches for questions with the same id as the 
-	 * quiz. Creates new instances of each question and
+	 * searches for questions with the associated quiz id.
+	 * Creates new instances of each question and
 	 * adds them to the questions arrayList.  
 	 */
 	private void populateQuestions() {
-		//Returns the set of question entries that are associated with the qid.
 		ResultSet questionData = DBConnection.query("SELECT * FROM questions WHERE pid = " + q_id + ";");
-		
-		/* iterates through question entries, creates an instance of a question,
-		 * and adds it to the questions list. */
-		while (questionData.next()) {
-			//make sure next() doesnt skip first one
-			Question question = new Question(questionData);
-			questions.add(question);
+		try {
+			while (questionData.next()) {
+				Question question = new Question(questionData);
+				questions.add(question);
+			}
+		} catch (Exception e) {
 		}
+	}
+	
+	public boolean validateQuiz(){
+		return u_id != 0;
 	}
 
 
@@ -74,10 +76,11 @@ public class Quiz {
 	 * adding the quiz to the table.
 	 */
 	public boolean save() {
-		String entry = "INSERT INTO quizzes (uid,date,singlePage,randQuestion,practiceMode," +
-				"immediateCorrect) VALUES(" + getU_id() + "," + getDate() + "," + isSinglePage()
-				+ "," + isRandQuestion() + "," + isPracticeMode() +","+ isImmediateCorrect() + ");";
-		this.q_id = DBConnection.insertUpdate(entry);
+		validateQuiz();
+		String entry = "INSERT INTO quizzes (uid,name,date,singlePage,randQuestion,practiceMode," +
+				"immediateCorrect) VALUES(" + u_id +","+ name +","+ date +","+ singlePage
+				+","+ randQuestion +","+ practiceModeOption +","+ immediateCorrect + ");";
+		this.q_id = DBConnection.update(entry);
 		return true; 
 	}
 
@@ -115,61 +118,12 @@ public class Quiz {
 		return 0;
 	}
 	
-	public boolean isRandQuestion() {
-		return randQuestion;
-	}
 
-
-	public void setRandQuestion(boolean randQuestion) {
-		this.randQuestion = randQuestion;
-
+	public void randomizeQuestions(boolean randQuestion) {
 		if (randQuestion) {
 			Collections.shuffle(questions);
 		}
-		
 	}
 
-	public boolean isImmediateCorrect() {
-		return immediateCorrect;
-	}
-
-
-	public void setImmediateCorrect(boolean immediateCorrect) {
-		this.immediateCorrect = immediateCorrect;
-	}
-
-	public boolean isPracticeMode() {
-		return practiceModeOption;
-	}
-
-
-	public void setPracticeMode(boolean practiceMode) {
-		this.practiceModeOption = practiceMode;
-	}
-	
-	public boolean isSinglePage() {
-		return singlePage;
-	}
-
-
-	public void setSinglePage(boolean singlePage) {
-		this.singlePage = singlePage;
-	}
-
-	public int getQ_id() {
-		return q_id;
-	}
-
-	public void setQ_id(int q_id) {
-		this.q_id = q_id;
-	}
-
-	public int getU_id() {
-		return u_id;
-	}
-
-	public Date getDate() {
-		return date;
-	}
 
 }

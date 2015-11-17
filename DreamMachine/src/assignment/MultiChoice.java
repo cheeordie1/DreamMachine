@@ -75,7 +75,7 @@ public class MultiChoice extends Answer {
 	 * First it checks that the size of answers and options do not equal zero.
 	 * Second it checks that each answer is a valid option.
 	 */
-	public boolean validateMCQuestion () {
+	public boolean isValid() {
 		if (allAnswers.size() == 0 || allOptions.size() == 0 || numAnswers == 0) return false;
 		for (String a: allAnswers) {
 			if (!allOptions.contains(a)) return false;
@@ -100,7 +100,7 @@ public class MultiChoice extends Answer {
 			}
 		}
 		
-		result += Question.DELIM;
+		result += DELIM;
 		
 		for (int i = 0; i < allAnswers.size(); i++) {
 			if (i != allAnswers.size() - 1) {
@@ -122,7 +122,7 @@ public class MultiChoice extends Answer {
 	public void parseOptions (String options) {
 		//example of options string => "sun, fly, sage<>sun"
 		
-		String [] parsedAnswers = options.split(Question.DELIM);
+		String [] parsedAnswers = options.split(DELIM);
 		
 		String optionsToSplit = parsedAnswers[0];
 		String answersToSplit = parsedAnswers[1];
@@ -144,7 +144,7 @@ public class MultiChoice extends Answer {
 		//user input has to have "<>"
 		//example of user input: "milk<>sausage"
 		
-		String [] splitUserInput = userInput.split(Question.DELIM);
+		String [] splitUserInput = userInput.split(DELIM);
 		for (String answer: splitUserInput) {
 			if (!allAnswers.contains(answer)) return false;
 		}
@@ -166,13 +166,3 @@ public class MultiChoice extends Answer {
 	}
 
 }
-
-
-
-
-
-
-
-
-
-

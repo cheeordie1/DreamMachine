@@ -53,7 +53,7 @@ public class Matching extends Answer {
 		matches.remove(answer);
 	}
 	
-	public boolean validate() {
+	public boolean isValid() {
 		if (leftOptions.isEmpty() || rightOptions.isEmpty() || matches.isEmpty()) {
 			return false;
 		}
@@ -80,7 +80,7 @@ public class Matching extends Answer {
 			}
 		}
 		
-		result.append(Question.DELIM);
+		result.append(DELIM);
 		
 		for (int i = 0; i < rightOptions.size(); i++) {
 			if (i != rightOptions.size() - 1) {
@@ -90,7 +90,7 @@ public class Matching extends Answer {
 			}
 		}
 		
-		result.append(Question.DELIM);
+		result.append(DELIM);
 		
 		int matchNum = 0;
 		for (String key : matches.keySet()) {
@@ -108,7 +108,7 @@ public class Matching extends Answer {
 	private void parseOptions(String options) {
 		// example of options 
 		// duck, goose, ribbon<>ball, red, fly<>duck=ball, goose=red, ribbon=fly
-		String[] parsedAnswer = options.split(Question.DELIM);
+		String[] parsedAnswer = options.split(DELIM);
 		
 		String leftOptionsStr = parsedAnswer[0];
 		String rightOptionsStr = parsedAnswer[1];
@@ -119,7 +119,7 @@ public class Matching extends Answer {
 			leftOptions.add(option);
 		}
 		
-		String[] rightOptionsParsed = leftOptionsStr.split(", ");
+		String[] rightOptionsParsed = rightOptionsStr.split(", ");
 		for (String option : rightOptionsParsed) {
 			rightOptions.add(option);
 		}
