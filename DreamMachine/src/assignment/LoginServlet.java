@@ -45,25 +45,29 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		ErrorMessages errors = new ErrorMessages();
+		request.getSession().setAttribute("errors", errors);
 		if (username == null || username.isEmpty() ||
 			password == null || password.isEmpty()) {
 			errors.addError(User.LOGIN_ERROR, User.LOGIN_EMPTY);
-			request.getSession().setAttribute("errors", errors);
 			response.sendRedirect("http://localhost:8080/DreamMachine/login");
 			return;
 		}
 		List<User> users = User.searchByUsername(username);
 		if (users.isEmpty()) {
 			errors.addError(User.LOGIN_ERROR, User.LOGIN_FAILED);
-			request.getSession().setAttribute("errors", errors);
-			response.sendRedirect("http://localhost:8080/DreamMachine/login");
 		} else {
 			User user = users.get(0);
-			request.getSession().setAttribute("loggedIn", "true");
-			request.getSession().setAttribute("username", user.username);
-			request.getSession().setAttribute("uid", user.id);
-			response.sendRedirect("http://localhost:8080/DreamMachine/home");
+			if (user.checkPassword(password)) {
+				request.getSession().setAttribute("loggedIn", "true");
+				request.getSession().setAttribute("username", user.username);
+				request.getSession().setAttribute("uid", user.id);
+				response.sendRedirect("http://localhost:8080/DreamMachine/home");
+				return;
+			} else {
+				errors.addError(User.LOGIN_ERROR, User.LOGIN_FAILED);
+			}
 		}
+		response.sendRedirect("http://localhost:8080/DreamMachine/login");
 	}
 
 }
