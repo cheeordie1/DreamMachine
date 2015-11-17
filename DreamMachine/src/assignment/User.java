@@ -175,6 +175,26 @@ public class User {
     }
     
     /**
+     * Static method to search for a User by a substring of their username.
+     * @return a list containing all of the users in the search
+     *         result.
+     */
+    public static List<User> searchBySubstring(String usernameSub) {
+    	List<User> users = new ArrayList<User>();
+    	String query = "SELECT * FROM " + TABLE_NAME + 
+    	               " WHERE username LIKE " + "'%" + usernameSub + "%'";
+    	ResultSet rs = DBConnection.query(query);
+    	try {
+			while (rs.next())
+				users.add(new User(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return users;
+    }
+    
+    
+    /**
      * Method checks whether a given password hashes to the correct password
      * digest, indicating that it is most likely the correct password.
      * @param checkPassword the String to check for correct password
