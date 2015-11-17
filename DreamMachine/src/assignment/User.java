@@ -62,7 +62,7 @@ public class User {
 			id = rs.getInt("user_id");
 	    	username = rs.getString("username");
 	    	salt = rs.getString("salt");
-	    	passwordDigest = rs.getString("passwordDigest");
+	    	passwordDigest = rs.getString("digest");
 	    	photo_id = rs.getInt("photo_id");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -205,7 +205,8 @@ public class User {
     	checkPassword += salt;
         try {
     	  MessageDigest md = MessageDigest.getInstance("SHA-256");
-          return hexToString(md.digest(password.getBytes())).equals(passwordDigest);
+    	  String checkDigest = hexToString(md.digest(checkPassword.getBytes()));
+    	  return checkDigest.equals(passwordDigest);
         } catch (NoSuchAlgorithmException ignored) {}
         return false;
     }
