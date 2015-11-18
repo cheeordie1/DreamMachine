@@ -3,6 +3,8 @@ package assignment;
 public class Answer {
 	
 	public static final String DELIM = "<>";
+	public static final String SEPERATOR = ", ";
+
 	
 	public boolean isValid(){
 		/*

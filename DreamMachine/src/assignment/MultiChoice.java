@@ -75,6 +75,8 @@ public class MultiChoice extends Answer {
 	 * First it checks that the size of answers and options do not equal zero.
 	 * Second it checks that each answer is a valid option.
 	 */
+	
+	@Override
 	public boolean isValid() {
 		if (allAnswers.size() == 0 || allOptions.size() == 0 || numAnswers == 0) return false;
 		for (String a: allAnswers) {
@@ -90,11 +92,13 @@ public class MultiChoice extends Answer {
 	 * also separated by commas. Between the options and answers
 	 * there is a deliminator.
 	 */
+	
+	@Override
 	public String toString () {
 		String result = "";
 		for (int i = 0; i < allOptions.size(); i++) {
 			if (i != allOptions.size() -1 ) {
-				result += allOptions.get(i) + ", ";
+				result += allOptions.get(i) + SEPERATOR;
 			} else {
 				result += allOptions.get(i);
 			}
@@ -104,7 +108,7 @@ public class MultiChoice extends Answer {
 		
 		for (int i = 0; i < allAnswers.size(); i++) {
 			if (i != allAnswers.size() - 1) {
-				result += allAnswers.get(i) + ", ";
+				result += allAnswers.get(i) + SEPERATOR;
 			} else {
 				result += allAnswers.get(i);
 			}
@@ -127,10 +131,10 @@ public class MultiChoice extends Answer {
 		String optionsToSplit = parsedAnswers[0];
 		String answersToSplit = parsedAnswers[1];
 		
-		String [] splitOptions = optionsToSplit.split(", ");
+		String [] splitOptions = optionsToSplit.split(SEPERATOR);
 		for (String option: splitOptions) allOptions.add(option);
 		
-		String [] splitAnswers = answersToSplit.split(", ");	
+		String [] splitAnswers = answersToSplit.split(SEPERATOR);	
 		for (String answer: splitAnswers) allAnswers.add(answer);
 		
 		numAnswers = splitAnswers.length;

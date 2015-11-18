@@ -53,6 +53,7 @@ public class Matching extends Answer {
 		matches.remove(answer);
 	}
 	
+	@Override
 	public boolean isValid() {
 		if (leftOptions.isEmpty() || rightOptions.isEmpty() || matches.isEmpty()) {
 			return false;
@@ -70,11 +71,12 @@ public class Matching extends Answer {
 		return true;
 	}
 	
+	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
 		for (int i = 0; i < leftOptions.size(); i++) {
 			if (i != leftOptions.size() - 1) {
-				result.append(leftOptions.get(i) + ", ");
+				result.append(leftOptions.get(i) + SEPERATOR);
 			} else {
 				result.append(leftOptions.get(i));
 			}
@@ -84,7 +86,7 @@ public class Matching extends Answer {
 		
 		for (int i = 0; i < rightOptions.size(); i++) {
 			if (i != rightOptions.size() - 1) {
-				result.append(rightOptions.get(i) + ", ");
+				result.append(rightOptions.get(i) + SEPERATOR);
 			} else {
 				result.append(rightOptions.get(i));
 			}
@@ -95,7 +97,7 @@ public class Matching extends Answer {
 		int matchNum = 0;
 		for (String key : matches.keySet()) {
 			if (matchNum != matches.size() - 1) {
-				result.append(key +"="+ matches.get(key) +", ");
+				result.append(key +"="+ matches.get(key) +SEPERATOR);
 			} else {
 				result.append(key +"="+ matches.get(key));
 			}
@@ -114,17 +116,17 @@ public class Matching extends Answer {
 		String rightOptionsStr = parsedAnswer[1];
 		String matchesStr = parsedAnswer[2];
 		
-		String[] leftOptionsParsed = leftOptionsStr.split(", ");
+		String[] leftOptionsParsed = leftOptionsStr.split(SEPERATOR);
 		for (String option : leftOptionsParsed) {
 			leftOptions.add(option);
 		}
 		
-		String[] rightOptionsParsed = rightOptionsStr.split(", ");
+		String[] rightOptionsParsed = rightOptionsStr.split(SEPERATOR);
 		for (String option : rightOptionsParsed) {
 			rightOptions.add(option);
 		}
 		
-		String[] matchesParsed = matchesStr.split(", ");
+		String[] matchesParsed = matchesStr.split(SEPERATOR);
 		for (String match : matchesParsed) {
 			String[] pair = match.split("=");
 			matches.put(pair[0], pair[1]);
