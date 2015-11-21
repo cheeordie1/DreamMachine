@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.sql.*;
 
 public class Question {
+	
+	/* main categories of questions */
 	public enum Type {
 	    RESPONSE, MULTICHOICE, MATCHING 
 	}
@@ -16,6 +18,7 @@ public class Question {
 	public Answer answer; 
 	public String imageName;  
 	
+	/* constructor for new question */
 	public Question (Type type) {
 		this.type = type; 
 		
@@ -34,6 +37,7 @@ public class Question {
 		}
 	}
 	
+	/* constructor for question from database */
 	public Question (ResultSet questionData) {
 		try {
 			this.id = questionData.getInt("pid");
@@ -60,8 +64,9 @@ public class Question {
 		}
 	}
 	
+	/* ensures that the question is properly formatted to be saved */
 	public boolean isValid() {
-		return type != null && question != null && imageName != null && !imageName.isEmpty() && answer.isValid();
+		return type != null && question != null && answer.isValid();
 	}
 	
 	
@@ -75,7 +80,7 @@ public class Question {
 		if (!isValid()) {
 			return false;
 		}
-		String entry = "INSERT INTO questions (qid, type, question, answer, imageName) " +
+		String entry = "INSERT INTO questions (qid, qtype, question, answer, imageName) " +
 				"VALUES("+ q_id +","+ type +","+ question +","+ answer.toString() +","+ imageName +");";
 		id = DBConnection.update(entry);
 		return true;

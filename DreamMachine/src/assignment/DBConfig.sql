@@ -68,6 +68,5 @@ CREATE TABLE achievements (
 CREATE TABLE scores (
 	pid MEDIUMINT NOT NULL AUTO_INCREMENT,
 	quizid MEDIUMINT, 
-	score MEDIUMINT, 
-	utime 
+	score MEDIUMINT,  
 )

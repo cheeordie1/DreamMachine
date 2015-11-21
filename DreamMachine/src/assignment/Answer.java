@@ -15,4 +15,7 @@ public class Answer {
 		return "Not overridden, fix extended class"; 
 	}
 
+	public void parseOptions() {
+		
+	}
 }

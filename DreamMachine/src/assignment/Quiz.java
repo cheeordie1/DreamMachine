@@ -8,12 +8,12 @@ import java.sql.*;
 
 
 public class Quiz {
-	//IDs that do not change
+	//uneditable field
 	public int q_id;
-	public int u_id; 
 	public Date date;
-	public ArrayList<Question> questions;
 	
+	public int u_id; 
+	public ArrayList<Question> questions;
 	public String name;
 	
 	//Quiz Options with Default Values Set
@@ -26,7 +26,6 @@ public class Quiz {
 	 * Constructor for making a quiz on website
 	 */
 	public Quiz () {
-
 	}
 	
 	/*
@@ -49,22 +48,22 @@ public class Quiz {
 	
 	
 	/*
-	 * Creates a query into the Questions table and 
-	 * searches for questions with the associated quiz id.
-	 * Creates new instances of each question and
-	 * adds them to the questions arrayList.  
+	 * Submits a query for the questions table to return
+	 * entries with the corresponding q_id.
+	 * Adds new Question instances to the questions table
 	 */
 	private void populateQuestions() {
 		ResultSet questionData = DBConnection.query("SELECT * FROM questions WHERE pid = " + q_id + ";");
 		try {
 			while (questionData.next()) {
-				Question question = new Question(questionData);
-				questions.add(question);
+				questions.add(new Question(questionData));
 			}
 		} catch (Exception e) {
+			//huh 2?
 		}
 	}
 	
+	// ensures that the u_id associated with the quiz is valid
 	public boolean validateQuiz(){
 		return u_id != 0;
 	}
@@ -77,7 +76,16 @@ public class Quiz {
 	 */
 	public boolean save() {
 		validateQuiz();
-		String entry = "INSERT INTO quizzes (uid,name,date,singlePage,randQuestion,practiceMode," +
+		String entry = "INSERT INTO quizzes (uid,singlePage,randQuestion,practiceMode," +
+				"immediateCorrect) VALUES(" + u_id +","+ singlePage +","+ randQuestion
+				+","+ practiceModeOption +","+ immediateCorrect + ");";
+		this.q_id = DBConnection.update(entry);
+		return true; 
+	}
+	
+	public boolean update() {
+		validateQuiz();
+		String entry = "INSERT INTO quizzes (uid,name,cdate,singlePage,randQuestion,practiceMode," +
 				"immediateCorrect) VALUES(" + u_id +","+ name +","+ date +","+ singlePage
 				+","+ randQuestion +","+ practiceModeOption +","+ immediateCorrect + ");";
 		this.q_id = DBConnection.update(entry);
@@ -119,11 +127,24 @@ public class Quiz {
 	}
 	
 
+	/* If randQuestion boolean is set, then this method
+	 * randomizes the questions list.
+	 */
 	public void randomizeQuestions(boolean randQuestion) {
 		if (randQuestion) {
 			Collections.shuffle(questions);
 		}
 	}
 
+/*	public static ArrayList<Quiz> searchByID(int id) {
+		ResultSet quizData = DBConnection.query("SELECT * FROM quizzes WHERE id=" + id +";");
+	}
 
+	public static ArrayList<Quiz> searchByName(String name) {
+		
+	}
+	
+	public static ArrayList<Quiz> searchByUID(int uid) {
+		
+	}*/
 }

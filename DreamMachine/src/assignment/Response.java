@@ -39,7 +39,7 @@ public class Response extends Answer {
 		names.add("sage");
 		names.add("mark");
 		names.add("betsy");
-		String questionString = "Who are you?" + Question.DELIM + names;
+		String questionString = "Who are you?" + Answer.DELIM + names;
 	}
 	
 	
