@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="assets/stylesheets/login.css">
+<link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/login.css">
 <jsp:include page="../app.jsp" />
 <title>Enter Login Info</title>
 </head>
 <body>
-  <jsp:include page="../header/top-bar.jsp" />
-  <jsp:include page="../layout/splatter-background.jsp" />
+  <jsp:include page="/content/header/top-bar.jsp" />
+  <jsp:include page="/content/layout/splatter-background.jsp" />
   <div id="login-form-container" class="hori-center">
     <div id="login-title" class="hori-center">Welcome Back, Dreamer!</div><br>
     <form id="login-form" class="hori-center" method="post" action="login">

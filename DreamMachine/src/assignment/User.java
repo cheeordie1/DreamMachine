@@ -43,7 +43,7 @@ public class User {
     public static final String USERNAME_EMPTY = 
         "Please enter a username.";
     public static final String USERNAME_INVALID = 
-        "Please limit your username to only characters and numbers.";
+        "Please limit your username to only characters and numbers. No whitespace.";
     public static final String PASSWORD_EMPTY = 
     	"Please enter a password.";
     public static final String REPASSWORD_EMPTY = 
@@ -62,7 +62,7 @@ public class User {
 			id = rs.getInt("user_id");
 	    	username = rs.getString("username");
 	    	salt = rs.getString("salt");
-	    	passwordDigest = rs.getString("passwordDigest");
+	    	passwordDigest = rs.getString("digest");
 	    	photo_id = rs.getInt("photo_id");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -205,7 +205,8 @@ public class User {
     	checkPassword += salt;
         try {
     	  MessageDigest md = MessageDigest.getInstance("SHA-256");
-          return hexToString(md.digest(password.getBytes())).equals(passwordDigest);
+    	  String checkDigest = hexToString(md.digest(checkPassword.getBytes()));
+    	  return checkDigest.equals(passwordDigest);
         } catch (NoSuchAlgorithmException ignored) {}
         return false;
     }
@@ -288,7 +289,7 @@ public class User {
     /* ensures the username is valid. If the username is invalid (there are
      * any symbols or spaces) this returns true */
     private boolean usernameInvalid() {
-    	if (username.matches("\\s")) {
+    	if (username.matches(".*\\w")) {
     		this.errorMessages.addError(USERNAME_ERROR, USERNAME_INVALID);
         	return true;
     	}

@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="assets/stylesheets/signup.css">
+<link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/signup.css">
 <jsp:include page="../app.jsp" />
 <title>Enter Account Info</title>
 </head>
 <body>
-  <jsp:include page="../header/top-bar.jsp" />
-  <jsp:include page="../layout/galaxy-background.jsp" />
+  <jsp:include page="/content/header/top-bar.jsp" />
+  <jsp:include page="/content/layout/galaxy-background.jsp" />
   <div id="signup-form-container" class="hori-center">
     <div id="signup-title" class="hori-center">Create New Account to Enter the Dream</div><br>
     <%
@@ -52,7 +52,7 @@
       <% } %>
       <input id="signup-submit" class="hori-center" type="submit" value="Enter Dream">
     </form>
-    <script src="assets/javascripts/signup.js"></script>
+    <script src="/DreamMachine/assets/javascripts/signup.js"></script>
   </div>
 </body>
 </html>
