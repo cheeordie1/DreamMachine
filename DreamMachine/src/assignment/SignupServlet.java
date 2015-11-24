@@ -29,10 +29,10 @@ public class SignupServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getSession().getAttribute("loggedIn").toString().equals("true")) {
-			response.sendRedirect("http://localhost:8080/DreamMachine/home");
+			response.sendRedirect("/DreamMachine/home");
 		} else {
 			response.setHeader("Content-transfer-encoding", "base64");
-			String forward = "content/signup/signup.jsp";
+			String forward = "/content/signup/signup.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(forward);
 			rd.forward(request, response);
 			request.getSession().removeAttribute("errors");
@@ -49,12 +49,12 @@ public class SignupServlet extends HttpServlet {
 		user.photoPart = request.getPart("photo");
 		if (!user.save()) {
 			request.getSession().setAttribute("errors", user.errorMessages);
-			response.sendRedirect("http://localhost:8080/DreamMachine/signup");
+			response.sendRedirect("/DreamMachine/signup");
 		} else {
 			request.getSession().setAttribute("loggedIn", "true");
 			request.getSession().setAttribute("username", user.username);
 			request.getSession().setAttribute("uid", user.id);
-			response.sendRedirect("http://localhost:8080/DreamMachine/home");
+			response.sendRedirect("/DreamMachine/home");
 		}
 	}
 

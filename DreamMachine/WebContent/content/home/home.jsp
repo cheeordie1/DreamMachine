@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="assets/stylesheets/home.css">
-<jsp:include page="../app.jsp" />
+<link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/home.css">
+<jsp:include page="/content/app.jsp" />
 <title>Welcome to Dream Machine</title>
 </head>
 <body>

@@ -22,7 +22,6 @@ public class AccountServlet extends HttpServlet {
      */
     public AccountServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -34,7 +33,7 @@ public class AccountServlet extends HttpServlet {
 		if (userRequested == null)
 			return;
 		request.setAttribute("pageUser", userRequested.username);
-		String forward = "content/account/account.jsp";
+		String forward = "/content/account/account.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);
 	}
@@ -53,7 +52,6 @@ public class AccountServlet extends HttpServlet {
 		String match = "/user/";
 		int idx = url.indexOf(match);
 		String name = url.substring(idx + match.length());
-		System.out.println(name);
 		List<User> pageUser = User.searchByUsername(name);
 		if (pageUser.isEmpty())
 			return null;

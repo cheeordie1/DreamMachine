@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<jsp:include page="../app.jsp" />
+<jsp:include page="/content/app.jsp" />
 <title><%= request.getAttribute ("pageUser").toString () %>'s Page</title>
 </head>
 <body>
-  <jsp:include page="../header/top-bar.jsp" />
+  <jsp:include page="/content/header/top-bar.jsp" />
 </body>
 </html>
