@@ -5,10 +5,6 @@
       <img id="logo-img" src="assets/images/logo.png">
     </a>
   </div>
-  <jsp:include page="search-bar.jsp">
-    <jsp:param value="" name=""/>
-  </jsp:include>
-  <jsp:include page="login-bar.jsp">
-    <jsp:param value="" name=""/>
-  </jsp:include>
+  <jsp:include page="search-bar.jsp" />
+  <jsp:include page="login-bar.jsp" />
 </div>

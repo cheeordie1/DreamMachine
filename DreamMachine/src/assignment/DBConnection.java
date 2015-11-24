@@ -1,7 +1,6 @@
 package assignment;
 
 import java.sql.*;
-import java.util.*;
 
 /**
  * This class functions as a singleton accessor for executing operations on the
@@ -15,6 +14,7 @@ public class DBConnection {
      * Connects to the database specified in the DBInfo file. TODO: decide when
      * to connect, how long one connection should last, and when to time out
      * connection.
+     * (provided utility)
      * @return the resulting success of establishing a connection
      */
     public static boolean connect() {
@@ -25,8 +25,9 @@ public class DBConnection {
                 "jdbc:mysql://" + DBInfo.MYSQL_DATABASE_SERVER,
                 DBInfo.MYSQL_USERNAME,
                 DBInfo.MYSQL_PASSWORD);
+  		    query("USE " + DBInfo.MYSQL_DATABASE_NAME);
             return true;
-        } catch (SQLException ignored) {
+        } catch(SQLException ignored) {
             return false;
         } catch (ClassNotFoundException e) {
             System.out.println("ERROR: Specified class doesn't exist");
@@ -36,76 +37,106 @@ public class DBConnection {
     }
 
     /**
-     * Executes the given query along the connection. This returns the result
-     * set of the query, or null if the query failed.
-     * @param query the query to be sent to the SQL database
-     * @return the result set of the database query
-     */
-    public static ResultSet query(String query) {
-        try {
-            Statement stmt = con.createStatement();
-            stmt.executeQuery("USE " + DBInfo.MYSQL_DATABASE_NAME);
-            return stmt.executeQuery(query);
-        } catch (SQLException ignored) {
-            return null;
-        }
-    }
-
-    /**
-     * Deletes from the given table the entry specified by the given uid. 
-     * @param table the table to delete the entry from
-     * @param pid the unique identifier used to search for the entry
-     */
-    public static boolean deleteUpdate(String table, int pid) {
-        try {
-            Statement stmt = null;
-    
-            /* create deletion update */
-            String deleteEntry = "DELETE FROM " + table + " WHERE pid = " + pid;
-            System.out.println(deleteEntry);
-            stmt = con.createStatement();
-            stmt.executeQuery("USE " + DBInfo.MYSQL_DATABASE_NAME);
-            stmt.executeUpdate(deleteEntry); 
-            return true;
-        } catch (SQLException ignored) {
-            return false;    
-        }
-    }
-
-    /**
-     * Executes the given insert sql update over the DB connection.
-     * @param sql the sql string used for the insert execution
-     * @return the unique identifier created for this entry
-     */
-    public static int insertUpdate(String sql) {
-        try {
-
-            ResultSet rs = null;
-            Statement stmt = null;
-
-            /* create the new MySQL entry */
-            stmt = con.createStatement();
-            stmt.executeQuery("USE " + DBInfo.MYSQL_DATABASE_NAME);
-            stmt.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
-            
-            /* return the unique uid */
-            rs = stmt.getGeneratedKeys();
-            if(rs.next()) return rs.getInt(1);
-
-        } catch (SQLException ignored) {}
-        return 0;
-    }
-
-    /**
      * Closes the connection to the database.
+     * (provided utility)
      * @return the resulting success of the update
      */
     public static boolean closeConnection() {
         try {
             con.close();
             return true;
-        } catch (SQLException ignored) {
+        } catch(SQLException ignored) {
             return false;
         }
     }
+    
+    /**
+     * Executes the given query along the connection. This returns the result
+     * set of the query, or null if the query failed.
+     * (provided utility)
+     * @param query the query to be sent to the SQL database
+     * @return the result set of the database query
+     */
+    public static ResultSet query(String query) {
+        try {
+            Statement stmt = con.createStatement();
+            return stmt.executeQuery(query);
+        } catch(SQLException ignored) {
+            return null;
+        }
+    }
+
+    /**
+     * Executes the query stored in the prepared statement along the current
+     * connection. This returns the result set of the execution.
+     * (provided utility)
+     * @param query the query to be sent to the SQL database
+     * @return the result set of the database query
+     */
+    public static ResultSet query(PreparedStatement stmt) {
+        try {
+        	return stmt.executeQuery();
+        } catch(SQLException ignored) {
+            return null;
+        }
+    }
+    
+	/**
+	 * Basic update query to update information in the connected database.
+	 * (provided utility)
+	 * @param update the update string that will be called (not secure from
+	 *        SQL injection)
+	 * @return the id of the object if it exists of the update (Insert, Delete, Update)
+	 */
+	public static int update(String update) {
+		try {
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate(update, Statement.RETURN_GENERATED_KEYS);
+			ResultSet keys = stmt.getGeneratedKeys();
+			if (!keys.first())
+				return 0;
+			return keys.getInt(1);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	/**
+	 * Basic update query to update information in the connected database.
+	 * (provided utility)
+	 * @param update the update string that will be called (not secure from
+	 *        SQL injection)
+	 * @return the id of the object if it exists of the update (Insert, Delete, Update)
+	 */
+	public static int update(PreparedStatement stmt) {
+		try {
+			stmt.executeUpdate();
+			ResultSet keys = stmt.getGeneratedKeys();
+			if (!keys.first())
+				return 0;
+			return keys.getInt(1);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	/**
+	 * Fetch a prepared statement given an sql query string. This statement
+	 * may have values inserted and get executed later.
+	 * (provided utility)
+	 * @return prepared statement to execute later
+	 */
+	public static PreparedStatement beginStatement(String query) {
+		PreparedStatement stmt;
+		try {
+			stmt = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+			return stmt;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 }

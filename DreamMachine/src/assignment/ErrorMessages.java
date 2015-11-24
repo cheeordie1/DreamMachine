@@ -3,34 +3,37 @@ package assignment;
 import java.util.*;
 
 public class ErrorMessages {
-   
-    /* error messages */
-    public static final String USERNAME_UNAVAILABLE = 
-        "That username is unavailable. Please try another.";
-    public static final String USERNAME_EMPTY = 
-        "Please enter a username.";
-    public static final String USERNAME_INVALID = 
-        "Please limit your username to only characters and numbers.";
-    public static final String PASSWORD_INSUFFICIENT = 
-        "Please choose a password at least 8 characters in length.";
-    public static final String PASSWORD_EMPTY = 
-        "Please provide a password at least 8 characters long";
-    public static final String PASSWORD_MATCH_FAILED =
-        "The two password entries don't match. Please try again.";
-
-    public Map<Integer, ArrayList<String>> errors;
+    public Map<String, List<String>> errors;
 
     public ErrorMessages() {
-        this.errors = new HashMap<Integer, ArrayList<String>>();
+        this.errors = new HashMap<String, List<String>>();
     }
     
-    public void addError(int uid, String message) {
-        ArrayList<String> errorMessages = this.errors.get(uid);
-        if(errorMessages == null)
-            errorMessages = new ArrayList<String>();
-        errorMessages.add(message);
-
-        /* TODO: do I need to put it again? or will it work without? */
-        this.errors.put(uid, errorMessages);
-    }   
+    /**
+     * Add an error message to the hash of string keys to
+     * error messages. 
+     * @param key to identify types of errors.
+     * @param message error to add to the list of errors.
+     */
+    public void addError(String key, String message) {
+        List<String> errorMessages;
+        errorMessages = errors.get(key);
+        if (errorMessages == null) {
+        	errorMessages = new ArrayList<String>();
+        	errors.put(key, errorMessages);
+        }
+    	errorMessages.add(message);
+    }
+    
+    /**
+     * Get a list of error messages associated with a given
+     * error type.
+     * @param key to search for a list of errors by
+     * @return List of errors associated with error key.
+     */
+    public List<String> getErrors(String key) {
+    	List<String> retList = errors.get(key);
+    	if (retList == null) retList = new ArrayList<String>();
+    	return retList;
+    }
 }
