@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="assets/stylesheets/login-bar.css">
+<link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/login-bar.css">
 <div id="login-bar-container" class="vert-center">
       <%
         HttpSession sess = request.getSession();
