@@ -30,8 +30,10 @@ public class AccountServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
 		User userRequested = parseUserFromURL(url);
-		if (userRequested == null)
+		if (userRequested == null) {
+			response.sendError(404);
 			return;
+		}
 		request.setAttribute("pageUser", userRequested.username);
 		String forward = "/content/account/account.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
