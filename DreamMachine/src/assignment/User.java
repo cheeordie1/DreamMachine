@@ -35,14 +35,12 @@ public class User {
      */
     public boolean save(/* TODO add photo saving */) {
         boolean success = true;
-/*
         if(usernameUnavailable(username) || 
             usernameEmpty(username) ||
             usernameInvalid(username) || 
             passwordInsufficient(password) ||
             passwordMatchFailed(password, retry)) success = false;
         else {
-            */
             /* create a new entry for this username password pair */
             String entry =
                 "INSERT INTO " + DBInfo.USER_TABLE + "(username,salt,digest) VALUES (" +
@@ -52,7 +50,7 @@ public class User {
                 ")";
             this.uid = DBConnection.insertUpdate(entry);
             System.out.println(this.uid);
-       // }
+        }
 
         return success;
     }
