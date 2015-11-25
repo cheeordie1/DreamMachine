@@ -31,7 +31,7 @@ public class LogoutServlet extends HttpServlet {
 			request.getSession().removeAttribute("username");
 			request.getSession().removeAttribute("uid");
 		}
-		response.sendRedirect("http://localhost:8080/DreamMachine/home");
+		response.sendRedirect("/DreamMachine/home");
 	}
 
 }

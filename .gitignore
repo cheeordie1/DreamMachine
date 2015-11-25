@@ -9,5 +9,6 @@ UserTest.java
 Servers/*
 .recommenders/*
 RemoteSystemsTempFiles.*
-*/.settings/*
+.settings/*
+.recommenders/*
 *.swp

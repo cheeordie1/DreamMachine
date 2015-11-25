@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="assets/stylesheets/words.css">
+<link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/words.css">
 <div id="words-container">
   <div id="words1" class="hori-center">The Online Hub for Quizzes</div>
   <div id="words2">

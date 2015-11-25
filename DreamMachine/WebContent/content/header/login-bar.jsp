@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="assets/stylesheets/login-bar.css">
+<link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/login-bar.css">
 <div id="login-bar-container" class="vert-center">
       <%
         HttpSession sess = request.getSession();
@@ -7,7 +7,7 @@
       <div id="logged-in-text">
         Hello, <%= sess.getAttribute("username") %><br>
         <div id="logout-options">
-          <a id="account-link" class="login-link" href=<%= "/user/" + sess.getAttribute("username") %> >Account</a>
+          <a id="account-link" class="login-link" href=<%= "/DreamMachine/user/" + sess.getAttribute("username") %> >Account</a>
           <div class="login-separator">|</div>
           <a id="logout-link" class="login-link" href="/DreamMachine/logout">Logout</a>
         </div>
