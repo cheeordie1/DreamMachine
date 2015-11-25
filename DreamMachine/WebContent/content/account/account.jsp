@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/account.css">
 <jsp:include page="/content/app.jsp" />
-<title><%= request.getAttribute ("pageUser").toString () %>'s Page</title>
+<title><%= request.getAttribute("pageUser").toString() %>'s Page</title>
 </head>
 <body>
   <jsp:include page="/content/header/top-bar.jsp" />
+  <jsp:include page="/content/account/profile-box.jsp" />
 </body>
 </html>

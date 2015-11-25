@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.*;
 
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
@@ -97,17 +98,17 @@ public class Photo {
 	 * @return a Photo object of the given photo if it is found, null
 	 *         otherwise
 	 */
-	public static Photo searchById(int photo_id) {
-		String query = "SELECT * FROM photos WHERE id = " + photo_id;
+	public static List<Photo> searchById(int photo_id) {
+		List<Photo> photos = new ArrayList<Photo>();
+		String query = "SELECT * FROM photos WHERE photo_id = " + photo_id;
 		ResultSet rs = DBConnection.query(query);
 		try {
-			if (!rs.first())
-				return null;
+			while (rs.next())
+				photos.add(new Photo(rs));
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
-		return new Photo(rs);
+		return photos;
 	}
 	
 	/**
@@ -152,6 +153,19 @@ public class Photo {
 	}
 	
 	/**
+	 * Return a byte array of the blob that should contain the photo image data
+	 * @return byte array representation of image
+	 */
+	public byte[] toBytes() {
+		try {
+			return data.getBytes(1, (int) data.length());
+		} catch (SerialException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/**
 	 * Return a base64 representation of the photo for use as the src of
 	 * an img.
 	 * @return string representation of the data in a photo.
@@ -160,7 +174,7 @@ public class Photo {
 	public String toString() {
 		String bData;
 		try {
-			bData = new String(data.getBytes(0, (int) data.length()));
+			bData = new String(data.getBytes(1, (int) data.length()));
 		} catch (SerialException e) {
 			e.printStackTrace();
 			return "error";
