@@ -2,6 +2,8 @@
 .metadata/*
 !.metadata/.gitkeep
 *~
+.classpath
+*.class
 MyDBInfo.java
 DBInfo.java
 UserTest.java
