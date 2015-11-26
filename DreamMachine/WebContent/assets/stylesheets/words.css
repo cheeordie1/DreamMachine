@@ -1,0 +1,49 @@
+.quote {
+  font: 20px "PT Sans", sans-serif;
+}
+
+.cite {
+  display: inline-block;
+  margin-top: 5px;
+  font: 14px "Times New Roman", serif;
+  position:relative;
+  left: 22px;
+}
+
+.line {
+  text-decoration: line-through;	
+}
+
+#words1 {    
+  position: relative;
+  display: inline-block;
+  font: 80px "Arapey", sans-serif;
+  color: #444DB0;
+  margin-top: 45px;
+}
+
+#words2 {
+  position: relative;
+  margin-top: 42px;
+  left: 11vw;
+}
+
+#words3 {
+  position: relative;
+  left: 58vw;
+  bottom:15px;
+}
+
+#words4 {
+  position: relative;	
+  margin-top: 8px;
+  left: 32vw;
+}
+
+#words5 {
+  position: relative;
+  display: inline-flex;
+  margin-top: 35px;
+  font: 45px "Arapey", sans-serif;
+  color: #BF3F3F;
+}

@@ -22,10 +22,10 @@ public class DBConnection {
             Class.forName("com.mysql.jdbc.Driver");
 
             con = DriverManager.getConnection(
-                "jdbc:mysql://" + MyDBInfo.MYSQL_DATABASE_SERVER,
-                MyDBInfo.MYSQL_USERNAME,
-                MyDBInfo.MYSQL_PASSWORD);
-  		    query("USE " + MyDBInfo.MYSQL_DATABASE_NAME);
+                "jdbc:mysql://" + DBInfo.MYSQL_DATABASE_SERVER,
+                DBInfo.MYSQL_USERNAME,
+                DBInfo.MYSQL_PASSWORD);
+  		    query("USE " + DBInfo.MYSQL_DATABASE_NAME);
             return true;
         } catch(SQLException ignored) {
             return false;
@@ -138,5 +138,4 @@ public class DBConnection {
 		}
 		return null;
 	}
-
 }

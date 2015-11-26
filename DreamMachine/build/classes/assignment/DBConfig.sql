@@ -17,6 +17,7 @@ CREATE TABLE photos (
 	ftype CHAR(3),
 	data MEDIUMBLOB NOT NULL,
 	PRIMARY KEY (photo_id)
+<<<<<<< HEAD
 );
 
 CREATE TABLE quizzes (
@@ -39,4 +40,6 @@ CREATE TABLE questions (
 	image VARCHAR(10000), //The image url?
 	answer VARCHAR(10000), //I suppose a 10,000 char limit? 
 	PRIMARY KEY (pid)
+=======
+>>>>>>> 2f5470963f156b08901318316be042dc4d4bf823
 );
