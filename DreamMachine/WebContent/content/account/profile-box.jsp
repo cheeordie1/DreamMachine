@@ -10,6 +10,16 @@
   %>
   <div id="profile-name" style=<%= "font-size:" + fontSize  + "px" %>><%= request.getAttribute("pageUser").toString() %></div>
   <div id="profile-info-container">
-    <div id="profile-info-title" class="profile-info-title hori-center">Info</div>
+    <div id="profile-info-title" class="profile-info-title hori-center">Statistics</div>
+    <div id="profile-info-recently-taken-container">
+      <ul id="profile-info-recently-taken-list">
+        PUT QUIZ STATS IN HERE e.g.:
+        <li># quizzes taken</li>
+        <li># quizzes made</li>
+        <li>Account status (moderator or not)</li>
+        <li>number of friends</li>
+        <li>number of perfect quizzes</li>
+      </ul>
+    </div>
   </div>
 </div>
