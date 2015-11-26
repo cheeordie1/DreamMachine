@@ -2,6 +2,7 @@ USE c_cs108_cheeawai1;
 
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS photos;
+DROP TABLE IF EXISTS quizzes;
 
 CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT,
@@ -17,4 +18,16 @@ CREATE TABLE photos (
 	ftype CHAR(3),
 	data MEDIUMBLOB NOT NULL,
 	PRIMARY KEY (photo_id)
+);
+
+CREATE TABLE quizzes (
+	quiz_id INT NOT NULL AUTO_INCREMENT,
+	user_id INT,
+	name VARCHAR(1000),
+	singlePage BOOLEAN, 
+	randQuestion BOOLEAN,
+	immediateCorrect BOOLEAN,
+	practiceMode BOOLEAN,
+	created TIMESTAMP DEFAULT CURRENT_TIME,
+	PRIMARY KEY (quiz_id)
 );

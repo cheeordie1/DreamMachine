@@ -49,7 +49,7 @@ public class AccountServlet extends HttpServlet {
 	}
 
 	/**
-	 * parses the usename trying to be requested from the URL
+	 * parses the username trying to be requested from the URL
 	 */
 	private User parseUserFromURL(String url) {
 		String match = "/user/";

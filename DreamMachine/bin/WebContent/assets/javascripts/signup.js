@@ -1,1 +1,0 @@
-$("#fake-file").on ('click', function() {$("#real-file").click();});
