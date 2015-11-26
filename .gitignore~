@@ -1,0 +1,14 @@
+/build/
+.metadata/*
+!.metadata/.gitkeep
+*~
+MyDBInfo.java
+DBInfo.java
+UserTest.java
+*DBInfo*
+Servers/*
+.recommenders/*
+RemoteSystemsTempFiles.*
+*/.settings/*
+*/.recommenders/*
+*.swp
