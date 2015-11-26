@@ -5,6 +5,7 @@
 *.classpath
 MyDBInfo.java
 DBInfo.java
+*/DBInfo.java
 UserTest.java
 *DBInfo*
 Servers/*

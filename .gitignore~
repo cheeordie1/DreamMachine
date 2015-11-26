@@ -2,6 +2,7 @@
 .metadata/*
 !.metadata/.gitkeep
 *~
+*.classpath
 MyDBInfo.java
 DBInfo.java
 UserTest.java
@@ -10,5 +11,4 @@ Servers/*
 .recommenders/*
 RemoteSystemsTempFiles.*
 */.settings/*
-*/.recommenders/*
 *.swp
