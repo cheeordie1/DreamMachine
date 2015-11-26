@@ -101,9 +101,19 @@ public class Quiz {
 	 * Queries Score table using q_id and returns
 	 * the highest score
 	 */
-	public int HighScore() {
-		//get from database 
-		return 0;
+	public int HighScore() { 
+		/* selects all scores associated with the quiz, sorted from highest score
+		 * to lowest score.
+		 */
+		String queryStr = "SELECT * FROM scores WHERE qid=" + q_id +
+				" ORDER BY points DESC;";
+		ResultSet scores = DBConnection.query(queryStr);
+		
+		/* need to advance the result set cursor to the first row. then retrieve the
+		 * contents of the points column. 
+		 */
+		scores.next();
+		return scores.getInt("points");
 	}
 	
 	/*
@@ -111,8 +121,10 @@ public class Quiz {
 	 * the length of the results set. 
 	 */
 	public int timesPlayed() {
-		//get from database 
-		return 0;
+		String queryStr = "SELECT * FROM scores WHERE qid=" +q_id+ ";";
+		ResultSet scores_per_quiz = DBConnection.query(queryStr);
+		scores_per_quiz.last();
+		return scores_per_quiz.getRow();
 	}
 	
 	public boolean isRandQuestion() {
