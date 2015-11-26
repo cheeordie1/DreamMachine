@@ -115,6 +115,16 @@ public class Quiz {
 		scores.next();
 		return scores.getInt("points");
 	}
+
+	/*
+	 * Returns the result set returned by querying the scores table for scores
+	 * associated with the quiz, and ordered in descending order by points
+	 */
+	public ResultSet getLeaderboard() {
+		String queryStr = "SELECT * FROM scores WHERE qid=" +q_id+
+				" ORDER BY points DESC;";
+		return DBConnection.query(queryStr);
+	}
 	
 	/*
 	 * Queries Score table using q_id and returns
