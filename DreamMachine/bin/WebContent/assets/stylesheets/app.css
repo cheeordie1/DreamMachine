@@ -1,0 +1,21 @@
+body {
+  overflow-x: hidden;
+  margin: 0px;
+  padding: 0px;	
+}
+
+.vert-center {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.hori-center {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.hori-vert-center {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
