@@ -20,6 +20,7 @@
 
 #login-bar-container {
   position: absolute;
+  margin-right: 50px;
   right: 5vw;
 }
 
@@ -39,4 +40,10 @@
 
 #logout-options {
   display: inline-flex;
+}
+
+#create-quiz-button {
+  position: absolute;
+  height: 90px;
+  top: -20px;
 }

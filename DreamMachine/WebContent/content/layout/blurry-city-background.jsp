@@ -1,8 +1,8 @@
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/pic-background-layout.css">
-<div id="splatter-bg-container">
+<div id="city-bg-container">
   <%
     java.util.Random rgen = (java.util.Random) request.getServletContext().getAttribute("rint");
-    int r_splatter = rgen.nextInt(6) + 1;
+    int r_city = rgen.nextInt(5) + 1;
   %>
-  <img src=<%= "/DreamMachine/assets/images/splatter" + r_splatter + ".jpg" %> id="background-img">
+  <img src=<%= "/DreamMachine/assets/images/city" + r_city + ".jpg" %> id="background-img">
 </div>

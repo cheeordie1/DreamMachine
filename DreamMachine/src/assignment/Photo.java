@@ -1,11 +1,15 @@
 package assignment;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-
+import javax.imageio.ImageIO;
 import javax.servlet.http.Part;
 import javax.sql.rowset.serial.SerialBlob;
 import javax.sql.rowset.serial.SerialException;
@@ -19,6 +23,8 @@ public class Photo {
 	public int id;
 	public String ftype;
 	public SerialBlob data;
+	public int height;
+	public int width;
 	
 	/* static variables */
 	public static final int MAX_PHOTO_SZ = 1000000;
@@ -41,6 +47,8 @@ public class Photo {
 		errorMessages = new ErrorMessages();
 		try {
 			id = rs.getInt("photo_id");
+			height = rs.getInt("height");
+			width = rs.getInt("width");
 			data = new SerialBlob(rs.getBlob("data"));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -55,11 +63,25 @@ public class Photo {
 	public boolean save() {
 		if (fileMissing()) return false;
 		if (photoTypeWrong() || photoTooLarge()) return false;
-		String query = "INSERT INTO " + TABLE_NAME + " (ftype, data) VALUES(?,?) ";
+		String query = "INSERT INTO " + TABLE_NAME + " (ftype, height, width, data) VALUES(?,?,?,?) ";
 		PreparedStatement stmt = DBConnection.beginStatement(query);
 		try {
 			stmt.setString(1, ftype);
-			stmt.setBlob(2, part.getInputStream());
+			InputStream is = part.getInputStream();
+			ByteArrayOutputStream os = new ByteArrayOutputStream();
+			byte buf[] = new byte[1024];
+			int bytesRead = 0;
+			while ((bytesRead = is.read(buf, 0, 1024)) > 0)
+				os.write(buf, 0, bytesRead);
+			data = new SerialBlob(os.toByteArray());
+			ByteArrayInputStream bais = new ByteArrayInputStream(os.toByteArray());
+			BufferedImage image = ImageIO.read(bais);
+			height = image.getHeight();
+			width = image.getWidth();
+			stmt.setInt(2, height);
+			stmt.setInt(3, width);
+			stmt.setBlob(4, data);
+			stmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;

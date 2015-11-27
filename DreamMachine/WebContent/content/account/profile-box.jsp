@@ -2,7 +2,12 @@
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <div id="profile-container" class="hori-center">
   <div id="profile-photo-container">
-    <img id="profile-photo" class="hori-center" src=<%= "/DreamMachine/image/" + request.getAttribute("profilePic").toString() %>>
+    <%
+      java.util.List<assignment.Photo> photos = assignment.Photo.searchById((int)request.getAttribute("profilePic"));
+      assignment.Photo photo = photos.get(0);
+      String imgStyle = photo.height > photo.width ? "height:300px" : "width:300px";
+    %>
+    <img id="profile-photo" class="hori-vert-center" style=<%= imgStyle %> src=<%= "/DreamMachine/image/" + request.getAttribute("profilePic").toString() %>>
   </div>
   <% 
     String name = request.getAttribute("pageUser").toString(); 

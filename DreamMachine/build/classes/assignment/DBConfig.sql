@@ -16,6 +16,8 @@ CREATE TABLE users (
 CREATE TABLE photos (
 	photo_id INT NOT NULL AUTO_INCREMENT,
 	ftype CHAR(3),
+	height INT,
+	width INT,
 	data MEDIUMBLOB NOT NULL,
 	PRIMARY KEY (photo_id)
 );
@@ -23,11 +25,12 @@ CREATE TABLE photos (
 CREATE TABLE quizzes (
 	quiz_id INT NOT NULL AUTO_INCREMENT,
 	user_id INT,
-	name VARCHAR(1000),
-	singlePage BOOLEAN, 
-	randQuestion BOOLEAN,
-	immediateCorrect BOOLEAN,
-	practiceMode BOOLEAN,
-	created TIMESTAMP DEFAULT CURRENT_TIME,
+	name VARCHAR(150),
+	description TEXT,
+	single_page BOOLEAN, 
+	random_questions BOOLEAN,
+	immediate_correct BOOLEAN,
+	practice_mode BOOLEAN,
+	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (quiz_id)
 );

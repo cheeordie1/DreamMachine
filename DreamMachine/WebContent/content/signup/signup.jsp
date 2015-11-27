@@ -12,7 +12,12 @@
   <jsp:include page="/content/header/top-bar.jsp" />
   <jsp:include page="/content/layout/galaxy-background.jsp" />
   <div id="signup-form-container" class="hori-center">
-    <div id="signup-title" class="hori-center">Create New Account to Enter the Dream</div><br>
+    <%
+      String title = "Create New Account to Enter the Dream";
+      if (request.getParameter("notify") != null) 
+        title = request.getParameter("notify").toString();
+    %>
+    <div id="signup-title" class="hori-center"><%= title %></div><br>
     <%
       assignment.ErrorMessages errors = (assignment.ErrorMessages) request.getSession().getAttribute("errors");
       if (errors == null) errors = new assignment.ErrorMessages(); 
