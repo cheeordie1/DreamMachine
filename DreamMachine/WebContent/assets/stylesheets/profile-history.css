@@ -1,0 +1,30 @@
+@CHARSET "ISO-8859-1";
+
+.profile-history-title {
+  position: relative;
+  display: inline-block;
+  font-size: 34px;
+  font-family: "Roboto", sans-serif;
+  color: #267DA8;
+}
+
+.history-container {
+  position: relative;
+  width: 950px;
+  margin-top: 25px;
+  margin-left: 25px;
+  height: 200px;
+}
+
+#profile-history-container {
+  position: relative;
+  width: 1000px;
+  height: 700px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  background-color: #FFFFFF;
+}

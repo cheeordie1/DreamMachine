@@ -289,7 +289,7 @@ public class User {
     /* ensures the username is valid. If the username is invalid (there are
      * any symbols or spaces) this returns true */
     private boolean usernameInvalid() {
-    	if (username.matches(".*\\w")) {
+    	if (username.matches(".*\\s.*")) {
     		this.errorMessages.addError(USERNAME_ERROR, USERNAME_INVALID);
         	return true;
     	}

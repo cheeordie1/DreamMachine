@@ -11,5 +11,6 @@
 <body>
   <jsp:include page="/content/header/top-bar.jsp" />
   <jsp:include page="/content/account/profile-box.jsp" />
+  <jsp:include page="/content/account/profile-history.jsp" />
 </body>
 </html>
