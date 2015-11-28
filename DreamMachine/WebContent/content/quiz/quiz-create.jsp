@@ -14,9 +14,11 @@
   <jsp:include page="/content/layout/blurry-city-background.jsp" />
   <div id="quiz-create-form-container" class="hori-center">
     <form id="quiz-create-form" class="hori-center" method="post" action="quiz-create">
-      <div id="quiz-name">
-        <span id="quiz-name-header" class="quiz-header">Name your Quiz</span><br>
-        <input id="quiz-name-input" type="text" name="name"><br>
+      <div id="quiz-name-container">
+        <div id="quiz-name" class="hori-center">
+          <span id="quiz-name-header" class="quiz-header">Name your Quiz</span><br>
+          <input id="quiz-name-input" type="text" name="name"><br>
+        </div>
       </div>
       <div id="quiz-description" class="hori-center">
         <%
@@ -26,16 +28,19 @@
 		  boolean hasErrors = false;
           if (!curErrors.isEmpty()) hasErrors = true;
         %>
-        <span id="quiz-description-header" class="quiz-header">Add a Description<br>
+        <span id="quiz-description-header" class="quiz-header">Add a Description</span><br>
         <jsp:include page="/content/templates/form-textarea.jsp">
           <jsp:param name="form-id" value="quiz-create-form" />
           <jsp:param name="data-name" value="quiz-description" />
           <jsp:param name="textarea-id" value="quiz-textarea" />
-          <jsp:param name="textarea-class" value="" />
+          <jsp:param name="textarea-class" value="none" />
           <jsp:param name="errors" value="<%= hasErrors %>" />
         </jsp:include>
       </div>
-      <div id="quiz-options">
+      <div id="quiz-options" class="hori-center">
+      </div>
+      <div id="quiz-submit">
+        <button id="quiz-submit-button" class="quiz-create-form" value="Create Quiz">Create Quiz</button>
       </div>
     </form>
   </div>

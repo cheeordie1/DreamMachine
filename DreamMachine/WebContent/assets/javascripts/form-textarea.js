@@ -3,6 +3,7 @@ var textareaID = $("#textarea-id").val ();
 var inputID = $("#input-id").val ();
 function createTextAreaForm (form, textarea, input) {
   $("#" + form).on ("submit", function() {
+	console.log(form + textarea + input);
     $("#" + input).val ($("#" + textarea).val ());
   });
 };

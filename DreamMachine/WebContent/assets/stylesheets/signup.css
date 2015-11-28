@@ -56,7 +56,7 @@ body {
   position: absolute;
   pointer-events: none;
   z-index: 1;
-  left: 0.6vw;
+  left: 0.5vw;
 }
 
 #signup-submit {

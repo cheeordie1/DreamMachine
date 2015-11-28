@@ -14,5 +14,5 @@
 <input type="hidden" id="textarea-id" value=<%= textareaID %> />
 <input type="hidden" id="input-id" value=<%= inputID %> />
 <input type="hidden" id=<%= inputID %> name=<%= dataName %> />
-<textarea id=<%= textareaID %> class=<%= taClass %>></textarea>
+<textarea id=<%= textareaID %> class=<%= taClass %> style="resize:none"></textarea>
 <script src="/DreamMachine/assets/javascripts/form-textarea.js"></script>
