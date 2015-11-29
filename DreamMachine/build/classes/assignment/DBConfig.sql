@@ -34,3 +34,11 @@ CREATE TABLE quizzes (
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (quiz_id)
 );
+
+CREATE TABLE friends (
+	friend_id INT NOT NULL AUTO_INCREMENT,
+	sender INT,
+	reciever INT,
+	status INT,
+	PRIMARY KEY (quiz_id)
+)
