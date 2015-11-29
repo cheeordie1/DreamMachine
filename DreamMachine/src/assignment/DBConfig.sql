@@ -34,3 +34,19 @@ CREATE TABLE quizzes (
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (quiz_id)
 );
+
+CREATE TABLE achievements (
+	ach_id INT NOT NULL AUTO_INCREMENT, 
+	user_id INT,
+	a1 BOOLEAN, 
+	a2 BOOLEAN, 
+	a3 BOOLEAN, 
+	a4 BOOLEAN, 
+	a5 BOOLEAN, 
+	a6 BOOLEAN, 
+	a7 BOOLEAN, 
+	a8 BOOLEAN, 
+	a9 BOOLEAN, 
+	a10 BOOLEAN, 
+	PRIMARY KEY (ach_id)
+);
