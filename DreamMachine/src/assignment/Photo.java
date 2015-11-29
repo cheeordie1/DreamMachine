@@ -81,7 +81,6 @@ public class Photo {
 			stmt.setInt(2, height);
 			stmt.setInt(3, width);
 			stmt.setBlob(4, data);
-			stmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
@@ -106,7 +105,7 @@ public class Photo {
 	 * id. Returns true if it works, false otherwise.
 	 * @return true if destruction worked, false otherwise.
 	 */
-	public boolean destroy() {
+	public boolean delete() {
         if (id == 0) return false;
         String query = "DELETE FROM " + TABLE_NAME + 
                        " WHERE user_id = " + id + " LIMIT 1";
@@ -122,7 +121,7 @@ public class Photo {
 	 */
 	public static List<Photo> searchById(int photo_id) {
 		List<Photo> photos = new ArrayList<Photo>();
-		String query = "SELECT * FROM photos WHERE photo_id = " + photo_id;
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE photo_id = " + photo_id;
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return photos;
 		try {

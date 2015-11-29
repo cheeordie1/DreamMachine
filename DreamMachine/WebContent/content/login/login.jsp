@@ -12,7 +12,14 @@
   <jsp:include page="/content/header/top-bar.jsp" />
   <jsp:include page="/content/layout/splatter-background.jsp" />
   <div id="login-form-container" class="hori-center">
-    <div id="login-title" class="hori-center">Welcome Back, Dreamer!</div><br>
+    <%
+      String title;
+      if (request.getParameter("notify") != null)
+        title = request.getParameter("notify").toString();
+      else
+    	title = "Welcome Back, Dreamer!";
+    %>
+    <div id="login-title" class="hori-center"><%= title %></div><br>
     <form id="login-form" class="hori-center" method="post" action="login">
       <label class="login-subtitles">Username</label><br>
       <input type="text" class="login-input" name="username"><br><br>

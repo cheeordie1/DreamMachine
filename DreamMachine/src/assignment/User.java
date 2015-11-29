@@ -128,7 +128,7 @@ public class User {
      * Destroy will delete a user entry from the database by its id.
      * @return true if deleted, false otherwise  
      */
-    public boolean destroy() {
+    public boolean delete() {
         if (id == 0) return false;
         String query = "DELETE FROM " + TABLE_NAME + 
                        " WHERE user_id = " + id + " LIMIT 1";

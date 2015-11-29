@@ -1,6 +1,8 @@
 package assignment;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.sql.*;
 
 
@@ -71,7 +73,7 @@ public class Quiz {
 				        "," + description + "," + single_page + "," + 
 				        random_questions + "," + practice_mode + "," +
 				        immediate_correct + ")";
-		this.quiz_id = DBConnection.update(update);
+		quiz_id = DBConnection.update(update);
 		return !errors; 
 	}
 	
@@ -104,6 +106,20 @@ public class Quiz {
 		if (checkEmpty == null || checkEmpty.isEmpty() || 
 			!checkEmpty.matches("\\S+")) return true;
 		return false;
+	}
+	
+	public static List<Quiz> searchByID(int quiz_id) {
+		List<Quiz> quizzes = new ArrayList<Quiz>();
+		String query = "SELECT * FROM" + TABLE_NAME + " WHERE photo_id = " + quiz_id;
+		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return quizzes;
+		try {
+			while (rs.next())
+				quizzes.add(new Quiz(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return quizzes;
 	}
 	
 	/**

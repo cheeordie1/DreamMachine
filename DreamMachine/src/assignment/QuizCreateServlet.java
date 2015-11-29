@@ -55,7 +55,7 @@ public class QuizCreateServlet extends HttpServlet {
 		quiz.random_questions = request.getParameter("random-questions").toString().equals("random");
 		quiz.practice_mode = request.getParameter("practice-mode")!= null;
 		if (quiz.save()) {
-			response.sendRedirect("/DreamMachine/question-create?question-id=" + quiz.quiz_id);
+			response.sendRedirect("/DreamMachine/question-create?quiz-id=" + quiz.quiz_id);
 		} else {
 			request.getSession().setAttribute("errors", quiz.errors);
 			response.sendRedirect("/DreamMachine/quiz-create");
