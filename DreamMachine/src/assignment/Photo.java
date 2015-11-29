@@ -124,6 +124,7 @@ public class Photo {
 		List<Photo> photos = new ArrayList<Photo>();
 		String query = "SELECT * FROM photos WHERE photo_id = " + photo_id;
 		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return photos;
 		try {
 			while (rs.next())
 				photos.add(new Photo(rs));

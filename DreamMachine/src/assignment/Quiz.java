@@ -62,7 +62,9 @@ public class Quiz {
 	 */
 	public boolean save() {
 		boolean errors = false;
-		if (nameEmpty() || descriptionEmpty()) return false;
+		if (nameEmpty()) errors = true;
+		if (descriptionEmpty()) errors = true;
+		if (errors) return false;
 		String update = "INSERT INTO " + TABLE_NAME + "(user_id, name, description," + 
 		                "single_page, random_questions, practice_mode," +
 				        "immediateCorrect) VALUES(" + user_id + "," + name + 

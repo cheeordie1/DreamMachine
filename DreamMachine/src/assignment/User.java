@@ -146,6 +146,7 @@ public class User {
     	String query = "SELECT * FROM " + TABLE_NAME + 
     	               " WHERE user_id = " + id;
     	ResultSet rs = DBConnection.query(query);
+    	if (rs == null) return users;
     	try {
 			while (!rs.next())
 				users.add(new User(rs));
@@ -165,6 +166,7 @@ public class User {
     	String query = "SELECT * FROM " + TABLE_NAME + 
     	               " WHERE username LIKE " + "'" + username + "'";
     	ResultSet rs = DBConnection.query(query);
+		if (rs == null) return users;
     	try {
 			while (rs.next())
 				users.add(new User(rs));
@@ -184,6 +186,7 @@ public class User {
     	String query = "SELECT * FROM " + TABLE_NAME + 
     	               " WHERE username LIKE " + "'%" + usernameSub + "%'";
     	ResultSet rs = DBConnection.query(query);
+    	if (rs == null) return users;
     	try {
 			while (rs.next())
 				users.add(new User(rs));
@@ -267,6 +270,7 @@ public class User {
         ResultSet rs = DBConnection.query(query);
         
         /* if result set isn't empty, this username can't be used. */
+        if (rs == null) return false;
         try {
             if(rs.first()) {
                 this.errorMessages.addError(USERNAME_ERROR, USERNAME_UNAVAILABLE);

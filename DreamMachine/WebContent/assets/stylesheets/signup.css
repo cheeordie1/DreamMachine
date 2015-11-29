@@ -12,10 +12,6 @@ body {
   color: #9266BD;
 }
 
-.error {
-  border: 2px solid red;	
-}
-
 .error-msg {
   position: relative;
   color: #FD2727;

@@ -29,19 +29,19 @@
     <form id="signup-form" class="hori-center" method="post" action="signup" enctype="multipart/form-data">
       <label class="signup-subtitles">Enter a Username</label><br>
       <% messages = errors.getErrors(assignment.User.USERNAME_ERROR); %>
-        <input type="text" class=<%= !messages.isEmpty() ? "'signup-input error'" : "signup-input" %> name="username">
+        <input type="text" class=<%= !messages.isEmpty() ? "'signup-input error-box'" : "signup-input" %> name="username">
         <br><% for (String message : messages) { %>
         <div class="error-msg"><%= message %></div>
         <% } %><br>
         <label class="signup-subtitles">Enter a Password</label><br>
       <% messages = errors.getErrors(assignment.User.PASSWORD_ERROR); %>
-        <input type="password" class=<%= !messages.isEmpty() ? "'signup-input error'" : "signup-input" %> name="password">
+        <input type="password" class=<%= !messages.isEmpty() ? "'signup-input error-box'" : "signup-input" %> name="password">
         <br><% for (String message : messages) { %>
         <div class="error-msg"><%= message %></div>
         <% } %><br>
       <label class="signup-subtitles">Retype Password</label><br>
       <% messages = errors.getErrors(assignment.User.PASSWORD_DUP_ERROR); %>
-        <input type="password" class=<%= !messages.isEmpty() ? "'signup-input error'" : "signup-input" %> name="re-password">
+        <input type="password" class=<%= !messages.isEmpty() ? "'signup-input error-box'" : "signup-input" %> name="re-password">
         <br><% for (String message : messages) { %>
         <div class="error-msg"><%= message %></div>
         <% } %>

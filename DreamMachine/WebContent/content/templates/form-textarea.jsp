@@ -6,7 +6,7 @@
   String taClass = "'" + request.getParameter("textarea-class").toString();
   String hasErrors = request.getParameter("errors").toString();
   if (hasErrors.equals("true")) 
-    taClass += " error'";
+    taClass += " error-box'";
   else
 	taClass += "'";
 %>

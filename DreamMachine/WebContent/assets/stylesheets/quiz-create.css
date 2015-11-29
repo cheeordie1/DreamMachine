@@ -3,14 +3,29 @@ body {
   overflow-y: auto;	
 }
 
+.error-msg {
+  top: 1vh;
+}
+
+#quiz-title {
+  position: relative;
+  display: inline-block;
+  font-size: 5vh;
+  font-weight: bold;
+  color: #DE98FD;
+  opacity: 1;
+  z-index: 2;
+  text-shadow: 4px 2px 4px rgba(0, 159, 255, 1);
+}
+
 #quiz-create-form-container {
   position: relative;
-  height: 94vh;
+  height: 85vh;
   width: 55vw;
-  margin-top: 2vh;
+  margin-top: 1.7vh;
   border: 2px solid #8F8F8F;
   background-color: #FFFFFF;
-  opacity: .95;
+  opacity: .94;
   -webkit-box-shadow: 18px 25px 117px 45px rgb(59,34,59);
   -moz-box-shadow: 18px 25px 117px 45px rgb(59,34,59);
   box-shadow: 18px 25px 117px 45px rgb(59,34,59);
@@ -63,14 +78,13 @@ body {
   position: initial;
   height: 16vh;
   width: 35vw;
-  border: solid black 1px;
   font-family: Tahoma, sans-serif;
   font-size: 1.8vh;
 }
 
 #quiz-options {
   position: relative;
-  height: 40vh;
+  height: 30vh;
   width: 40vw;
   border: 2px dashed #9A09B4;
   margin-top: 27vh;
@@ -95,4 +109,49 @@ body {
   background: -webkit-linear-gradient(top,  #eadaf2 0%,#d7aaed 74%,#a07b9c 100%); /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to bottom,  #eadaf2 0%,#d7aaed 74%,#a07b9c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eadaf2', endColorstr='#a07b9c',GradientType=0 ); /* IE6-9 */
+}
+
+.quiz-options-header {
+  position: relative;
+  display: inline-block;
+  font-family: "Lato", sans-serif;
+  font-size: 2.2vh;
+  color: #0000FF;
+  margin-left: 1vw;
+  margin-top: 2vh;
+}
+
+.quiz-radio-container {
+  position: relative;
+  display: inline-block;
+  margin-top: 1vh;
+  margin-left: 4vw;
+}
+
+#single-page-header {
+  margin-top: 4vh;
+}
+
+
+#single-page-container {
+}
+
+#random-questions-header {
+  margin-top: 3vh;
+}
+
+#practice-mode-header {
+  margin-top: 3vh;
+}
+
+#practice-mode {
+  color: #D305E8;
+}
+
+#practice-mode-box {
+  position: relative;
+  height: 3vh;
+  width: 3vh;
+  top: 1vh;
+}
 }

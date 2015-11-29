@@ -23,3 +23,13 @@ body {
 .preload {
   display: none;
 }
+
+.error-msg {
+  position: relative;
+  color: #FD2727;
+  font: 1.8vh "Slabo 27px", sans-serif; 
+}
+
+.error-box {
+  border: solid 2px #FF0000;
+}

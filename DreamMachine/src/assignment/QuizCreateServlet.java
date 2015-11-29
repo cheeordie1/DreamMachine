@@ -41,7 +41,25 @@ public class QuizCreateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		if (request.getSession().getAttribute("loggedIn").toString().equals("false")) {
+			response.sendRedirect("/DreamMachine/signup?notify=Create an Account in Order to Make Quizzes!");
+			return;
+		}
+		Quiz quiz = new Quiz();
+		quiz.user_id = Integer.parseInt(request.getSession().getAttribute("uid").toString());
+		if (request.getParameter("quiz-name") != null)
+		  quiz.name = request.getParameter("quiz-name").toString();
+		if (request.getParameter("quiz-description") != null)
+			quiz.description = request.getParameter("quiz-description").toString();
+		quiz.single_page = request.getParameter("single-page").toString().equals("single");
+		quiz.random_questions = request.getParameter("random-questions").toString().equals("random");
+		quiz.practice_mode = request.getParameter("practice-mode")!= null;
+		if (quiz.save()) {
+			response.sendRedirect("/DreamMachine/question-create?question-id=" + quiz.quiz_id);
+		} else {
+			request.getSession().setAttribute("errors", quiz.errors);
+			response.sendRedirect("/DreamMachine/quiz-create");
+		}
 	}
 
 }
