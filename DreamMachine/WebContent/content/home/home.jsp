@@ -13,12 +13,9 @@
 <body>
 	<jsp:include page="../header/top-bar.jsp" />
 
+    
 	<div id="container">
-		<main id="center" class="column">
-			<article>
-				<h1>Heading</h1>
-			</article>								
-		</main>
+	    <jsp:include page="../content/main-content.jsp" />
 
 		<jsp:include page="../header/user-sidebar.jsp" />
 		

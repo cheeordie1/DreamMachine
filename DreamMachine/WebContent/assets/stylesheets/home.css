@@ -5,7 +5,7 @@
 
 	#container {
 		padding-left: 200px;
-		padding-right: 190px;
+		padding-right: 210px;
 	}
 	
 	#container .column {
@@ -26,9 +26,9 @@
 	}
 	
 	#right {
-		width: 130px;
+		width: 180px;
 		padding: 0 10px;
-		margin-right: -100%;
+		margin-right: -80%;
 	}
 	
 	#footer {
@@ -94,11 +94,11 @@
 	}
 
 	#left {
-		background: #DAE9BC;
+		background: #DA70D6;
 	}
 	
 	#right {
-		background: #F7FDEB;
+		background: #DA70D6;
 	}
 
 	#center {

@@ -1,0 +1,39 @@
+#announcement-container {
+	
+	width: 80%;
+	height: 100px;
+	margin-left: 50px;
+	margin-top: 12px;
+	border-style: dashed;
+}
+
+#announcement-label {
+	margin-top: -45px;
+}
+
+#pop-quizzes-sect {
+	float: left;
+    width: 40%;
+	margin-left: 15px;
+	margin-top: 50px;
+}
+
+#pop-quizzes-cont {
+
+	height: 400px;
+    margin-top: -20px;
+	border-style: groove;
+}
+
+#recent-quizzes-sect {
+	float: left;
+	width: 40%;
+	margin-left: 80px;
+	margin-top: 50px;
+}
+
+#recent-quizzes-cont {
+	height: 400px;
+	margin-top: -20px;
+	border-style: groove;
+}
