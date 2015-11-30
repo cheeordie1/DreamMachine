@@ -104,7 +104,7 @@ public class Quiz {
 	 */
 	private boolean isEmpty(String checkEmpty) {
 		if (checkEmpty == null || checkEmpty.isEmpty() || 
-			!checkEmpty.matches("\\S+")) return true;
+			!checkEmpty.matches(".*\\S")) return true;
 		return false;
 	}
 	

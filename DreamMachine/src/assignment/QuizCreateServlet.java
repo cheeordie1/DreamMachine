@@ -48,13 +48,21 @@ public class QuizCreateServlet extends HttpServlet {
 		Quiz quiz = new Quiz();
 		quiz.user_id = Integer.parseInt(request.getSession().getAttribute("uid").toString());
 		if (request.getParameter("quiz-name") != null)
-		  quiz.name = request.getParameter("quiz-name").toString();
+		    quiz.name = request.getParameter("quiz-name").toString();
 		if (request.getParameter("quiz-description") != null)
 			quiz.description = request.getParameter("quiz-description").toString();
 		quiz.single_page = request.getParameter("single-page").toString().equals("single");
 		quiz.random_questions = request.getParameter("random-questions").toString().equals("random");
 		quiz.practice_mode = request.getParameter("practice-mode")!= null;
 		if (quiz.save()) {
+			int numTags = Integer.parseInt(request.getParameter("num-tags").toString());
+			System.out.println(numTags);
+			for (int curTag = 1; curTag <= numTags; curTag++) {
+				Tag tag = new Tag();
+				tag.quiz_id = quiz.quiz_id;
+				tag.tag = request.getParameter("tag" + curTag).toString();
+				tag.save();
+			}
 			response.sendRedirect("/DreamMachine/question-create?quiz-id=" + quiz.quiz_id);
 		} else {
 			request.getSession().setAttribute("errors", quiz.errors);

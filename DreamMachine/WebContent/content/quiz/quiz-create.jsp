@@ -29,6 +29,12 @@
             <div class="error-msg"><%= message %></div>
           <% } %>
         </div>
+        <div id="tag-container" class="hori-center">
+          <input type="hidden" id="num-tags" name=num-tags></input>
+          <span id="tag-container-label">Tags:</span>
+        </div>
+        <script src="/DreamMachine/assets/javascripts/tag.js"></script>
+        <script>var tag_box = TagBox("tag-container", "num-tags");</script>
       </div>
       <div id="quiz-description" class="hori-center">
         <%
@@ -52,13 +58,13 @@
         <label id="single-page-header" class="quiz-options-header" for="single-page">Select whether the quiz is on one or multiple pages</label><br>
         <div id="single-page-container" class="quiz-radio-container">
           <input id="single-page" type="radio" name="single-page" value="single" checked><label id="single-page-label" for="single-page">Single Page</label>
-          <input id="multiple-pages" type="radio" name="single-page" value="multiple"><label id="multiple-page-label" for="multiple-pages">Multiple Pages</label>
-        </div>
+          <input id="multiple-pages" type="radio" name="single-page" value="multiple"><label id="multiple-page-label" for="multiple-pages">Multiple Pages</label><br>
+        </div><br>
         <label id="random-questions-header" class="quiz-options-header" for="random-questions">Select whether the quiz's questions are asked in order</label><br>
         <div id="random-questions-container" class="quiz-radio-container">
           <input id="in-order" type="radio" name="random-questions" value="in-order" checked><label id="in-order-label" for="in-order">In Order</label>
           <input id="random" type="radio" name="random-questions" value="random"><label id="random-label" for="random">Random</label>
-        </div>
+        </div><br>
         <label id="practice-mode-header" class="quiz-options-header" for="practice-mode">Select whether the quiz may be taken in <span id="practice-mode">Practice Mode</span></label>
 		<input id="practice-mode-box" type="checkbox" name="practice-mode">
       </div>

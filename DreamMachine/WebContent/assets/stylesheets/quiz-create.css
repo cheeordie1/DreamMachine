@@ -20,7 +20,6 @@ body {
 
 #quiz-create-form-container {
   position: relative;
-  height: 85vh;
   width: 55vw;
   margin-top: 1.7vh;
   border: 2px solid #8F8F8F;
@@ -43,7 +42,7 @@ body {
 
 #quiz-name-container {
   position: relative;
-  height: 14vh;
+  display: inline-block;
   width: 100%;
   background-color: #ECC6F0;
 }
@@ -56,6 +55,46 @@ body {
 
 #quiz-name-header {
   
+}
+
+#tag-container {
+  position: relative;
+  width: 45vw;
+  margin-top: 0.8vh;
+  margin-bottom: 0.8vh;
+  padding: 2px;
+  border: 1px solid purple;
+  border-radius: 3px;
+  cursor:cell;
+}
+
+.tagger-container {
+  position: absolute;
+  display: inline-block;
+  border: 1px solid #000000;
+  border-radius: 3px;
+  padding: 4px;
+  background-color: #FFFFFF;
+  left: 100%;
+  cursor: auto;
+}
+
+#tag-container-label {
+  color: #0716D1;
+  font-weight: bold;
+  font-family: Tahoma, serif;
+  font-size: 18px;
+}
+
+.tag {
+  display: inline-block;
+  position: relative;
+  background-color: #C0C0CD;
+  color: #000000;
+  font-size:16px;
+  border-radius: 4px;
+  padding: 3px;
+  margin-left: 1vw;
 }
 
 #quiz-name-input {
@@ -98,7 +137,8 @@ body {
 
 #quiz-submit-button {
   position: relative;
-  margin-top: 3vh;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
   height: 5vw;
   width: 15vw;
   font: 2.3vh Tahoma, sans-serif;	
@@ -115,7 +155,7 @@ body {
   position: relative;
   display: inline-block;
   font-family: "Lato", sans-serif;
-  font-size: 2.2vh;
+  font-size: 2.1vh;
   color: #0000FF;
   margin-left: 1vw;
   margin-top: 2vh;
@@ -153,5 +193,4 @@ body {
   height: 3vh;
   width: 3vh;
   top: 1vh;
-}
 }
