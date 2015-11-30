@@ -17,11 +17,11 @@ public class Question {
 	public int quiz_id;
 	public int answer_id;
 	public int photo_id;
-	public Type type; 
+	public Type question_type; 
 	public String question;
 	
 	public enum Type {
-	    RESPONSE, MULTICHOICE, MATCHING 
+	    RESPONSE, MULTICHOICE, MATCHING
 	}
 	
 	// static variables
@@ -43,7 +43,7 @@ public class Question {
 			quiz_id = questionData.getInt("quiz_id");
 			answer_id = questionData.getInt("answer_id");
 			photo_id = questionData.getInt("photo_id");
-		    type = (Type) questionData.getObject("type");
+		    question_type = (Type) questionData.getObject("question_type");
 			question = questionData.getString("question");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,18 +69,18 @@ public class Question {
     	/* save photo */
     	Photo photo = new Photo();
     	photo.part = photoPart;
-    	if (!photo.save()) {
+    	if (photo != null && !photo.save()) {
     		for (String error : photo.errorMessages.errors.get(Photo.PHOTO_ERROR))
     			errorMessages.addError(Photo.PHOTO_ERROR, error);
     		return false;
     	}
     	photo_id = photo.id;
-		String update = "INSERT INTO questions (quiz_id, answer_id, photo_id, type, question) VALUES(?,?,?,?,?)";
+		String update = "INSERT INTO questions (quiz_id, answer_id, photo_id, question_type, question) VALUES(?,?,?,?,?)";
 		PreparedStatement stmt = DBConnection.beginStatement(update);
 		stmt.setInt(1, quiz_id);
 		stmt.setInt(2, answer_id);
 		stmt.setInt(3, photo_id);
-		stmt.setObject(4, type);
+		stmt.setObject(4, question_type);
 		stmt.setString(5, question);
 		quiz_id = DBConnection.update(stmt);
 		return true;
@@ -98,7 +98,7 @@ public class Question {
 	public boolean delete() {
         if (question_id == 0) return false;
         String query = "DELETE FROM " + TABLE_NAME + 
-                       " WHERE user_id = " + question_id + " LIMIT 1";
+                       " WHERE question_id = " + question_id + " LIMIT 1";
         DBConnection.update (query);
 		return true;	
 	}
@@ -122,7 +122,7 @@ public class Question {
 	 * a quiz. If not, we can't add a question
 	 */
 	public boolean questionEmpty() {
-		if (question == null || question.isEmpty()) {
+		if (question == null || question.isEmpty() || !question.matches("\\S+")) {
 			errorMessages.addError(Question.QUESTION_ERROR, Question.QUESTION_EMPTY);
 		}
 		return false;
@@ -130,7 +130,7 @@ public class Question {
 	
 	@Override
 	public String toString(){
-		return "id: " + question_id + " Type: " + type + " Question: " + question +
+		return "id: " + question_id + " Type: " + 	question_type + " Question: " + question +
 			   " Answer: " + answer;
 	}
 }

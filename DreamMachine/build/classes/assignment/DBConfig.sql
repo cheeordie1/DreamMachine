@@ -3,6 +3,8 @@ USE c_cs108_cheeawai1;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS quizzes;
+DROP TABLE IF EXISTS questions;
+DROP TABLE IF EXISTS tags;
 
 CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT,
@@ -34,3 +36,20 @@ CREATE TABLE quizzes (
 	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (quiz_id)
 );
+
+CREATE TABLE questions (
+	question_id INT NOT NULL AUTO_INCREMENT,
+	quiz_id INT,
+	answer_id INT,
+	photo_id INT,
+	question_type BLOB,
+	question TEXT,
+	PRIMARY KEY (question_id)
+};
+
+CREATE TABLE tags (
+	tag_id INT NOT NULL AUTO_INCREMENT,
+	quiz_id INT,
+	tag TEXT,
+	PRIMARY KEY (tag_id)
+};

@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class Quiz {
 	// instance variables
-	ErrorMessages errors;
+	public ErrorMessages errors;
 	
 	// database variables
 	public int quiz_id;
@@ -69,8 +69,8 @@ public class Quiz {
 		if (errors) return false;
 		String update = "INSERT INTO " + TABLE_NAME + "(user_id, name, description," + 
 		                "single_page, random_questions, practice_mode," +
-				        "immediateCorrect) VALUES(" + user_id + "," + name + 
-				        "," + description + "," + single_page + "," + 
+				        "immediateCorrect) VALUES(" + user_id + ",'" + name + 
+				        "','" + description + "'," + single_page + "," + 
 				        random_questions + "," + practice_mode + "," +
 				        immediate_correct + ")";
 		quiz_id = DBConnection.update(update);
@@ -110,7 +110,7 @@ public class Quiz {
 	
 	public static List<Quiz> searchByID(int quiz_id) {
 		List<Quiz> quizzes = new ArrayList<Quiz>();
-		String query = "SELECT * FROM" + TABLE_NAME + " WHERE photo_id = " + quiz_id;
+		String query = "SELECT * FROM" + TABLE_NAME + " WHERE quiz_id = " + quiz_id;
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return quizzes;
 		try {
