@@ -47,11 +47,11 @@ CREATE TABLE questions (
 	question TEXT,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (question_id)
-};
+);
 
 CREATE TABLE tags (
 	tag_id INT NOT NULL AUTO_INCREMENT,
 	quiz_id INT,
 	tag TEXT,
 	PRIMARY KEY (tag_id)
-};
+);
