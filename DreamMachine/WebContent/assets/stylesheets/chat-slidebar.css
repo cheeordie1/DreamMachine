@@ -1,0 +1,43 @@
+body {
+	background-color: #e9eaed;
+}
+
+.chat-sidebar {
+	width: 200px;
+	position: fixed;
+	height: 20%;
+	bottom: 0;
+	right: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: 2px solid black;
+	overflow-y: scroll;
+}
+
+.sidebar-name {
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 4px;
+	font-size: 14px;
+}
+
+.sidebar-name span {
+	padding-left: 5px;
+}
+
+.sidebar-name a {
+	display: block;
+	height: 100%;
+	text-decoration: none;
+	color: inherit;
+}
+
+.sidebar-name:hover {
+	background-color: #e1e2e5;
+}
+
+.sidebar-name img {
+	width: 32px;
+	height: 32px;
+	vertical-align: middle;
+}

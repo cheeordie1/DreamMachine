@@ -1,4 +1,4 @@
-USE c_cs108_cheeawai1;
+USE c_cs108_jevans2;
 
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS photos;
