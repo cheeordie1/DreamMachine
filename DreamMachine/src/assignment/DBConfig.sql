@@ -12,6 +12,7 @@ CREATE TABLE users (
     salt CHAR(32),
     digest CHAR(64),
     photo_id INT,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (user_id)
 );
 
@@ -33,7 +34,7 @@ CREATE TABLE quizzes (
 	random_questions BOOLEAN,
 	immediate_correct BOOLEAN,
 	practice_mode BOOLEAN,
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (quiz_id)
 );
 
@@ -44,6 +45,7 @@ CREATE TABLE questions (
 	photo_id INT,
 	question_type BLOB,
 	question TEXT,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (question_id)
 };
 
