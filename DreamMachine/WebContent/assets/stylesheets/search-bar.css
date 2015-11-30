@@ -1,5 +1,6 @@
 #search-bar-container {
-  position: absolute;	
+  position: relative;
+  margin-left: 20vw;
 }
 
 #search-term {

@@ -1,0 +1,22 @@
+#user-img {
+	height: 100px;
+	width: 100px;
+	margin-left: 25px;
+}
+
+#mail-img {
+	height: 30px;
+	width:46px;
+
+	background-color: #00FFFF;
+	margin-left: 50px;
+}
+
+#make-quiz-button {
+	margin-left: 40px;
+}
+
+#user-history-icon {
+	margin-left: 38px;
+}
+
