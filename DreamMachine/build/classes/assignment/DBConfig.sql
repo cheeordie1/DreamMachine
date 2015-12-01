@@ -40,5 +40,14 @@ CREATE TABLE friends (
 	sender INT,
 	reciever INT,
 	status INT,
-	PRIMARY KEY (quiz_id)
+	PRIMARY KEY (friend_id)
 )
+
+CREATE TABLE challenges (
+	challenge_id INT NOT NULL AUTO_INCREMENT,
+	sender INT,
+	receiver INT,
+	link STRING,
+	best_score INT,
+	PRIMARY KEY (challenge_id)
+);
