@@ -1,6 +1,13 @@
 package assignment;
 
 public class Answer {
+	// instance variables
+	
+	
+	// database variables
+	public int answer_id;
+	public String answer;
+	
 	
 	public static final String DELIM = "<>";
 	public static final String SEPERATOR = ", ";

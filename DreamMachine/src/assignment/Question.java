@@ -122,7 +122,7 @@ public class Question {
 	 * a quiz. If not, we can't add a question
 	 */
 	public boolean questionEmpty() {
-		if (question == null || question.isEmpty() || !question.matches("\\S+")) {
+		if (question == null || question.isEmpty() || question.matches("\\s*")) {
 			errorMessages.addError(Question.QUESTION_ERROR, Question.QUESTION_EMPTY);
 		}
 		return false;
