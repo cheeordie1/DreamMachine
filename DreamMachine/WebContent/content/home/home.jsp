@@ -6,6 +6,9 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
   <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/home.css">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <jsp:include page="/content/app.jsp" />
   <title>Welcome to Dream Machine</title>
 </head>
@@ -17,13 +20,9 @@
 	<div id="container">
 	    <jsp:include page="../content/main-content.jsp" />
 
-		<jsp:include page="../header/user-sidebar.jsp" />
+		<jsp:include page="../left-sidebar/user-sidebar.jsp" />
 		
-
-		<div id="right" class="column">
-			<h3>Right heading</h3>
-			<p><script>generateText(1)</script></p>
-		</div>
+		<jsp:include page="../header/feed-sidebar.jsp" />
 
 	</div>
 

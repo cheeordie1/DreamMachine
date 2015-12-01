@@ -1,0 +1,28 @@
+#friend-act-sect h4 {
+	margin-top: -6px;
+}
+
+#friend-feed-cont {
+	width: 230px;
+	height: 300px;
+	border-style: groove;
+	margin-top: -10px;
+	margin-left: -5px;
+}
+
+#recent-act-sect h4 {
+	
+}
+
+#recent-act-cont {
+	width: 230px;
+	height: 300px;
+	border-style: groove;
+	margin-top: -10px;
+	margin-left: -5px;
+}
+
+.table {
+	margin-left: -10px;
+	margin-top: -10px;
+}

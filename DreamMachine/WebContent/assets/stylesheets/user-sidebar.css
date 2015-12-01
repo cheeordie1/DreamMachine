@@ -1,7 +1,7 @@
 #user-img {
-	height: 100px;
-	width: 100px;
-	margin-left: 25px;
+	height: 140px;
+	width: 140px;
+	margin-left: 12px;
 }
 
 #mail-img {
@@ -10,10 +10,6 @@
 
 	background-color: #00FFFF;
 	margin-left: 50px;
-}
-
-#make-quiz-button {
-	margin-left: 40px;
 }
 
 #user-history-icon {

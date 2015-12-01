@@ -4,8 +4,8 @@
 	}
 
 	#container {
-		padding-left: 200px;
-		padding-right: 210px;
+		padding-left: 260px;
+		padding-right: 260px;
 	}
 	
 	#container .column {
@@ -19,16 +19,16 @@
 	}
 	
 	#left {
-		width: 180px;
+		width: 190px;
 		padding: 0 10px;
-		right: 240px;
+		right: 260px;
 		margin-left: -100%;
 	}
 	
 	#right {
-		width: 180px;
+		width: 260px;
 		padding: 0 10px;
-		margin-right: -80%;
+		margin-right: -100%;
 	}
 	
 	#footer {

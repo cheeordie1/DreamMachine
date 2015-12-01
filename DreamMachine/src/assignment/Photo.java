@@ -97,17 +97,18 @@ public class Photo {
 	 * @return a Photo object of the given photo if it is found, null
 	 *         otherwise
 	 */
-	public static Photo searchById(int photo_id) {
-		String query = "SELECT * FROM photos WHERE id = " + photo_id;
+	public static List<Photo> searchById(int photo_id) {
+		List<Photo> photos = new ArrayList<Photo>();
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE photo_id = " + photo_id;
 		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return photos;
 		try {
-			if (!rs.first())
-				return null;
+			while (rs.next())
+				photos.add(new Photo(rs));
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return null;
 		}
-		return new Photo(rs);
+		return photos;
 	}
 	
 	/**

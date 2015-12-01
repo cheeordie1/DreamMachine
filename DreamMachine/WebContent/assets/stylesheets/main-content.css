@@ -1,10 +1,10 @@
 #announcement-container {
-	
-	width: 80%;
+	position: relative;
+	width: 90%;
 	height: 100px;
-	margin-left: 50px;
-	margin-top: 12px;
-	border-style: dashed;
+	margin-left: 0%;
+	margin-top: 40px;
+
 }
 
 #announcement-label {
@@ -13,27 +13,27 @@
 
 #pop-quizzes-sect {
 	float: left;
-    width: 40%;
-	margin-left: 15px;
+    width: 44%;
+	margin-left: -50px;
 	margin-top: 50px;
 }
 
 #pop-quizzes-cont {
 
 	height: 400px;
-    margin-top: -20px;
+    margin-top: -10px;
 	border-style: groove;
 }
 
 #recent-quizzes-sect {
 	float: left;
-	width: 40%;
-	margin-left: 80px;
+	width: 44%;
+	margin-left: 14%;
 	margin-top: 50px;
 }
 
 #recent-quizzes-cont {
 	height: 400px;
-	margin-top: -20px;
+	margin-top: -10px;
 	border-style: groove;
 }

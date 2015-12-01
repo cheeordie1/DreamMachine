@@ -6,5 +6,6 @@
     </a>
   </div>
   <jsp:include page="/content/header/search-bar.jsp" />
+  <jsp:include page="/content/header/create-quiz-button.jsp" />
   <jsp:include page="/content/header/login-bar.jsp" />
 </div>
