@@ -52,9 +52,7 @@ public class Question {
 	
 	/**
 	 * Validates the question format.
-	 * If the question is already in the database then it 
-	 * replaces the entry. Otherwise it adds a new quiz
-	 * to the DBConnection.Question Table. 
+	 * It adds a new question to the database Question Table. 
 	 * @return true if the save worked, false otherwise
 	 */
 	public boolean save() {
@@ -62,26 +60,36 @@ public class Question {
 		
 		/* save answer */
 		if (!answer.save()) {
-			for (String errorType : answer.errorMessages.getKeys())
+			for (String errorType : answer.errorMessages.errors.keySet()) {
+				List<String> curErrors = answer.errorMessages.getErrors(errorType);
+				for (String error : curErrors)
+					errorMessages.addError(errorType, error);
+			}
     		return false;
 		}
 		answer_id = answer.answer_id;
     	/* save photo */
     	Photo photo = new Photo();
     	photo.part = photoPart;
-    	if (photo != null && !photo.save()) {
+    	if (photo.part != null && !photo.save()) {
+    		answer.delete();
     		for (String error : photo.errorMessages.errors.get(Photo.PHOTO_ERROR))
     			errorMessages.addError(Photo.PHOTO_ERROR, error);
     		return false;
     	}
     	photo_id = photo.id;
-		String update = "INSERT INTO questions (quiz_id, answer_id, photo_id, question_type, question) VALUES(?,?,?,?,?)";
+		String update = "INSERT INTO "+ TABLE_NAME + " (quiz_id, answer_id, photo_id, question_type, question) VALUES(?,?,?,?,?)";
 		PreparedStatement stmt = DBConnection.beginStatement(update);
-		stmt.setInt(1, quiz_id);
-		stmt.setInt(2, answer_id);
-		stmt.setInt(3, photo_id);
-		stmt.setObject(4, question_type);
-		stmt.setString(5, question);
+		try {
+			stmt.setInt(1, quiz_id);
+			stmt.setInt(2, answer_id);
+			stmt.setInt(3, photo_id);
+			stmt.setObject(4, question_type);
+			stmt.setString(5, question);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			return false;
+		}
 		quiz_id = DBConnection.update(stmt);
 		return true;
 	}
@@ -94,12 +102,20 @@ public class Question {
 		return false;
 	}
 	
-	
+	/**
+	 * Delete a question from the database by id. Deleting a question will
+	 * delete its answer since they are 1:1.
+	 * @return true if delete worked, false otherwise
+	 */
 	public boolean delete() {
         if (question_id == 0) return false;
         String query = "DELETE FROM " + TABLE_NAME + 
                        " WHERE question_id = " + question_id + " LIMIT 1";
         DBConnection.update (query);
+        List<Answer> answers = Answer.searchByID(answer_id);
+        if (answers.isEmpty())
+        	return true;
+        answers.get(0).delete();
 		return true;	
 	}
 	

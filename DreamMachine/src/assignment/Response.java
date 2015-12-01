@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Response extends Answer {
-	
+	// instance variables
 	private ArrayList <ArrayList<String>> answerOptions;
 	public int numAnswers; 
 	
@@ -33,7 +33,7 @@ public class Response extends Answer {
 			if (listIndex != 0) options += " " + DELIM;
 			ArrayList<String> answerList = answerOptions.get(listIndex);
 			for (int i = 0, len = answerList.size(); i < len; i++) {
-				if (i != 0) options += SEPERATOR;
+				if (i != 0) options += SEPARATOR;
 				options += answerList.get(i); 
 			}	 
 		}
@@ -53,13 +53,13 @@ public class Response extends Answer {
 		
 		for (int i = 0, len = parsedAnswerLists.length; i < len; i++) {
 			String parsedAnswerListStr = parsedAnswerLists[i]; 
-			String [] parsedAnswerArray = parsedAnswerListStr.split(SEPERATOR);
+			String [] parsedAnswerArray = parsedAnswerListStr.split(SEPARATOR);
 			answerOptions.add(new ArrayList<String>(Arrays.asList(parsedAnswerArray)));
 		}
 	}
 	
 	/*
-	 * Boolean that checks the user's inputted answer and returns
+	 * Boolean that checks the user's input answer and returns
 	 * whether it is a valid answer or not.
 	 */
 	public boolean checkAnswer (String userInput) {
@@ -89,7 +89,7 @@ public class Response extends Answer {
 	 * and answer and adds it into the answer options list
 	 */
 	public void addAnswer (String answer) {
-		String [] parsedAnswerArray = answer.split(SEPERATOR);
+		String [] parsedAnswerArray = answer.split(SEPARATOR);
 		answerOptions.add(new ArrayList<String>(Arrays.asList(parsedAnswerArray)));
 		numAnswers++;
 	}
@@ -125,19 +125,6 @@ public class Response extends Answer {
 		if (answerOptions.size() < index || index < 0) return false; 
 		if (!answerOptions.get(index).remove(answer)) return false;
 		if (answerOptions.get(index).isEmpty()) deleteAnswer(index);
-		return true;
-	}
-
-	/*
-	 * Function that validates a response question.
-	 * First it checks that the size of answerOptions and options do not equal zero.
-	 */
-	@Override
-	public boolean isValid () {
-		if (answerOptions.size() == 0 || numAnswers == 0) return false;
-		for (ArrayList<String> answerList: answerOptions) {
-			if (answerList.isEmpty()) return false;
-		}
 		return true;
 	}
 	

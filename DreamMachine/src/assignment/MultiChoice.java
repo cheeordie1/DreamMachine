@@ -98,7 +98,7 @@ public class MultiChoice extends Answer {
 		String result = "";
 		for (int i = 0; i < allOptions.size(); i++) {
 			if (i != allOptions.size() -1 ) {
-				result += allOptions.get(i) + SEPERATOR;
+				result += allOptions.get(i) + SEPARATOR;
 			} else {
 				result += allOptions.get(i);
 			}
@@ -108,7 +108,7 @@ public class MultiChoice extends Answer {
 		
 		for (int i = 0; i < allAnswers.size(); i++) {
 			if (i != allAnswers.size() - 1) {
-				result += allAnswers.get(i) + SEPERATOR;
+				result += allAnswers.get(i) + SEPARATOR;
 			} else {
 				result += allAnswers.get(i);
 			}
@@ -131,10 +131,10 @@ public class MultiChoice extends Answer {
 		String optionsToSplit = parsedAnswers[0];
 		String answersToSplit = parsedAnswers[1];
 		
-		String [] splitOptions = optionsToSplit.split(SEPERATOR);
+		String [] splitOptions = optionsToSplit.split(SEPARATOR);
 		for (String option: splitOptions) allOptions.add(option);
 		
-		String [] splitAnswers = answersToSplit.split(SEPERATOR);	
+		String [] splitAnswers = answersToSplit.split(SEPARATOR);	
 		for (String answer: splitAnswers) allAnswers.add(answer);
 		
 		numAnswers = splitAnswers.length;

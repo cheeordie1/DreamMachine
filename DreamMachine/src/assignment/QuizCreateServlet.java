@@ -58,7 +58,6 @@ public class QuizCreateServlet extends HttpServlet {
 		quiz.practice_mode = request.getParameter("practice-mode")!= null;
 		if (quiz.save()) {
 			int numTags = Integer.parseInt(request.getParameter("num-tags").toString());
-			System.out.println(numTags);
 			for (int curTag = 1; curTag <= numTags; curTag++) {
 				Tag tag = new Tag();
 				tag.quiz_id = quiz.quiz_id;

@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS quizzes;
 DROP TABLE IF EXISTS questions;
+Drop Table If Exists answers;
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS friends;
 DROP TABLE IF EXISTS challenges;
@@ -56,6 +57,12 @@ CREATE TABLE tags (
 	quiz_id INT,
 	tag TEXT,
 	PRIMARY KEY (tag_id)
+);
+
+CREATE TABLE answers (
+	answer_id INT NOT NULL AUTO_INCREMENT,
+	answer TEXT,
+	PRIMARY KEY (answer_id)
 );
 
 CREATE TABLE friends (

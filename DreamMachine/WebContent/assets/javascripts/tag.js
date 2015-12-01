@@ -14,7 +14,6 @@ function TagBox(containerID, numTagsID) {
 	
 	this.addTag = function(evt) {
 		var tagVal = $("#tagger").val();
-		console.log(tagVal);
 		if (!tagVal.match(/\s/g) && tagVal) {
 		  numTags++;
 		  $(obj.containerID).append("<div id=tag" + obj.numTags + " class=tag name=tag" + obj.numTags +
