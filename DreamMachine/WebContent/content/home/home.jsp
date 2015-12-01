@@ -15,12 +15,6 @@
   
   <%
      boolean loggedIn = (boolean) request.getSession().getAttribute("loggedIn");
-	 if ( loggedIn)  {
-  	 	 String username = (String) request.getSession().getAttribute("username");
-    	 int uid = (int) request.getSession().getAttribute("uid");
-    	 List<User> userList = User.searchById(uid);
-    	 User user = userList.get(0);
-	 }
   %>
 </head>
 <head>
@@ -38,10 +32,6 @@
 		
 		<% } %>
 
-	</div>
-
-	<div id="footer-wrapper">
-		<footer id="footer"><p>Footer...</p></footer>
 	</div>
 
 </body>
