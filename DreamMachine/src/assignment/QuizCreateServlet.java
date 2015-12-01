@@ -52,6 +52,8 @@ public class QuizCreateServlet extends HttpServlet {
 		if (request.getParameter("quiz-description") != null)
 			quiz.description = request.getParameter("quiz-description").toString();
 		quiz.single_page = request.getParameter("single-page").toString().equals("single");
+		if (!quiz.single_page)
+			quiz.immediate_correct = request.getParameter("immediate-correct") != null;
 		quiz.random_questions = request.getParameter("random-questions").toString().equals("random");
 		quiz.practice_mode = request.getParameter("practice-mode")!= null;
 		if (quiz.save()) {

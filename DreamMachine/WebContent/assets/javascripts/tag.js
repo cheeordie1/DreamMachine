@@ -17,7 +17,9 @@ function TagBox(containerID, numTagsID) {
 		console.log(tagVal);
 		if (!tagVal.match(/\s/g) && tagVal) {
 		  numTags++;
-		  $(obj.containerID).append("<div id=tag" + obj.numTags + " class=tag name=tag" + obj.numTags + ">" + tagVal + "</div>");
+		  $(obj.containerID).append("<div id=tag" + obj.numTags + " class=tag name=tag" + obj.numTags +
+				                     "><input type='hidden' name=tag" + obj.numTags + " value=" +
+				                     tagVal + "></input>" + tagVal + "</div>");
 		  $(obj.numTagsID).val(numTags);
 		}
 		$(document).unbind("keypress", obj.addTagEnter);

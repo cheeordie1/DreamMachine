@@ -68,13 +68,24 @@ public class Quiz {
 		if (descriptionEmpty()) errors = true;
 		if (errors) return false;
 		String update = "INSERT INTO " + TABLE_NAME + "(user_id, name, description," + 
-		                "single_page, random_questions, practice_mode," +
-				        "immediateCorrect) VALUES(" + user_id + ",'" + name + 
-				        "','" + description + "'," + single_page + "," + 
-				        random_questions + "," + practice_mode + "," +
-				        immediate_correct + ")";
-		quiz_id = DBConnection.update(update);
-		return !errors; 
+		                "single_page, random_questions, " +
+				        "immediate_correct, practice_mode) VALUES(?,?,?,?,?,?,?)";
+		PreparedStatement stmt = DBConnection.beginStatement(update);
+		try {
+			stmt.setInt(1, user_id);
+			stmt.setString(2, name);
+			stmt.setString(3, description);
+			stmt.setBoolean(4, single_page);
+			stmt.setBoolean(5, random_questions);
+			stmt.setBoolean(6, immediate_correct);
+			stmt.setBoolean(7, practice_mode);
+		} catch (SQLException sqle) {
+			sqle.printStackTrace();
+			return false;
+		}
+		quiz_id = DBConnection.update(stmt);
+		if (quiz_id == 0) return false;
+		return true; 
 	}
 	
 	/**
@@ -104,7 +115,7 @@ public class Quiz {
 	 */
 	private boolean isEmpty(String checkEmpty) {
 		if (checkEmpty == null || checkEmpty.isEmpty() || 
-			!checkEmpty.matches(".*\\S")) return true;
+			checkEmpty.matches("\\s*")) return true;
 		return false;
 	}
 	

@@ -60,13 +60,15 @@
           <input id="single-page" type="radio" name="single-page" value="single" checked><label id="single-page-label" for="single-page">Single Page</label>
           <input id="multiple-pages" type="radio" name="single-page" value="multiple"><label id="multiple-page-label" for="multiple-pages">Multiple Pages</label><br>
         </div><br>
+        <label id="immediate-correct-header" class="quiz-options-header" for="immediate-correct-box">Select whether corrections are immediate</label>
+        <input class="quiz-options-box" type="checkbox" name="immediate-correct">
         <label id="random-questions-header" class="quiz-options-header" for="random-questions">Select whether the quiz's questions are asked in order</label><br>
         <div id="random-questions-container" class="quiz-radio-container">
           <input id="in-order" type="radio" name="random-questions" value="in-order" checked><label id="in-order-label" for="in-order">In Order</label>
           <input id="random" type="radio" name="random-questions" value="random"><label id="random-label" for="random">Random</label>
         </div><br>
         <label id="practice-mode-header" class="quiz-options-header" for="practice-mode">Select whether the quiz may be taken in <span id="practice-mode">Practice Mode</span></label>
-		<input id="practice-mode-box" type="checkbox" name="practice-mode">
+		<input class="quiz-options-box" type="checkbox" name="practice-mode">
       </div>
       <div id="quiz-submit">
         <button id="quiz-submit-button" class="quiz-create-form" value="Create Quiz">Create Quiz</button>

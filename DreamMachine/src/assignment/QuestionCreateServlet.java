@@ -33,6 +33,10 @@ public class QuestionCreateServlet extends HttpServlet {
 			return;
 		}
 		int uid = Integer.parseInt(request.getSession().getAttribute("uid").toString());
+		if (request.getParameter("quiz-id") == null) {
+			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			return;
+		}
 		int qid = Integer.parseInt(request.getParameter("quiz-id"));
 		List<Quiz> quizzes = Quiz.searchByID(qid);
 		if (quizzes.isEmpty()) {
