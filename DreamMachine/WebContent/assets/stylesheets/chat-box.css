@@ -1,15 +1,21 @@
-.popup-box {
-	display: none;
+.box-container {
 	position: fixed;
 	bottom: 0px;
 	right: 220px;
-	height: 285px;
-	background-color: rgb(237, 239, 244);
+	height: 285px;	
 	width: 300px;
+	display: none;
+}
+
+.box-container .popup-box {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(237, 239, 244);
 	border: 2px solid #9266BD;
 }
 
-.popup-box .popup-head {
+.box-container .popup-box .popup-head {
 	background-color: #9266BD;
 	padding: 5px;
 	color: black;
@@ -18,29 +24,42 @@
 	clear: both;
 }
 
-.popup-box .popup-head .popup-head-left {
+.box-container .popup-box .popup-head .popup-head-left {
 	float: left;
 }
 
-.popup-box .popup-head .popup-head-right {
+.box-container .popup-box .popup-head .popup-head-right {
 	float: right;
 }
 
-.popup-box .popup-head .popup-head-right a {
+.box-container .popup-box .popup-head .popup-head-right a {
 	text-decoration: none;
 	color: inherit;
 }
 
-.popup-box .popup-messages {
-	height: 100%;
+.box-container .popup-box .popup-messages {
+	height: 75%;
 	overflow-y: scroll;
 }
 
-.popup-box .chat-bar {
-	position: fixed;
+.box-container .chat-bar {
+	position: absolute;
 	bottom: 0;
-	height: 20;
-	width: 280;
-	padding: 10;
+	height: 10%;
+	width: 100%;
+}
+
+.box-container .chat-bar textarea#styled {
+	float: left;
+	position: relative;
+	width: 90%;
+	height: 100%;
 	border: 2px solid #9266BD;
+	
+}
+
+.box-container .chat-bar .send-button a {
+	float: right;
+	position: relative;
+	color: #9266BD;
 }

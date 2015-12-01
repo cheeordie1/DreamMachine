@@ -10,7 +10,6 @@
 <title>Welcome to Dream Machine</title>
 </head>
 <body>
-  <jsp:include page="/content/client-chat.jsp" />
   <jsp:include page="../header/top-bar.jsp" />
   <div id="includedContent"></div>
   <div id="home-div">
@@ -27,5 +26,6 @@
       </div>
     </div>
   </div>
+  <jsp:include page="/content/client-chat.jsp" />
 </body>
 </html>
