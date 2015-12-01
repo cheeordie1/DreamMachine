@@ -9,7 +9,7 @@
   <div id="pop-quizzes-sect">	
     <h3>Popular Quizzes</h3>
     <div id="pop-quizzes-cont" class="well">
-	    <table class="table table-condensed">
+	  <table class="table table-condensed">
 	    <tbody>
 	      <tr>
 	        <td>How Deep is Your Love by BeeJee</td>

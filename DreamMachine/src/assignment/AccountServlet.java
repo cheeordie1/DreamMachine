@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 /**
  * Servlet implementation class AccountServlet
  */
@@ -30,13 +29,12 @@ public class AccountServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getRequestURL().toString();
-		User userRequested = User.parseUserFromURL(url);
+		User userRequested = parseUserFromURL(url);
 		if (userRequested == null) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
+			response.sendError(404);
 			return;
 		}
 		request.setAttribute("pageUser", userRequested.username);
-		request.setAttribute("profilePic", userRequested.photo_id);
 		String forward = "/content/account/account.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);
@@ -50,7 +48,7 @@ public class AccountServlet extends HttpServlet {
 	}
 
 	/**
-	 * parses the username trying to be requested from the URL
+	 * parses the usename trying to be requested from the URL
 	 */
 	private User parseUserFromURL(String url) {
 		String match = "/user/";
