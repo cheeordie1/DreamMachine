@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS quizzes;
 DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS tags;
+DROP TABLE IF EXISTS friends;
+DROP TABLE IF EXISTS challenges;
 
 CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT,
@@ -54,4 +56,20 @@ CREATE TABLE tags (
 	quiz_id INT,
 	tag TEXT,
 	PRIMARY KEY (tag_id)
+);
+
+CREATE TABLE friends (
+	friend_id INT NOT NULL AUTO_INCREMENT,
+	friend_a_user_id INT,
+	friend_b_user_id INT,
+	status INT,
+	PRIMARY KEY (friend_id)
+);
+
+CREATE TABLE challenges (
+	challenge_id INT NOT NULL AUTO_INCREMENT,
+	sender_user_id INT,
+	receiver_user_id INT,
+	link STRING,
+	PRIMARY KEY (challenge_id)
 );
