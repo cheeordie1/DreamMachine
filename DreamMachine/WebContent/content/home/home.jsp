@@ -11,6 +11,17 @@
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <jsp:include page="/content/app.jsp" />
   <title>Welcome to Dream Machine</title>
+  <%@ page import="assignment.User, java.util.List" %>
+  
+  <%
+     boolean loggedIn = (boolean) request.getSession().getAttribute("loggedIn");
+	 if ( loggedIn)  {
+  	 	 String username = (String) request.getSession().getAttribute("username");
+    	 int uid = (int) request.getSession().getAttribute("uid");
+    	 List<User> userList = User.searchById(uid);
+    	 User user = userList.get(0);
+	 }
+  %>
 </head>
 <head>
 <body>
@@ -20,9 +31,12 @@
 	<div id="container">
 	    <jsp:include page="../content/main-content.jsp" />
 
+        <% if (loggedIn) { %>
 		<jsp:include page="../left-sidebar/user-sidebar.jsp" />
 		
 		<jsp:include page="../header/feed-sidebar.jsp" />
+		
+		<% } %>
 
 	</div>
 
