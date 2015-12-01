@@ -3,7 +3,7 @@ package assignment;
 import java.sql.*;
 
 /**
- * This class functions as a singleton accessor for executing operations on the
+ * This class functions as a singleton accessory for executing operations on the
  * Quiz database. This should be initialized in ServletContext once
  */
 public class DBConnection {
