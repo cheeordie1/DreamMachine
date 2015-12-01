@@ -82,8 +82,10 @@
   				friend+'popup-messages'+'"></div></div>';
   			
   			/* add the chat bar with text area and form */
-  			var text_area = '<textarea name="styled-textarea" id="styled">Chat ...</textarea>';
-  			var send_button = '<div class="send-button"><a href="javascript:send_chat();">-></a></div>';
+  			var text_area = '<div class="textarea" id="'+friend+'textarea'+'"> \
+  				<textarea name="styled-textarea" id="styled"></textarea></div>';
+  			var send_button = '<div class="send-button"> \
+  				<a href="javascript:send_chat(\''+friend+'\');">-></a></div>';
   	 		element = element + '<div class="chat-bar">'+
   	 			text_area + 
   	 			send_button +
@@ -129,18 +131,24 @@
 		});
 </script>
 
-<script>
-		function send() {
-			[SomeTextarea].onkeyup = function(e){
-				  e = e || event;
-				  if (e.keyCode === 13 && !e.ctrlKey) {
-				    // start your submit function
-				  }
-				  return true;
-				 }
+<script>		
+		function send_chat(friend) {
+			
+			/* get the message from the chat box of the current user*/
+			var message = document.getElementById(friend+'textarea').lastChild.value;
+			
+			/* put the message in the chat box */
+			message = '<%=name%>' + ': '+ message;
+			document.getElementById(friend+'popup-messages').innerHTML =
+				document.getElementById(friend+'popup-messages').innerHTML + message+"<br>";
+				
+			/* send the message */
+			client.publish("/" + friend, message);
+			
+			/* set the chatbox to empty */
+			document.getElementById(friend+'textarea').lastChild.value = "";
+			
 		}
-		
-		
 		
 		function update_sidebar_entry_by_name(name, color, weight) {
 			var slidebar_names = document.getElementsByClassName("sidebar-name");
