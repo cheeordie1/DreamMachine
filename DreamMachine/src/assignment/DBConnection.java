@@ -138,5 +138,18 @@ public class DBConnection {
 		}
 		return null;
 	}
+	
+	public static void printDatabase () {
+		String query_string = "SELECT * FROM achievements";
+		ResultSet rs = query(query_string);
+		try {
+			while (rs.next()){
+				System.out.println("User ID: " + rs.getInt("user_id"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 }

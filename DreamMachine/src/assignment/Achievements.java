@@ -23,19 +23,19 @@ public class Achievements {
 	private static final int PRODIGIOUS_COUNT = 10;
 
 	
-	private int getAuthoredCount(int user_id) throws SQLException{
+	private static int getAuthoredCount(int user_id) throws SQLException{
 		String queryStr = "SELECT COUNT(*) FROM quizzes WHERE user_id=" +user_id+ ";";
 		ResultSet result = DBConnection.query(queryStr);
 		return result.getInt(1);
 	}
 	
-	private int getQuizCount(int user_id) throws SQLException{
+	private static int getQuizCount(int user_id) throws SQLException{
 		String queryStr = "SELECT COUNT(*) FROM scores WHERE user_id=" +user_id+ ";";
 		ResultSet result = DBConnection.query(queryStr);
 		return result.getInt(1);
 	}
 	
-	private int getFriendCount(int user_id) throws SQLException{
+	private static int getFriendCount(int user_id) throws SQLException{
 		String queryStr1 = "SELECT COUNT(*) FROM quizzes WHERE friendA=" +user_id+ ";";
 		ResultSet result1 = DBConnection.query(queryStr1);
 		
@@ -45,24 +45,32 @@ public class Achievements {
 		return result1.getInt(1) + result2.getInt(1);
 	}
 	
-	private void updateTable(String a, int user_id) {
+	private static void updateTable(String a, int user_id) {
 		String entryStr = "UPDATE achievements SET " + a + " = TRUE WHERE user_id = " + user_id +";";
 		DBConnection.update(entryStr);
 	}
 	
-	private boolean checkTable(String a, int user_id) throws SQLException {
-		String queryStr = "SELECT COUNT(*) FROM achievements WHERE user_id=" + user_id + " AND " +a+"=TRUE;";
-		return DBConnection.query(queryStr).getInt(1) == 1; 
+	private static boolean checkTable(String a, int user_id) {
+		String queryStr = "SELECT * FROM achievements WHERE user_id=" + user_id; // + " AND " + a + "=TRUE;";
+
+		int numOcc = -1;
+		try {
+			ResultSet set = DBConnection.query(queryStr);
+			numOcc = set.getInt(1);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return numOcc == 1; 
 	}
 	
 	//Check to see if the achievement is accomplished. Will update to accomplished if necessary
-	public boolean achievementAccomplished(int achievementNum, int user_id) {
+	public static boolean achievementAccomplished(int achievementNum, int user_id) {
 		if (achievementNum < AMATEUR_AUTHOR || achievementNum > PRACTICE_MAKES_PERFECT) return false;
 		String tableRowName = "a" + achievementNum; 
 
-		try {
 			if (checkTable(tableRowName, user_id) == true) return true;
-		} catch (SQLException e) {} 
 		
 		try {
 			boolean update = false; 
@@ -115,7 +123,7 @@ public class Achievements {
 		return true; 
 	}
 	
-	//Returns ints corresponding with every achievement
+	//Returns ints corresponding with every achievement user has
 	public ArrayList<Integer> getUserAchievements(int user_id) {
 		String queryStr = "SELECT * FROM quizzes WHERE user_id=" +user_id+ ";";
 		ResultSet result = DBConnection.query(queryStr);
@@ -129,10 +137,26 @@ public class Achievements {
 		return achievements;	
 	}
 	
-	public void main(String[] args) {
+	
+	//
+	public static void main(String[] args) {
+		DBConnection.connect();
+		DBConnection.printDatabase();
 		
-		
-		
+		System.out.println(achievementAccomplished(11, 1));
+		System.out.println("hello");
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
