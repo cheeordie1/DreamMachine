@@ -34,8 +34,12 @@ public class AccountServlet extends HttpServlet {
 			response.sendError(404);
 			return;
 		}
+		
 		request.setAttribute("pageUser", userRequested.username);
-		String forward = "/content/account/account.jsp";
+		String forward;
+		if(userRequested.username.equals(request.getSession().getAttribute("username")))
+			forward = "/content/account/account.jsp";	
+		else forward = "/content/account/account-visit.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);
 	}

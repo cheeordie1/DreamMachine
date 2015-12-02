@@ -27,12 +27,14 @@
 	java.util.ArrayList<Integer> friend_ids = 
 		(java.util.ArrayList<Integer>) request.getSession().getAttribute("friends");
 	assignment.User user;
-	for(int friend_id : friend_ids) {
-		user = assignment.User.searchById(friend_id).get(0);
-		friends.add(user.username);
-		%>register_chat('<%=user.username%>');<%
+	if(friend_ids != null) {
+		for(int friend_id : friend_ids) {
+			user = assignment.User.searchById(friend_id).get(0);
+			friends.add(user.username);
+			%>register_chat('<%=user.username%>');<%
+		}
 	}%>
-	
+		
 	var cur_chat = null;
 
 	/* set up faye subscriptions for messages and friend/challenge requests*/
