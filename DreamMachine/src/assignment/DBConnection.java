@@ -1,6 +1,7 @@
 package assignment;
 
 import java.sql.*;
+import java.sql.DriverManager;
 
 /**
  * This class functions as a singleton accessor for executing operations on the
