@@ -24,11 +24,10 @@ public class Matching extends Answer {
 		parseOptions(answer);
 	}
 	
-	public void addAnswer(String answer) {
-		String[] pair = answer.split("=");
-		leftOptions.add(pair[0]);
-		rightOptions.add(pair[1]);
-		matches.put(pair[0], pair[1]);
+	public void addAnswer(String left, String right) {
+		leftOptions.add(left);
+		rightOptions.add(right);
+		matches.put(left, right);
 	}
 	
 	public void deleteAnswer(String answer) {
@@ -43,8 +42,10 @@ public class Matching extends Answer {
 		// left side <===matches===> right side
 		// duck=ball,goose=red,ribbon=fly
 		String[] matchesString = options.split(SEPARATOR);
-		for (String match : matchesString)
-			addAnswer(match);
+		for (String match : matchesString) {
+			String[] pair = match.split(DELIM);
+			addAnswer(pair[0], pair[1]);
+		}
 	}
 
 	public boolean checkAnswer (String userInput) {

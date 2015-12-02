@@ -1,21 +1,29 @@
 package assignment;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Response extends Answer {
 	// instance variables
+	public boolean ordered;
 	private ArrayList <ArrayList<String>> answerOptions;
 	public int numAnswers; 
 	
+	// static variables
+	public static String ORDERED = "*";
+	
 	public Response() {
+		super();
 		answerOptions = new ArrayList <ArrayList<String>>();
 		numAnswers = 0;
 	}
 	
-	public Response(String options) {
+	public Response(ResultSet rs) {
+		super(rs);
 		answerOptions = new ArrayList <ArrayList<String>>();
-		parseOptions(options); 
+		parseOptions(answer); 
 		numAnswers = answerOptions.size();
 	}
 
@@ -25,7 +33,6 @@ public class Response extends Answer {
 	 * the correct SEPERATOR separated answer options for a particular field 
 	 * separated by DELIM. 
 	 */
-	
 	@Override
 	public String toString () {
 		String options = "";
@@ -40,32 +47,28 @@ public class Response extends Answer {
 		return options; 
 	}
 	
-	/*
-	 * Function that parses the string object of the multiple 
-	 * choice question. Then it stores all the options into an
-	 * internal options list and the answers into an internal
-	 * answers list.
+	/**
+	 * Function that parses the string answer to a response
+	 * question. Because this can become a multiple response
+	 * question, The String form is as follows.
+	 * 1 answer, multiple forms: "Obama=Barrack Obama=Barrack"
+	 * 2 answers, multiple forms: "obama=Obama,St.Nick=Santa Claus=Santa"
 	 */
-	public void parseOptions (String options) {
-		//example of options string => "Obama SEPERATOR Barrack SEPERATOR Barrack Obama DELIM The White House SEPERATOR White House"
-		
-		String [] parsedAnswerLists = options.split(DELIM);
-		
-		for (int i = 0, len = parsedAnswerLists.length; i < len; i++) {
-			String parsedAnswerListStr = parsedAnswerLists[i]; 
-			String [] parsedAnswerArray = parsedAnswerListStr.split(SEPARATOR);
-			answerOptions.add(new ArrayList<String>(Arrays.asList(parsedAnswerArray)));
+	public void parseOptions (String options) {	
+		String[] answers = options.split(SEPARATOR);
+		for (String singleAnswer : answers) {
+			ArrayList<String> singleAnswerOptions = new ArrayList<String>();
+			singleAnswerOptions.addAll(Arrays.asList(singleAnswer.split(DELIM)));
+			answerOptions.add(singleAnswerOptions);
 		}
 	}
 	
-	/*
+	/**
 	 * Boolean that checks the user's input answer and returns
 	 * whether it is a valid answer or not.
 	 */
 	public boolean checkAnswer (String userInput) {
-		//user input has to have "<>"
-		//example of user input: "milk<>sausage"
-		
+		// example input: Barack,Santa
 		boolean correctResponses[] = new boolean[numAnswers];
 		Arrays.fill(correctResponses, false);
 		
@@ -126,23 +129,5 @@ public class Response extends Answer {
 		if (!answerOptions.get(index).remove(answer)) return false;
 		if (answerOptions.get(index).isEmpty()) deleteAnswer(index);
 		return true;
-	}
-	
-	public static void main (String[] args) {
-		Response response1 = new Response(); 
-		response1.addAnswer("Sage, Mary, Bob");
-		
-		System.out.println(response1.isValid());
-		System.out.println(response1.checkAnswer("Sage"));
-		
-		response1.addAnswer("lime, orange, lemon");
-		
-		System.out.println(response1.isValid());
-		System.out.println(response1.checkAnswer("lemon" + DELIM + "Bob"));
-		
-		response1.deleteFromAnswer("lemon", 1);
-		System.out.println(response1.isValid());
-		System.out.println(response1.checkAnswer("lemon"));
-		
-	}
+	}	
 }
