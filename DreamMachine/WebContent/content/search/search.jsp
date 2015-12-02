@@ -10,19 +10,11 @@
 </head>
 <body>
 	<%
-	java.util.ArrayList<assignment.User> results =
-		(java.util.ArrayList<assignment.User>) request.getAttribute("searchResults");
-	java.util.ArrayList<assignment.User> blockedCache =
-		(java.util.ArrayList<assignment.User>) request.getSession().getAttribute("blockedFriends");
-	/* determine the links to show (not your own, not blocked) */
-	java.util.ArrayList<String> displayResults = new java.util.ArrayList<String>();
-	for(assignment.User u : results) {
-		if(blockedCache != null && !blockedCache.contains(u.username))
-			displayResults.add(u.username);
-	}
+	java.util.ArrayList<String> results =
+		(java.util.ArrayList<String>) request.getAttribute("searchResults");
 	%>
 	<div>
-		<%for(String user : displayResults) {%>
+		<%for(String user : results) {%>
 			<a href="/DreamMachine/user/<%=user%>">
 				<span><%=user%></span>
 			</a>

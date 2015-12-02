@@ -17,6 +17,7 @@
 		1.) write all the friends to the chat panel 
 		2.) write all pending friend requests to the request panel
 		2.) search the database for any chats received while offline 
+		3.) always check pending requests 
 	*/
 
 	/* global variables */
@@ -57,7 +58,7 @@
 	
 	/* friend request subscription */
 	client.subscribe('<%=uname%>'+ '/' + 'requests', function(message) {
-		var sender = message.substring(0,message.indexOf(' ')-1);
+		var sender = message.substring(0,message.length);
 		
 		/* check it's not contained */
 		

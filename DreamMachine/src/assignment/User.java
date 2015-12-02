@@ -147,7 +147,7 @@ public class User {
     	               " WHERE user_id = " + id;
     	ResultSet rs = DBConnection.query(query);
     	try {
-			while (!rs.next())
+			if (rs.first())
 				users.add(new User(rs));
 		} catch (SQLException e) {
 			e.printStackTrace();
