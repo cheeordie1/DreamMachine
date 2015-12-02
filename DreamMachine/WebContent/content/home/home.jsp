@@ -25,12 +25,10 @@
 	<div id="container">
 	    <jsp:include page="../content/main-content.jsp" />
 
-        <% if (loggedIn) { %>
 		<jsp:include page="../left-sidebar/user-sidebar.jsp" />
 		
 		<jsp:include page="../header/feed-sidebar.jsp" />
 		
-		<% } %>
 
 	</div>
 

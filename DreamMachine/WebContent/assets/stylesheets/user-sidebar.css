@@ -1,18 +1,41 @@
 #user-img {
-	height: 140px;
-	width: 140px;
-	margin-left: 12px;
+	height: 125px;
+	width: 125px;
 }
 
-#mail-img {
-	height: 30px;
-	width:46px;
-
-	background-color: #00FFFF;
-	margin-left: 50px;
+.profile-picture {
+	padding-top: 50px;
 }
 
-#user-history-icon {
-	margin-left: 38px;
+/* make sure this is not making the logo wonky!
+ */
+
+img {
+    display: block;
+    margin: 0 auto;
+}
+
+#user-welcome {
+	text-align: center;
+}
+
+#mail-button {
+	background-color: #FBDCFF;
+	opacity: 0.5;
+	border: none;
+	display: block;
+	margin: 0 auto;
+}
+
+#history-button{
+	background-color: red;
+	opacity: 0.5;
+	border: none;
+	display: block;
+	margin: 0 auto;
+}
+
+.bottom-icons {
+	padding-top: 20px;
 }
 
