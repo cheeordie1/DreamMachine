@@ -1,0 +1,67 @@
+.box-container {
+	position: fixed;
+	bottom: 0px;
+	right: 220px;
+	height: 285px;	
+	width: 300px;
+	title: Chat;
+	display: none;
+}
+
+.box-container .popup-box {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(237, 239, 244);
+	border: 2px solid #9266BD;
+}
+
+.box-container .popup-box .popup-head {
+	background-color: #9266BD;
+	padding: 5px;
+	color: black;
+	font-weight: bold;
+	font-size: 15px;
+	clear: both;
+}
+
+.box-container .popup-box .popup-head .popup-head-left {
+	float: left;
+}
+
+.box-container .popup-box .popup-head .popup-head-right {
+	float: right;
+}
+
+.box-container .popup-box .popup-head .popup-head-right a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.box-container .popup-box .popup-messages {
+	height: 75%;
+	overflow-y: scroll;
+}
+
+.box-container .chat-bar {
+	position: absolute;
+	bottom: 0;
+	height: 10%;
+	width: 100%;
+}
+
+.box-container .chat-bar .textarea {
+	position: absolute;
+	width: 90%;
+	height: 100%;
+}
+
+.box-container .chat-bar .textarea textarea#styled {
+	width: 100%;
+	height: 100%;
+}
+
+.box-container .chat-bar .send-button a {
+	float: right;
+	color: #9266BD;
+}

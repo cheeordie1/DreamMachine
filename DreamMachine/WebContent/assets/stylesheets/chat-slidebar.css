@@ -1,0 +1,66 @@
+body {
+	background-color: #e9eaed;
+}
+
+.sidebar-container {
+	width: 200px;
+	position: fixed;
+	height: 30%;
+	bottom: 0;
+	right: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: 2px solid black;
+}
+
+.sidebar-container .friend-requests {
+	position: relative;
+	height: 50%;
+	width: 100%;
+	overflow-y: scroll;
+}
+
+
+.friend-requests .request-form {
+	display: block;
+	padding-left: 2px;
+	padding-right:2px;
+}
+
+.sidebar-container .chat-sidebar {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
+	border: 2px solid black;
+}
+
+
+.sidebar-name {
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-bottom: 4px;
+	font-size: 14px;
+}
+
+.sidebar-name span {
+	padding-left: 5px;
+}
+
+.sidebar-name a {
+	display: block;
+	height: 100%;
+	text-decoration: none;
+	font-weight: normal;
+	color: inherit;
+}
+
+.sidebar-name:hover {
+	background-color: #e1e2e5;
+}
+
+.sidebar-name img {
+	width: 32px;
+	height: 32px;
+	vertical-align: middle;
+}

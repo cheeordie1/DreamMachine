@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import java.util.*;
 /**
  * Servlet implementation class LoginServlet
  */
@@ -58,6 +58,21 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			User user = users.get(0);
 			if (user.checkPassword(password)) {
+				/* message cache will originally be empty */
+				HashMap<String, ArrayList<String>> messageCache 
+					= new HashMap<String, ArrayList<String>>();
+				
+				/* we must populate the friends caches here */
+				List<Integer> friendsCache = Friend.getFriends(user.id);
+				List<Integer> blockCache = Friend.getBlockedFriends(user.id);
+				List<Integer> requestCache = Friend.getFriendRequests(user.id);
+				List<Integer> rejectCache = new ArrayList<Integer>();
+				
+				request.getSession().setAttribute("rejectedFriends", rejectCache);
+				request.getSession().setAttribute("requests", requestCache);
+				request.getSession().setAttribute("blockedFriends", blockCache);
+				request.getSession().setAttribute("friends", friendsCache);
+				request.getSession().setAttribute("cache", messageCache);
 				request.getSession().setAttribute("loggedIn", "true");
 				request.getSession().setAttribute("username", user.username);
 				request.getSession().setAttribute("uid", user.id);
@@ -69,5 +84,9 @@ public class LoginServlet extends HttpServlet {
 		}
 		response.sendRedirect("/DreamMachine/login");
 	}
-
+	
+	private ArrayList<String> populateFriends(User user) {
+		List<Integer> friends = Friend.getFriends(user.id);
+		return null;
+	}
 }
