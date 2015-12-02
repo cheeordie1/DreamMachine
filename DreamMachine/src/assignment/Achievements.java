@@ -51,7 +51,8 @@ public class Achievements {
 	}
 	
 	private static boolean checkTable(String a, int user_id) {
-		String queryStr = "SELECT * FROM achievements WHERE user_id=" + user_id; // + " AND " + a + "=TRUE;";
+ 		String queryStr = "SELECT COUNT(*) FROM achievements WHERE user_id=" + user_id + " AND " + a + "=TRUE;";
+ 		System.out.println(queryStr);
 
 		int numOcc = -1;
 		try {
