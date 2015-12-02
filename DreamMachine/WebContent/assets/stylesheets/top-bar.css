@@ -2,15 +2,6 @@
   position: relative;
   width: 100%;
   height: 100px;
-  background-color: black;
+  background-color: red;
   margin-right: 200px;
-}
-
-#logo {
-  position: absolute;	
-}
-
-#logo-img {
-  position: relative;
-  height: 100px;	
 }

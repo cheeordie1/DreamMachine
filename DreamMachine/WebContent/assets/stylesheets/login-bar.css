@@ -20,7 +20,8 @@
 
 #login-bar-container {
   position: absolute;
-  right: 5vw;
+  background-color:blue;
+  /*right: 5vw;*/
 }
 
 #not-logged-in-text {

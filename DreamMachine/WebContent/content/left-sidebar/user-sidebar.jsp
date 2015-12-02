@@ -16,20 +16,24 @@
 	</div>
 	
 
-	<h1 id = "user-welcome">Buddy</h1>
+	<h1 id = "user-welcome">Beuddy</h1>
+	
+	<jsp:include page="/content/header/login-bar.jsp" />
+	
 	
 	<div class = bottom-icons>
-	
-		<button type="button" class="btn btn-default btn-lg" id = "mail-button">
-	    	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-		</button>
-	    
-	    <br>
-	    
-	    <button type="button" class="btn btn-default btn-lg" id = "history-button">
-	    	<span class="glyphicon glyphicon-history" aria-hidden="true"></span>
-		</button>
-		
+		<div class="row">
+		  	<div class="col-md-6">
+				<button type="button" class="btn btn-default btn-lg" id = "mail-button">
+			    	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+				</button>
+			</div>
+		  	<div class="col-md-6">
+			  	<button type="button" class="btn btn-default btn-lg" id = "history-button">
+			    	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+				</button>
+		  	</div>
+		</div>
 	</div>
    
 	</nav>
