@@ -45,10 +45,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/home.css">
 <jsp:include page="/content/app.jsp" />
+<script src="jquery.js"></script> 
 <title>Welcome to Dream Machine</title>
 </head>
 <body>
   <jsp:include page="../header/top-bar.jsp" />
+  <div id="includedContent"></div>
   <div id="home-div">
     <jsp:include page="words.jsp" />
     <div id="leaderboards-div">
@@ -63,5 +65,6 @@
       </div>
     </div>
   </div>
+  <jsp:include page="/content/client-chat.jsp" />
 </body>
 </html-->
