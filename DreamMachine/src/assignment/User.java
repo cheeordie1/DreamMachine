@@ -170,6 +170,7 @@ public class User {
 				users.add(new User(rs));
 		} catch (SQLException e) {
 			e.printStackTrace();
+			System.out.println("hi");
 		}
     	return users;
     }
