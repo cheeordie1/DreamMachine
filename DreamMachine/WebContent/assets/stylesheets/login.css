@@ -1,59 +1,74 @@
-body {
-  overflow-y: hidden;	
+#wrapper {
+  padding-left: 250px;
+  transition: all 0.4s ease 0s;
 }
 
-.login-input {
-  height: 2.6vh;
-  width:25vw;	
+#sidebar-wrapper {
+  margin-left: -250px;
+  left: 250px;
+  width: 250px;
+  background: #4BD4C6;
+  border-right: thick solid #A4E9DD;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
 }
 
-.login-subtitles {
-  font: 2vh Tahoma, sans-serif;	
-  color: #9266BD;
+#page-content-wrapper {
+  width: 100%;
 }
 
-.error-msg {
-  position: relative;
-  color: #FD2727;
-  font: 1.5vh "Slabo 27px", sans-serif; 	
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-#login-form-container {
-  position: relative;
-  display: inline-table;
-  top: 11vh;
-  border: 2px solid #8F8F8F;
-  background-color: #FFFFFF;
-  height: 55vh;
-  width: 35vw;
+@media (max-width:767px) {
+
+    #wrapper {
+      padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+      left: 0;
+    }
+
+    #wrapper.active {
+      position: relative;
+      left: 250px;
+    }
+
+    #wrapper.active #sidebar-wrapper {
+      left: 250px;
+      width: 250px;
+      transition: all 0.4s ease 0s;
+    }
+
 }
 
-#login-title {
-  position: relative;
-  font: 2.9vh "Archivo Narrow", sans-serif;
-  font-weight: bold;
-  color: purple;
-  display: inline-block;
-  margin-top: 5vh;	
+#whatami{
+	background-color: #DDDEE0;
+	width: 100%
 }
 
-#login-form {
-  position: relative;
-  display: inline-block;
-  margin-top: 3vh;
+#nextbox{
+	background-color: #DDDEE0;
 }
 
-#login-submit {
-  position: relative;
-  top: 7vh;
-  height: 5vw;
-  width: 15vw;
-  font: 2.3vh Tahoma, sans-serif;	
-  color: purple;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eadaf2+0,d7aaed+74,a07b9c+100 */
-  background: #eadaf2; /* Old browsers */
-  background: -moz-linear-gradient(top,  #eadaf2 0%, #d7aaed 74%, #a07b9c 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top,  #eadaf2 0%,#d7aaed 74%,#a07b9c 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom,  #eadaf2 0%,#d7aaed 74%,#a07b9c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eadaf2', endColorstr='#a07b9c',GradientType=0 ); /* IE6-9 */
+#search-bar{
+	width: 60%;
+	margin: 0 auto;
+}
+
+#search-bar-back{
+	background-color: #93E4D5;
+	border:none;
+	padding-top: 40px;
+	padding-bottom: 40px;
 }

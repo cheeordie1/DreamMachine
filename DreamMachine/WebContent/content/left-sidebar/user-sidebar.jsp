@@ -11,14 +11,17 @@
     <%@ page import="assignment.User, java.util.List" %>
     
     
-	<div class = "profile-picture">
-		<img id="user-img" src="/DreamMachine/assets/images/mr-bean.jpeg" alt="user pic" class="img-circle">
-	</div>
+	
 	
 	<%
         HttpSession sess = request.getSession();
         if (sess.getAttribute("loggedIn").toString().equals("true")) {
       %>
+      
+      
+   	<div class = "profile-picture">
+		<img id="user-img" src="/DreamMachine/assets/images/mr-bean.jpeg" alt="user pic" class="img-circle">
+	</div>	
       
 	<h1 id = "user-welcome"><%=sess.getAttribute("username") %></h1>
 	
