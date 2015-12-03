@@ -59,10 +59,10 @@ public class LoginServlet extends HttpServlet {
 			User user = users.get(0);
 			if (user.checkPassword(password)) {
 				/* message cache will originally be empty */
-				HashMap<String, ArrayList<String>> messageCache 
-					= new HashMap<String, ArrayList<String>>();
+				HashMap<String, ArrayList<String>> messageCache
+					= Message.retreiveMessages(user.username);
 				
-				/* we must populate the friends caches here */
+				/* set up session information we must populate the friends caches here */
 				List<Integer> friendsCache = Friend.getFriends(user.id);
 				List<Integer> blockCache = Friend.getBlockedFriends(user.id);
 				List<Integer> requestCache = Friend.getFriendRequests(user.id);
@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("blockedFriends", blockCache);
 				request.getSession().setAttribute("friends", friendsCache);
 				request.getSession().setAttribute("cache", messageCache);
-				request.getSession().setAttribute("loggedIn", "true");
+				request.getSession().setAttribute("loggedIn", true);
 				request.getSession().setAttribute("username", user.username);
 				request.getSession().setAttribute("uid", user.id);
 				response.sendRedirect("/DreamMachine/home");

@@ -22,6 +22,12 @@ CREATE TABLE photos (
 	PRIMARY KEY (photo_id)
 );
 
+CREATE TABLE message (
+	sender CHAR(64),
+	receiver CHAR(64),
+	message TEXT
+);
+
 CREATE TABLE quizzes (
 	quiz_id INT NOT NULL AUTO_INCREMENT,
 	user_id INT,

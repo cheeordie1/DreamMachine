@@ -17,15 +17,18 @@
 		1.) write all the friends to the chat panel 
 		2.) write all pending friend requests to the request panel
 		2.) search the database for any chats received while offline 
+		3.) always check pending requests 
 	*/
 
 	/* global variables */
 	String name = (String) request.getSession().getAttribute("username");
+	java.util.HashSet<Integer> onlineFriends = 
+		(java.util.HashSet<Integer>) request.getAttribute("onlineFriends");
 	java.util.ArrayList<String> friends = new java.util.ArrayList<String>();
-				
+			
 	/* set up friend chats */
 	java.util.ArrayList<Integer> friend_ids = 
-		(java.util.ArrayList<Integer>) request.getSession().getAttribute("friends");
+		(java.util.ArrayList<Integer>) request.getAttribute("friends");
 	assignment.User user;
 	if(friend_ids != null) {
 		for(int friend_id : friend_ids) {
@@ -57,7 +60,7 @@
 	
 	/* friend request subscription */
 	client.subscribe('<%=uname%>'+ '/' + 'requests', function(message) {
-		var sender = message.substring(0,message.indexOf(' ')-1);
+		var sender = message.substring(0,message.length);
 		
 		/* check it's not contained */
 		
@@ -120,6 +123,23 @@
   	 		send_button +
   	 	'</div>';
   	 		
+  	 	/* populate this chat with messages from the map */
+  	 	
+  	 	$.ajax ({
+  	 		type: 'GET',
+  	 		url: '/DreamMachine/message',
+  	 		data: { message : friend },
+  	 		datatype: 'json',
+  	 		success: function(result) {
+  	 			if(result != null) {
+  	 				var id = friend+'popup-messages';
+  	 				$.each(result, function(index, element) {
+  	  	 				display_message(id, element.message, 'black');
+  	 				});
+  	 			}
+  	 		}
+  	 	});
+  	 	
   		document.getElementsByTagName("body")[0].innerHTML = 
   			document.getElementsByTagName("body")[0].innerHTML + element; 
 	}
@@ -132,11 +152,18 @@
 			
 		/* put the message in the chat box */
 		message = '<%=name%>' + ': '+ message;
+		
+		/* store the message in the db */
+		$.ajax({
+			type: 'POST',
+			url: '/DreamMachine/message',
+			data: { message : message, username: friend }
+		});
+		
+		/* send the message instantly */
+		client.publish("/" + friend, message);
 		var id = friend+'popup-messages';
 		display_message(id, message, '#9266BD');
-
-		/* send the message */
-		client.publish("/" + friend, message);
 			
 		/* set the chatbox to empty */
 		document.getElementById(friend+'textarea').lastChild.value = "";
@@ -148,7 +175,7 @@
 		chat.innerHTML = chat.innerHTML + '<p style="color:'+color+'">';
 		while (len - 35 > 0) {
 			var partition = message.substring(0, 35);
-			chat.innerHTML = chat.innerHTML + message + '</br>';
+			chat.innerHTML = chat.innerHTML + partition + '</br>';
 			len = len - 35;
 			message = message.substring(35);
 		}

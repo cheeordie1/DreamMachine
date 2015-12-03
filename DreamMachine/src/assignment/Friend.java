@@ -16,6 +16,7 @@ public class Friend {
 	public static final int ACCEPTED = 1;
 	public static final int DECLINED = 2;
 	public static final int BLOCKED = 3;
+	public static final int NONE = -1;
 	
 	/**
 	 * Search the database friend
@@ -181,7 +182,7 @@ public class Friend {
 			e.printStackTrace();
 		}
 		
-		return -1;
+		return NONE;
 	}
 	
 }

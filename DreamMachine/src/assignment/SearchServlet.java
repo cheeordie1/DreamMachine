@@ -37,7 +37,16 @@ public class SearchServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String text = request.getParameter("term");
 		List<User> list = User.searchBySubstring(text);
-		request.setAttribute("searchResults", list);
+		
+		/* decide who to inlude in the list based on block list */
+		ArrayList<Integer> blockedList = (ArrayList<Integer>) request.getSession().getAttribute("blockCache");
+		if(blockedList == null) blockedList = new ArrayList<Integer>();
+		ArrayList<String> result = new ArrayList<String>();
+		for(User u : list) {
+			if(!blockedList.contains(u.id))
+				result.add(u.username);
+		}
+		request.setAttribute("searchResults", result);
 		String forward = "/content/search/search.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);
