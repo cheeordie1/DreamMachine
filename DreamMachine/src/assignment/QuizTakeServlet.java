@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.sql.Timestamp;
 /**
  * Servlet implementation class QuizTakeServlet
  */
@@ -34,6 +35,9 @@ public class QuizTakeServlet extends HttpServlet {
 			return;
 		}
 		int qid = Integer.parseInt(request.getParameter("quiz-id"));
+		
+	    java.util.Date date = new java.util.Date();
+		request.setAttribute("startTime", new Timestamp(date.getTime()));
 		
 		Quiz quiz = Quiz.searchByID(qid).get(0);
 		String forward;
