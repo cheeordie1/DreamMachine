@@ -23,8 +23,8 @@ CREATE TABLE photos (
 );
 
 CREATE TABLE message (
-	sender INT,
-	receiver INT,
+	sender CHAR(64),
+	receiver CHAR(64),
 	message TEXT
 );
 

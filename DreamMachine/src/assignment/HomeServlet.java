@@ -32,8 +32,16 @@ public class HomeServlet extends HttpServlet {
 		String forward;
 		if(loggedIn) {
 			int user_id = (Integer) request.getSession().getAttribute("uid");
+			String username = (String) request.getSession().getAttribute("username");
+			/* get message history from db */
+			HashMap<String, ArrayList<String>> messages = Message.retreiveMessages(username);
+			request.getSession().setAttribute("messages", messages);
+			request.setAttribute("numMessages", messages.size());
+
+			/* get relevant friend infomation */
 			List<Integer> allFriends = Friend.getFriends(user_id);
 			HashSet<Integer> onlineFriends = getOnlineFriends(request, allFriends);
+		
 			request.setAttribute("friends", allFriends);
 			request.setAttribute("onlineFriends", onlineFriends);
 			forward = "/content/home/login-home.jsp";

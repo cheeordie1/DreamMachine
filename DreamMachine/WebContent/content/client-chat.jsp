@@ -123,6 +123,23 @@
   	 		send_button +
   	 	'</div>';
   	 		
+  	 	/* populate this chat with messages from the map */
+  	 	
+  	 	$.ajax ({
+  	 		type: 'GET',
+  	 		url: '/DreamMachine/message',
+  	 		data: { message : friend },
+  	 		datatype: 'json',
+  	 		success: function(result) {
+  	 			if(result != null) {
+  	 				var id = friend+'popup-messages';
+  	 				$.each(result, function(index, element) {
+  	  	 				display_message(id, element.message, 'black');
+  	 				});
+  	 			}
+  	 		}
+  	 	});
+  	 	
   		document.getElementsByTagName("body")[0].innerHTML = 
   			document.getElementsByTagName("body")[0].innerHTML + element; 
 	}
@@ -141,7 +158,7 @@
 			type: 'POST',
 			url: '/DreamMachine/message',
 			data: { message : message, username: friend }
-		})
+		});
 		
 		/* send the message instantly */
 		client.publish("/" + friend, message);
@@ -158,7 +175,7 @@
 		chat.innerHTML = chat.innerHTML + '<p style="color:'+color+'">';
 		while (len - 35 > 0) {
 			var partition = message.substring(0, 35);
-			chat.innerHTML = chat.innerHTML + message + '</br>';
+			chat.innerHTML = chat.innerHTML + partition + '</br>';
 			len = len - 35;
 			message = message.substring(35);
 		}
