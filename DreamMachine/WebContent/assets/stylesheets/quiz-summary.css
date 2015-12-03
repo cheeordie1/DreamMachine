@@ -1,0 +1,5 @@
+@CHARSET "ISO-8859-1";
+body {
+  position: relative;
+  background-image: radial-gradient(circle, #ffffff 0%,#e8e8e8 92%,#ededed 100%);
+}

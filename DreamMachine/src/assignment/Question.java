@@ -26,6 +26,9 @@ public class Question {
 	
 	// static variables
 	public static String TABLE_NAME = "questions";
+	public static String RESPONSE = "response";
+	public static String MULTICHOICE = "multichoice";
+	public static String MATCHING = "matching";
 	
 	// error types
 	public static String QUESTION_ERROR = "question";
@@ -119,9 +122,10 @@ public class Question {
 		return true;	
 	}
 	
-	public static List<Question> searchByUserID(int user_id) {
+	public static List<Question> searchByQuizID(int quiz_id, boolean order) {
 		List<Question> questions = new ArrayList<Question>();
-		String query = "SELECT * FROM " + TABLE_NAME + " WHERE user_id = " + user_id;
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE quiz_id = " + quiz_id;
+		if (order) query += " ORDER BY question_id ASC";
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return questions;
 		try {
