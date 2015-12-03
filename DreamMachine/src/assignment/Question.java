@@ -133,6 +133,21 @@ public class Question {
 		return questions;
 	}
 	
+	public static List<Question> searchByQuizID(int quiz_id, boolean order) {
+		List<Question> questions = new ArrayList<Question>();
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE quiz_id = " + quiz_id;
+		if (order) query += " ORDER BY question_id ASC";
+		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return questions;
+		try {
+			while (rs.next())
+				questions.add(new Question(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return questions;
+	}
+	
 	/**
 	 * Check whether the question as been filled out.
 	 * a quiz. If not, we can't add a question

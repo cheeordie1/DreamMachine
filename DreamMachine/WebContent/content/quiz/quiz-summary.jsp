@@ -5,7 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/quiz-summary.css">
-<jsp:include page="/content/app.jsp" />
 <%@ page import="java.util.List,assignment.*" %>
 <%
   List<Quiz> quizzes = Quiz.searchByID(Integer.parseInt(request.getAttribute("quiz_id").toString()));
@@ -14,8 +13,11 @@
 <title><%= quiz.name %></title>
 </head>
 <body>
-  <jsp:include page="/content/header/top-bar.jsp" />
   <div id="quiz-summary-container">
   </div>
+  <form name="take-quiz" action="TakeQuizServlet" method="get">
+    <input type="button" name="take-quiz-button" value="takeQuiz" 
+    onClick="return callServlet()">
+  </form>
 </body>
 </html>
