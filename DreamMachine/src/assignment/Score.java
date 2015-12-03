@@ -28,6 +28,7 @@ public class Score {
 		finishTime = set.getDate("finishTime");
 	}
 	
+	
 	public long getDuration() {
 		return (finishTime.getTime() - startTime.getTime())/1000;
 	}

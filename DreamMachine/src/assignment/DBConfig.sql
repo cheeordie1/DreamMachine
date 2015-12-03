@@ -3,6 +3,10 @@ USE c_cs108_cheeawai1;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS quizzes;
+DROP TABLE IF EXISTS friends;
+DROP TABLE IF EXISTS scores;
+DROP TABLE IF EXISTS challenges;
+
 
 CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT,
@@ -31,7 +35,7 @@ CREATE TABLE quizzes (
 	random_questions BOOLEAN,
 	immediate_correct BOOLEAN,
 	practice_mode BOOLEAN,
-	created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (quiz_id)
 );
 
@@ -48,7 +52,7 @@ CREATE TABLE scores (
 	quiz_id INT, 
 	user_id INT,
 	score INT, 
-	start_time TIMESTAMP,
+	start_time TIMESTAMP DEFAULT 0,
 	finish_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (score_id)
 );
