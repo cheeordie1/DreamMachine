@@ -18,10 +18,13 @@
 <body>
 
 	<div class = "col-md-12" id = "title-bar">
-		<h1>Dream Machine</h1>
-		<jsp:include page="../left-sidebar/user-sidebar.jsp" />
+		<h1><center>Dream Machine</center></h1>
 	</div>
+	
+	<br>
+	<br>
 		
+	<jsp:include page="../left-sidebar/user-sidebar.jsp" />
 	
 </body>
 

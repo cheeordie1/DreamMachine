@@ -9,8 +9,6 @@
 <title>Enter Account Info</title>
 </head>
 <body>
-  <jsp:include page="/content/header/top-bar.jsp" />
-  <jsp:include page="/content/layout/galaxy-background.jsp" />
   <div id="signup-form-container" class="hori-center">
     <div id="signup-title" class="hori-center">Create New Account to Enter the Dream</div><br>
     <%

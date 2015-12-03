@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getSession().getAttribute("loggedIn").toString().equals("true")) {
+		if ((boolean)request.getSession().getAttribute("loggedIn")) {
 			response.sendRedirect("/DreamMachine/home");
 		} else {
 			String forward = "/content/login/login.jsp";

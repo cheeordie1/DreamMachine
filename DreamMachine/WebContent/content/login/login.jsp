@@ -9,25 +9,39 @@
 <title>Enter Login Info</title>
 </head>
 <body>
-  <jsp:include page="/content/header/top-bar.jsp" />
-  <jsp:include page="/content/layout/splatter-background.jsp" />
-  <div id="login-form-container" class="hori-center">
-    <div id="login-title" class="hori-center">Welcome Back, Dreamer!</div><br>
-    <form id="login-form" class="hori-center" method="post" action="login">
-      <label class="login-subtitles">Username</label><br>
-      <input type="text" class="login-input" name="username"><br><br>
-      <label class="login-subtitles">Password</label><br>
-      <input type="password" class="login-input" name="password"><br><br>
-      <%
-        assignment.ErrorMessages errors = (assignment.ErrorMessages) request.getSession().getAttribute("errors");
-        if (errors == null) errors = new assignment.ErrorMessages(); 
-        java.util.List<String> messages = errors.getErrors(assignment.User.LOGIN_ERROR);
-        for (String message : messages) { 
-      %>
-        <div class="error-msg"><%= message %></div>
-      <% } %>
-      <input id="login-submit" class="hori-center" type="submit" value="Enter Dream">
-    </form>
-  </div>
+
+
+	<div class = "col-md-12 no-padding" id = "title-bar">
+		<h1><center>Dream Machine</center></h1>
+	</div>
+	
+	<div class = "login-background">
+	
+		<div id="login-form-container" class="hori-center">
+		    <form id="login-form" class="hori-center" method="post" action="login">
+		      <center>
+		      	  <br>
+		      	  <br>
+			      <input type="text" class="form-control input-lg" id = "username-content" placeholder= "username"><br><br>
+			      <input type="password" class="form-control input-lg" id = "password-content" placeholder = "password"><br><br>
+			      <%
+			        assignment.ErrorMessages errors = (assignment.ErrorMessages) request.getSession().getAttribute("errors");
+			        if (errors == null) errors = new assignment.ErrorMessages(); 
+			        java.util.List<String> messages = errors.getErrors(assignment.User.LOGIN_ERROR);
+			        for (String message : messages) { 
+			      %>
+			        <div class="error-msg"><%= message %></div>
+			      <% } %>
+			      <input id="login-submit" class="hori-center" type="submit" value="Enter Dream">
+			      <br>
+			      <br>
+			      
+			    </center>
+		    </form>
+		  </div>
+	
+	</div>
+
+  
 </body>
 </html>

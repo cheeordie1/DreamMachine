@@ -18,7 +18,6 @@
         if (sess.getAttribute("loggedIn").toString().equals("true")) {
       %>
       
-      
    	<div class = "profile-picture">
 		<img id="user-img" src="/DreamMachine/assets/images/mr-bean.jpeg" alt="user pic" class="img-circle">
 	</div>	
@@ -46,8 +45,12 @@
       </div>
       <% } else { %>
       <div id="not-logged-in-text">
-        <a id="login-link" class="login-link" href="/DreamMachine/login">Login</a>
-        <a id="signup-link" class="login-link" href="/DreamMachine/signup">Sign Up</a>
+        <br>
+        <br>
+      	<a class = "btn btn-default" role = "button"  class="logout-link" href="/DreamMachine/login">login</a>
+      	<br>
+      	<br>
+      	<a class = "btn btn-default" role = "button"  class="login-link" href="/DreamMachine/signup">signup</a>
       </div>
       <% } %>
 	</div>

@@ -27,8 +27,13 @@ img {
 
 .btn{
 	border:none;
-	background-color: #A4E8D9;
+	background-color: #32C2AC;
 	color: white;
 	font-size: 15px;
+	text-shadow: none;
 }
 
+
+#not-logged-in-text{
+	padding: 15px;
+}
