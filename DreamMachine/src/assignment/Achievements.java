@@ -12,11 +12,9 @@ public class Achievements {
 	private static final int AMATEUR_QUIZZER = 4; 
 	private static final int PROLIFIC_QUIZZER = 5; 
 	private static final int PRODIGIOUS_QUIZZER = 6; 
-	private static final int FIRST_FRIEND = 7; 
-	private static final int BASIC_BUDDY = 8; 
-	private static final int SOCIAL_BUTTERFLY = 9;
-	private static final int THE_GREATEST = 10; 
-	private static final int PRACTICE_MAKES_PERFECT = 11; 
+	private static final int BASIC_BUDDY = 7; 
+	private static final int SOCIAL_BUTTERFLY = 8;
+	private static final int THE_GREATEST = 9; 
 
 	private static final int AMATEUR_COUNT = 1;
 	private static final int PROLIFIC_COUNT = 5;
@@ -68,7 +66,7 @@ public class Achievements {
 	
 	//Check to see if the achievement is accomplished. Will update to accomplished if necessary
 	public static boolean achievementAccomplished(int achievementNum, int user_id) {
-		if (achievementNum < AMATEUR_AUTHOR || achievementNum > PRACTICE_MAKES_PERFECT) return false;
+		if (achievementNum < AMATEUR_AUTHOR || achievementNum > THE_GREATEST) return false;
 		String tableRowName = "a" + achievementNum; 
 
 			if (checkTable(tableRowName, user_id) == true) return true;
@@ -95,18 +93,14 @@ public class Achievements {
 				case PRODIGIOUS_QUIZZER:
 					update = getQuizCount(user_id) >= PRODIGIOUS_COUNT;
 					break; 
-				case FIRST_FRIEND:
-					update = getFriendCount(user_id) >= AMATEUR_COUNT;
-					break; 	
 				case BASIC_BUDDY:
-					update = getFriendCount(user_id) >= PROLIFIC_COUNT;
+					update = getFriendCount(user_id) >= AMATEUR_COUNT;
 					break; 
 				case SOCIAL_BUTTERFLY:
 					update = getFriendCount(user_id) >= PRODIGIOUS_COUNT;
 					break; 
 				//Must manually update
 				case THE_GREATEST: 
-				case PRACTICE_MAKES_PERFECT: 
 					break; 	
 			}
 			
@@ -130,7 +124,7 @@ public class Achievements {
 		ResultSet result = DBConnection.query(queryStr);
 		ArrayList<Integer> achievements = new ArrayList<Integer>();
 		
-		for (int i = AMATEUR_AUTHOR; i <= PRACTICE_MAKES_PERFECT; i++) {
+		for (int i = AMATEUR_AUTHOR; i <= THE_GREATEST; i++) {
 			try {
 				if (result.getBoolean("a"+i)) achievements.add(Integer.valueOf(i));
 			} catch (SQLException e) {}

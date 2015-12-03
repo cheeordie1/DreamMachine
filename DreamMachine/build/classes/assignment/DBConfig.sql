@@ -47,7 +47,5 @@ CREATE TABLE achievements (
 	a7 BOOLEAN, 
 	a8 BOOLEAN, 
 	a9 BOOLEAN, 
-	a10 BOOLEAN, 
-	a11 BOOLEAN,
 	PRIMARY KEY (ach_id)
 );
