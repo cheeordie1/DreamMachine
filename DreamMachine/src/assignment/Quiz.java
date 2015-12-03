@@ -1,6 +1,8 @@
 package assignment;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.sql.*;
 
 
@@ -114,6 +116,25 @@ public class Quiz {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Search for a quiz by its unique quiz_id
+	 * @param quiz_id the id to search by
+	 * @return the list of quizzes with the same id
+	 */
+	public static List<Quiz> searchByID(int quiz_id) {
+		List<Quiz> quizzes = new ArrayList<Quiz>();
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE quiz_id = " + quiz_id;
+		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return quizzes;
+		try {
+			while (rs.next())
+				quizzes.add(new Quiz(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return quizzes;
 	}
 	
 	/**

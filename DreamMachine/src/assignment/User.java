@@ -305,6 +305,27 @@ public class User {
         }
         return false;
     }
+  
+    /**
+     * Static method to search for a User by their user id.
+     * @return a list containing all of the users in the search
+     *         result.
+     */
+    public static List<User> searchByID(int user_id) {
+    	List<User> users = new ArrayList<User>();
+    	String query = "SELECT * FROM " + TABLE_NAME + 
+    	               " WHERE user_id = " + user_id;
+    	ResultSet rs = DBConnection.query(query);
+    	if (rs == null) return users;
+    	try {
+			while (rs.next())
+				users.add(new User(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return users;
+    }
+    
 
     /** utility methods */
     public static String hexToString(byte[] bytes) {

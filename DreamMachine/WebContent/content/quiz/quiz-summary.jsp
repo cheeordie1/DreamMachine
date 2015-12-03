@@ -12,16 +12,17 @@
 <html>
 <head>
 <%
-	int quiz_id = Integer.parseInt(request.getParameter("quiz_id")); 
-	Quiz quiz = new Quiz(DBConnection.query("SELECT * FROM quizzes WHERE quiz_id =" + quiz_id));
-	User creator = new User(DBConnection.query("SELECT * FROM users WHERE user_id =" + quiz.user_id));
-	String creatorName = creator.username; 
-	int user_id = Integer.parseInt(request.getParameter("user_id"));
-	QuizStats stats = new QuizStats(quiz_id);
-	ArrayList <Score> userScores = Score.pastPerformances(quiz_id, user_id);
-	ArrayList <Score> bestScores = Score.highestPerformers(quiz_id);
-	ArrayList <Score> topDailyScores = Score.highestPerformersPastDay(quiz_id);
-	ArrayList <Score> recentScores = Score.recentPerformances(quiz_id);
+	int quiz_id = (Integer) request.getAttribute("quiz_id"); 
+	int user_id = (Integer) request.getAttribute("user_id");
+
+	Quiz quiz = Quiz.searchByID(quiz_id).get(0);
+	User creator = User.searchByID(user_id).get(0);
+
+	QuizStats stats = new QuizStats(quiz_id, user_id);
+	ArrayList <Score> userScores = stats.pastPerformances(user_id);
+	ArrayList <Score> bestScores = stats.highestPerformers();
+	ArrayList <Score> topDailyScores = stats.highestPerformersPastDay();
+	ArrayList <Score> recentScores = stats.recentPerformances();
 %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,7 +32,7 @@
 <body>
 	<!-- Link to user page  -->
 	<div id="creator-page-link">
-		<h2>Created by <a href=#><%=creatorName%></a></h2>
+		<h2>Created by <a href=#><%=creator.username%></a></h2>
 	</div>
 	
 	<br><br>
@@ -48,26 +49,26 @@
 			<div id="pop-quizzes-cont" class="well">
 				<table class="table table-condensed">
 				  	<tr>
-				  		<th>Date</th> 
+				  		<th>quiz</th> 
 				  		<th>Times Played</th>
 				  		<th>Average Score</th>
 				  		<th>High Score</th>
 				  		<th>Low Score</th>
 				  	</tr>
 				     	<tr>
-				        	<td> <%=stats.date%></td>
+				        	<td> <%=quiz.created_at%></td>
 				      	</tr>
 				      	<tr>
-				        	<td> <%=stats.timesPlayed%> </td>
+				        	<td> <%=stats.timesPlayed()%> </td>
 				      	</tr>
 				      	<tr>
-				        	<td> <%=stats.averageScore%></td>
+				        	<td> <%=stats.averageScore()%></td>
 				      	</tr>
 				      	<tr>
-				        	<td> <%=stats.highScore%></td>
+				        	<td> <%=stats.highScore()%></td>
 				      	</tr>
 				      	<tr>
-				        	<td> <%=stats.lowestScore%></td>
+				        	<td> <%=stats.lowScore()%></td>
 				      	</tr>
 				</table>
 			</div>
@@ -86,7 +87,7 @@
 		<div id="past-performanes"> 
 			<h3>Your Past Performance</h3>
 			<div id="pop-quizzes-cont" class="well">
-				<table class="table table-condensed">
+				  <table class="table table-condensed">
 				  	<tr>
 				  		<th>Date</th> 
 				  		<th>User</th>
@@ -96,20 +97,20 @@
 				    <%for (Score score : userScores) 
 				    { %>
 				     	<tr>
-				        	<td> <%=score.whenPlayed%></td>
+				        	<td> <%=score.finishTime%></td>
 				      	</tr>
 				      	<tr>
-				        	<td> <a href=#> <%=score.user.username%> </a></td>
+				        	<td> <a href=/DreamMachine/user?<%=score.user_id%>> <%=score.user.username%></a></td>
 				      	</tr>
 				      	<tr>
 				        	<td> <%=score.score%></td>
 				      	</tr>
 				      	<tr>
-				        	<td> <%=score.time%></td>
+				        	<td> <%=score.getDuration()%></td>
 				      	</tr>
 				      	
 				     <%} %>
-				</table>
+				  </table>
 			</div>
 		</div>
 		
@@ -126,16 +127,16 @@
 				    <%for (Score score : bestScores) 
 				    { %>
 				     	<tr>
-				        	<td> <%=score.whenPlayed%></td>
+				        	<td> <%=score.finishTime%></td>
 				      	</tr>
 				      	<tr>
-				        	<td> <a href=#> <%=score.user.username%> </a></td>
+				        	<td> <a href=/DreamMachine/user?<%=score.user_id%>> <%=score.user.username%></a></td>
 				      	</tr>
 				      	<tr>
 				        	<td> <%=score.score%></td>
 				      	</tr>
 				      	<tr>
-				        	<td> <%=score.time%></td>
+				        	<td> <%=score.getDuration()%></td>
 				      	</tr>
 				      	
 				     <%} %>
@@ -156,16 +157,16 @@
 				    <%for (Score score : topDailyScores) 
 				    { %>
 				     	<tr>
-				        	<td> <%=score.whenPlayed%></td>
+				        	<td> <%=score.finishTime%></td>
 				      	</tr>
 				      	<tr>
-				        	<td> <a href=#> <%=score.user.username%> </a></td>
+				        	<td> <a href=/DreamMachine/user?<%=score.user_id%>> <%=score.user.username%></a></td>
 				      	</tr>
 				      	<tr>
 				        	<td> <%=score.score%></td>
 				      	</tr>
 				      	<tr>
-				        	<td> <%=score.time%></td>
+				        	<td> <%=score.getDuration()%></td>
 				      	</tr>
 				      	
 				     <%} %>
@@ -186,19 +187,19 @@
 				    <%for (Score score : recentScores) 
 				    { %>
 				     	<tr>
-				        	<td> <%=score.whenPlayed%></td>
+				        	<td> <%=score.finishTime%></td>
 				      	</tr>
 				      	<tr>
-				        	<td> <a href=#> <%=score.user.username%> </a></td>
+				        	<td> <a href=/DreamMachine/user?<%=score.user_id%>> <%=score.user.username%></a></td>
 				      	</tr>
 				      	<tr>
 				        	<td> <%=score.score%></td>
 				      	</tr>
 				      	<tr>
-				        	<td> <%=score.time%></td>
+				        	<td> <%=score.getDuration()%></td>
 				      	</tr>
 				      	
-				     <%} %>
+				     <%}%>
 				  </table>
 			</div>
 		</div>	
