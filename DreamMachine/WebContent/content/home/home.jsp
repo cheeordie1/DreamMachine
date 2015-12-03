@@ -27,36 +27,6 @@
     	$("input[type=submit]").addClass("hidden");
 	});
 </script>
-	
-    <%-- 
-	<div class="container">
-	
-		<div class = "row">
-			<div class="col-xs-12 col-sm-6 col-md-8 col-md-offset-4">
-				<jsp:include page="../header/top-bar.jsp" />
-			</div>
-		</div>
-	
-		<div class="row">
-		
-		  <div class="col-md-4" id = "left-sidebar-homepage">
-		  	<jsp:include page="../left-sidebar/user-sidebar.jsp" />
-		  	
-		  </div>
-		  
-		  <div class="col-md-4">
-		  	<jsp:include page="../content/main-content.jsp" />
-		  </div>
-		  	
-		  <div class="col-md-4">
-		  	<jsp:include page="../header/feed-sidebar.jsp" />
-		  </div>
-		  
-		</div>
-		
-	</div>
-		 --%>
-		<%--  <jsp:include page="/content/client-chat.jsp" />  --%>
 		
 		<div id="wrapper">
 		    <div id="sidebar-wrapper">
@@ -171,7 +141,7 @@
 		                    </div>
 		                    </div>
 		                    
-		                    
+		                    <jsp:include page="/content/client-chat.jsp" />
 		                    
 		                    
 		                    
@@ -184,36 +154,3 @@
 </body>
 
 </html>
-
-
-<!-- %@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/home.css">
-<jsp:include page="/content/app.jsp" />
-<script src="jquery.js"></script> 
-<title>Welcome to Dream Machine</title>
-</head>
-<body>
-  <jsp:include page="../header/top-bar.jsp" />
-  <div id="includedContent"></div>
-  <div id="home-div">
-    <jsp:include page="words.jsp" />
-    <div id="leaderboards-div">
-      <div id="top-played-container">
-        <jsp:include page="top-played.jsp" />
-      </div>
-      <div id="most-quizzes-container">
-        <jsp:include page="most-quizzes.jsp" />
-      </div>
-      <div id="recently-created-container">
-        <jsp:include page="recently-created.jsp" />
-      </div>
-    </div>
-  </div>
-  <jsp:include page="/content/client-chat.jsp" />
-</body>
-</html-->
