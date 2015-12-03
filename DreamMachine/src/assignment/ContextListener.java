@@ -6,6 +6,9 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
+
+import java.util.HashSet;
 /**
  * Application Lifecycle Listener implementation class ContextListener
  *
@@ -30,6 +33,8 @@ public class ContextListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent arg0) {
+    	HashSet<Integer> online = new HashSet<Integer>();
+    	arg0.getServletContext().setAttribute("onlineUsers", online);
         arg0.getServletContext().setAttribute("rint", new Random(28462));
         DBConnection.connect();
     }

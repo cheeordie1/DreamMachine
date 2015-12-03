@@ -1,4 +1,5 @@
 <html>
+<jsp:include page="../header/top-bar.jsp" />
 <script type="text/javascript" src="http://localhost:8123/faye/client.js"></script>
 <script>
 	<%String sender = (String) request.getSession().getAttribute("username"); %>

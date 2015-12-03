@@ -22,11 +22,13 @@
 
 	/* global variables */
 	String name = (String) request.getSession().getAttribute("username");
+	java.util.HashSet<Integer> onlineFriends = 
+		(java.util.HashSet<Integer>) request.getAttribute("onlineFriends");
 	java.util.ArrayList<String> friends = new java.util.ArrayList<String>();
-				
+			
 	/* set up friend chats */
 	java.util.ArrayList<Integer> friend_ids = 
-		(java.util.ArrayList<Integer>) request.getSession().getAttribute("friends");
+		(java.util.ArrayList<Integer>) request.getAttribute("friends");
 	assignment.User user;
 	if(friend_ids != null) {
 		for(int friend_id : friend_ids) {
@@ -133,11 +135,18 @@
 			
 		/* put the message in the chat box */
 		message = '<%=name%>' + ': '+ message;
+		
+		/* store the message in the db */
+		$.ajax({
+			type: 'POST',
+			url: '/DreamMachine/message',
+			data: { message : message, username: friend }
+		})
+		
+		/* send the message instantly */
+		client.publish("/" + friend, message);
 		var id = friend+'popup-messages';
 		display_message(id, message, '#9266BD');
-
-		/* send the message */
-		client.publish("/" + friend, message);
 			
 		/* set the chatbox to empty */
 		document.getElementById(friend+'textarea').lastChild.value = "";

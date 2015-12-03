@@ -155,6 +155,26 @@ public class User {
     	return users;
     }
     
+    public static List<User> searchByMultipleIds(List<Integer> ids) {
+    	if(ids.isEmpty()) return new ArrayList<User>();
+    	
+    	List<User> users = new ArrayList<User>();
+    	String idsStr = " WHERE user_id = ";
+    	for(int id : ids) {
+    		idsStr += id + " OR ";
+    	}
+    	idsStr = idsStr.substring(0, idsStr.length()-3);
+    	String query = "SELECT * FROM " + TABLE_NAME + idsStr;
+    	ResultSet rs = DBConnection.query(query);
+    	try {
+    		while(rs.next()) {
+    			users.add(new User(rs));
+    		} 
+    	} catch (SQLException e) {
+    		e.printStackTrace();
+    	}
+    	return users;
+    }
     /**
      * Static method to search for a User by their username.
      * @return a list containing all of the users in the search

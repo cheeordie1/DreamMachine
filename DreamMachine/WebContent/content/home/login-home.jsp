@@ -27,6 +27,8 @@
 		
 		<jsp:include page="../header/feed-sidebar.jsp" />
 		
+		<jsp:include page="/content/client-chat.jsp" />
+
 	</div>
 
 </body>
