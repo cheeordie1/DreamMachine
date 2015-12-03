@@ -41,7 +41,16 @@ CREATE TABLE friends (
 	reciever INT,
 	status INT,
 	PRIMARY KEY (friend_id)
-)
+);
+
+CREATE TABLE scores (
+	score_id INT NOT NULL AUTO_INCREMENT,
+	quiz_id INT, 
+	score INT, 
+	utime TIME,
+	taken_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (pid)
+);
 
 CREATE TABLE challenges (
 	challenge_id INT NOT NULL AUTO_INCREMENT,
