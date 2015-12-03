@@ -35,6 +35,7 @@ public class AccountServlet extends HttpServlet {
 			return;
 		}
 		request.setAttribute("pageUser", userRequested.username);
+		request.setAttribute("pageUserID", userRequested.user_id);
 		request.setAttribute("profilePic", userRequested.photo_id);
 		String forward = "/content/account/account.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
@@ -60,6 +61,5 @@ public class AccountServlet extends HttpServlet {
 			return null;
 		else
 			return pageUser.get(0);
-	}
-	
+	}	
 }

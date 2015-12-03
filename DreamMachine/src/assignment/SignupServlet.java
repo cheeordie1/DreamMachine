@@ -53,7 +53,7 @@ public class SignupServlet extends HttpServlet {
 		} else {
 			request.getSession().setAttribute("loggedIn", "true");
 			request.getSession().setAttribute("username", user.username);
-			request.getSession().setAttribute("uid", user.id);
+			request.getSession().setAttribute("uid", user.user_id);
 			response.sendRedirect("/DreamMachine/home");
 		}
 	}

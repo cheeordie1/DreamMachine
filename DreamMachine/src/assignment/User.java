@@ -15,7 +15,6 @@ public class User {
     private final int SALT_SIZE = 4;
 
     /* instance variables */
-    public int id;
     public String password;
     public String repassword;
     public String retry;
@@ -23,10 +22,12 @@ public class User {
     public ErrorMessages errorMessages;
 
     /* info for database entry */
+    public int user_id;
     public String username;
     public String passwordDigest; 
     public String salt;
     public int photo_id;
+    public Date created_at;
     
     /* Error Key Strings */
 	public static final String TABLE_NAME = "users";
@@ -59,11 +60,12 @@ public class User {
     
     public User(ResultSet rs) {
     	try {
-			id = rs.getInt("user_id");
+			user_id = rs.getInt("user_id");
 	    	username = rs.getString("username");
 	    	salt = rs.getString("salt");
 	    	passwordDigest = rs.getString("digest");
 	    	photo_id = rs.getInt("photo_id");
+	    	created_at = rs.getDate("created_at");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -110,7 +112,7 @@ public class User {
                 "'" + this.passwordDigest + "'," +
                 photo_id +
                 ")";
-            id = DBConnection.update(entry);
+            user_id = DBConnection.update(entry);
         }
 
         return true;
@@ -129,9 +131,9 @@ public class User {
      * @return true if deleted, false otherwise  
      */
     public boolean delete() {
-        if (id == 0) return false;
+        if (user_id == 0) return false;
         String query = "DELETE FROM " + TABLE_NAME + 
-                       " WHERE user_id = " + id + " LIMIT 1";
+                       " WHERE user_id = " + user_id + " LIMIT 1";
         DBConnection.update (query);
         return true;
     }
@@ -141,14 +143,14 @@ public class User {
      * @return a list containing all of the users in the search
      *         result.
      */
-    public static List<User> searchById(int id) {
+    public static List<User> searchByID(int user_id) {
     	List<User> users = new ArrayList<User>();
     	String query = "SELECT * FROM " + TABLE_NAME + 
-    	               " WHERE user_id = " + id;
+    	               " WHERE user_id = " + user_id;
     	ResultSet rs = DBConnection.query(query);
     	if (rs == null) return users;
     	try {
-			while (!rs.next())
+			while (rs.next())
 				users.add(new User(rs));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -214,9 +216,11 @@ public class User {
         return false;
     }
     
-    /* Takes a given password and creates a salt and digest for the given
+    /** 
+     * Takes a given password and creates a salt and digest for the given
      * password. The User class will only store the salt and digest generated
-     * for the password, not the password itself. */
+     * for the password, not the password itself. 
+     * */
     public void setPassword(String password) {
         /* Generate a random salt */
         this.password = password;

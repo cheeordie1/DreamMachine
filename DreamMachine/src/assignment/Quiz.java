@@ -9,6 +9,7 @@ import java.sql.*;
 public class Quiz {
 	// instance variables
 	public ErrorMessages errors;
+	public List<Question> questions;
 	
 	// database variables
 	public int quiz_id;
@@ -51,7 +52,7 @@ public class Quiz {
 			single_page = quizData.getBoolean("single_page");
 			random_questions = quizData.getBoolean("random_questions");
 			practice_mode = quizData.getBoolean("practice_mode");
-			created_at = quizData.getDate("date");
+			created_at = quizData.getDate("created_at");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -119,9 +120,14 @@ public class Quiz {
 		return false;
 	}
 	
+	/**
+	 * Search for a quiz by its unique quiz_id
+	 * @param quiz_id the id to search by
+	 * @return the list of quizzes with the same id
+	 */
 	public static List<Quiz> searchByID(int quiz_id) {
 		List<Quiz> quizzes = new ArrayList<Quiz>();
-		String query = "SELECT * FROM" + TABLE_NAME + " WHERE quiz_id = " + quiz_id;
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE quiz_id = " + quiz_id;
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return quizzes;
 		try {
@@ -131,6 +137,33 @@ public class Quiz {
 			e.printStackTrace();
 		}
 		return quizzes;
+	}
+	
+	/**
+	 * Search for a quiz by its owner's user id
+	 * @param user_id of the owner of the quiz
+	 * @return the list of quizzes with the same user_id
+	 */
+	public static List<Quiz> searchByUserID(int user_id) {
+		List<Quiz> quizzes = new ArrayList<Quiz>();
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE user_id = " + user_id;
+		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return quizzes;
+		try {
+			while (rs.next())
+				quizzes.add(new Quiz(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return quizzes;
+	}
+	
+	/**
+	 * This function loads all of the questions into the Quiz object
+	 * from the database.
+	 */
+	public void loadQuestions() {
+		
 	}
 	
 	/**

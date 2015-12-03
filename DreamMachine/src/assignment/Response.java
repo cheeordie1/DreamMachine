@@ -54,7 +54,11 @@ public class Response extends Answer {
 	 * 1 answer, multiple forms: "Obama=Barrack Obama=Barrack"
 	 * 2 answers, multiple forms: "obama=Obama,St.Nick=Santa Claus=Santa"
 	 */
-	public void parseOptions (String options) {	
+	public void parseOptions (String options) {
+		if (options.charAt(0) == '*') {
+			options = options.substring(1);
+			ordered = true;
+		}
 		String[] answers = options.split(SEPARATOR);
 		for (String singleAnswer : answers) {
 			ArrayList<String> singleAnswerOptions = new ArrayList<String>();
@@ -68,7 +72,7 @@ public class Response extends Answer {
 	 * whether it is a valid answer or not.
 	 */
 	public boolean checkAnswer (String userInput) {
-		// example input: Barack,Santa
+		// example input: Barack,Santa,Apollo Creed
 		boolean correctResponses[] = new boolean[numAnswers];
 		Arrays.fill(correctResponses, false);
 		
@@ -83,7 +87,8 @@ public class Response extends Answer {
 				}
 			}
 		}
-		for (boolean isCorrect : correctResponses) if (!isCorrect) return false; 
+		for (boolean isCorrect : correctResponses) 
+			if (!isCorrect) return false; 
 		return true;
 	}
 	

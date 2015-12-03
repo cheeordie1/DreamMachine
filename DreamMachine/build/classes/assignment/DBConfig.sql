@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS photos;
 DROP TABLE IF EXISTS quizzes;
 DROP TABLE IF EXISTS questions;
-Drop Table If Exists answers;
+DROP TABLE If EXISTS answers;
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS friends;
 DROP TABLE IF EXISTS challenges;
@@ -77,6 +77,6 @@ CREATE TABLE challenges (
 	challenge_id INT NOT NULL AUTO_INCREMENT,
 	sender_user_id INT,
 	receiver_user_id INT,
-	link STRING,
+	link VARCHAR(100),
 	PRIMARY KEY (challenge_id)
 );

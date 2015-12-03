@@ -1,5 +1,35 @@
 @CHARSET "ISO-8859-1";
 
+.profile-history-empty {
+  position: relative;
+  display: inline-block;
+  font-size: 40px;
+  color: #ABABAB;
+  top: 27%;
+}
+
+.profile-history-list {
+  list-style: none;
+}
+
+.profile-history-text {
+  position: relative;
+  display: inline-block;
+  font-family: "Roboto";
+  font-size: 18px;
+}
+
+.profile-history-link {
+  text-decoration: none;
+  font-size:24px;
+}
+
+.profile-history-link2 {
+  position: relative;
+  display: inline-block;
+  left: 60%;
+}
+
 .profile-history-title {
   position: relative;
   display: inline-block;
