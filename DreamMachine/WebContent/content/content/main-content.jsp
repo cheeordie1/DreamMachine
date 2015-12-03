@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/main-content.css">
+
 <div id="center" class="column">
 
   <div id="announcement-container" class="panel panel-default">

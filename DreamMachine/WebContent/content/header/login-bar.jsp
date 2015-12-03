@@ -1,5 +1,5 @@
-<link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/login-bar.css">
-<div id="login-bar-container" class="vert-center">
+<!-- <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/login-bar.css">
+ --><%-- <div id="login-bar-container" class="vert-center">
       <%
         HttpSession sess = request.getSession();
         if (sess.getAttribute("loggedIn").toString().equals("true")) {
@@ -19,4 +19,4 @@
         <a id="signup-link" class="login-link" href="/DreamMachine/signup">Sign Up</a>
       </div>
       <% } %>
-</div>
+</div> --%>

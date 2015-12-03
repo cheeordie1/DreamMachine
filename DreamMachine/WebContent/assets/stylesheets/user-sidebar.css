@@ -17,25 +17,18 @@ img {
 
 #user-welcome {
 	text-align: center;
-}
-
-#mail-button {
-	background-color: #FBDCFF;
-	opacity: 0.5;
-	border: none;
-	display: block;
-	margin: 0 auto;
-}
-
-#history-button{
-	background-color: #FBDCFF;
-	opacity: 0.5;
-	border: none;
-	display: block;
-	margin: 0 auto;
+	color:white;
+	line-height: 110%;
 }
 
 .bottom-icons {
 	padding-top: 20px;
+}
+
+.btn{
+	border:none;
+	background-color: #A4E8D9;
+	color: white;
+	font-size: 15px;
 }
 

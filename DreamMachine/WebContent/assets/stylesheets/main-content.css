@@ -1,4 +1,6 @@
-
+.column {
+	background-color:red;
+} /* 
 #announcement-container {
 	position: relative;
 	width: 90%;
@@ -37,4 +39,4 @@
 	height: 400px;
 	margin-top: -10px;
 	border-style: groove;
-}
+}  */

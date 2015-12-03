@@ -1,112 +1,74 @@
-<style type="text/css">
-	body {
-		min-width: 630px;
-	}
+#wrapper {
+  padding-left: 250px;
+  transition: all 0.4s ease 0s;
+}
 
-	#container {
-		padding-left: 260px;
-		padding-right: 260px;
-	}
-	
-	#container .column {
-		position: relative;
-		float: left;
-	}
-	
-	#center {
-		padding-left: 100px;
-		padding-right: 100px;
-		width: 100%;
-	}
-	
-	#left {
-		width: 260px;
-		padding: 0 10px;
-		right: 260px;
-		margin-left: -100%;
-	}
-	
-	#right {
-		width: 260px;
-		padding: 0 10px;
-		margin-right: -100%;
-	}
-	
-	#footer {
-		clear: both;
-	}
-	
-	/* IE hack */
-	* html #left {
-		left: 150px;
-	}
+#sidebar-wrapper {
+  margin-left: -250px;
+  left: 250px;
+  width: 250px;
+  background: #4BD4C6;
+  border-right: thick solid #A4E9DD;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+  transition: all 0.4s ease 0s;
+}
 
-	/* Make the columns the same height as each other */
-	#container {
-		overflow: hidden;
-	}
+#page-content-wrapper {
+  width: 100%;
+}
 
-	#container .column {
-		padding-bottom: 1001em;
-		margin-bottom: -1000em;
-	}
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 250px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 
-	/* Fix for the footer */
-	* html body {
-		overflow: hidden;
-	}
-	
-	* html #footer-wrapper {
-		float: left;
-		position: relative;
-		width: 100%;
-		padding-bottom: 10010px;
-		margin-bottom: -10000px;
-		background: #fff;
-	}
+@media (max-width:767px) {
 
-	/* Aesthetics */
-	body {
-		margin: 0;
-		padding: 0;
-		font-family:Sans-serif;
-		line-height: 1.5em;
-	}
-	
-	p {	
-		color: #555;
-	}
+    #wrapper {
+      padding-left: 0;
+    }
 
-	nav ul {
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-	}
-	
-	nav ul a {
-		color: darkgreen;
-		text-decoration: none;
-	}
+    #sidebar-wrapper {
+      left: 0;
+    }
 
-	#header, #footer {
-		font-size: large;
-		padding: 0.3em;
-		background: #BCCE98;
-	}
+    #wrapper.active {
+      position: relative;
+      left: 250px;
+    }
 
-	#left {
-		background: #FCE0F5;
-	}
-	
-	#right {
-		background: #DA70D6;
-	}
+    #wrapper.active #sidebar-wrapper {
+      left: 250px;
+      width: 250px;
+      transition: all 0.4s ease 0s;
+    }
 
-	#center {
-		background: #fff;
-	}
+}
 
-	#container .column {
-		padding-top: 1em;
-	}
-</style>
+#whatami{
+	background-color: #DDDEE0;
+	width: 100%
+}
+
+#nextbox{
+	background-color: #DDDEE0;
+}
+
+#search-bar{
+	width: 60%;
+	margin: 0 auto;
+}
+
+#search-bar-back{
+	background-color: #93E4D5;
+	border:none;
+	padding-top: 40px;
+	padding-bottom: 40px;
+}

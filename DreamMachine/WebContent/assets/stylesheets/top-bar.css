@@ -1,7 +1,13 @@
 #top-bar-container {
-  position: relative;
+/*   position: relative;
   width: 100%;
-  height: 100px;
-  background-color: red;
-  margin-right: 200px;
+  height: 100px; */
+  background-color: blue;
+  height:75px;
+ /*  margin-right: 200px; */
+}
+
+#search-term{
+	width: 40%;
+	
 }

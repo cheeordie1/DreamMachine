@@ -1,7 +1,7 @@
 
 <html>
 <head>
-	<link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/user-sidebar.css">
+	<link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/user-sidebar.css">	
 </head>
 <head>
 <body>
@@ -15,25 +15,38 @@
 		<img id="user-img" src="/DreamMachine/assets/images/mr-bean.jpeg" alt="user pic" class="img-circle">
 	</div>
 	
-
-	<h1 id = "user-welcome">Beuddy</h1>
+	<%
+        HttpSession sess = request.getSession();
+        if (sess.getAttribute("loggedIn").toString().equals("true")) {
+      %>
+      
+	<h1 id = "user-welcome"><%=sess.getAttribute("username") %></h1>
 	
-	<jsp:include page="/content/header/login-bar.jsp" />
-	
-	
-	<div class = bottom-icons>
-		<div class="row">
-		  	<div class="col-md-6">
-				<button type="button" class="btn btn-default btn-lg" id = "mail-button">
-			    	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-				</button>
-			</div>
-		  	<div class="col-md-6">
-			  	<button type="button" class="btn btn-default btn-lg" id = "history-button">
-			    	<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-				</button>
-		  	</div>
-		</div>
+	<div id="login-bar-container">
+      <div id="logged-in-text">
+        <div id="logout-options">
+        <center>
+	      <br>
+	      <br>
+          <a class = "btn btn-default" role = "button" id="account-link" class="login-link" href=<%= "/DreamMachine/user/" + sess.getAttribute("username") %> >Account</a>
+		  <br>
+		  <br>
+          <a class = "btn btn-default" role = "button" id="logout-link" class="logout-link" href="/DreamMachine/logout">Logout</a>
+          <br>
+          <br>
+          <a class = "btn btn-default" role = "button" id="messages-link" class="" href="">Messages</a>
+		  <br>
+		  <br>
+		  <a class = "btn btn-default" role = "button" id="history-link" class="" href="">History</a>
+          </center>
+        </div>
+      </div>
+      <% } else { %>
+      <div id="not-logged-in-text">
+        <a id="login-link" class="login-link" href="/DreamMachine/login">Login</a>
+        <a id="signup-link" class="login-link" href="/DreamMachine/signup">Sign Up</a>
+      </div>
+      <% } %>
 	</div>
    
 	</nav>
