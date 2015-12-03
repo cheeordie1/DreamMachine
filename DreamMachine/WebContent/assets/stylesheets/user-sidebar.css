@@ -19,6 +19,7 @@ img {
 	text-align: center;
 	color:white;
 	line-height: 110%;
+	padding-bottom: 25px;
 }
 
 .bottom-icons {
@@ -32,3 +33,19 @@ img {
 	font-size: 15px;
 }
 
+.glyphicon {
+    font-size: 30px;
+    padding: 10px;
+}
+
+#achievements-row1{
+	text-align: center;
+}
+
+#achievements-row2{
+	text-align: center;
+}
+
+#achievements-row3{
+	text-align: center;
+}

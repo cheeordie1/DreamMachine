@@ -318,4 +318,17 @@ public class User {
 		}
 		return buff.toString();
 	}
+    
+    public static void main (String args []) {
+    	DBConnection.connect();
+    	String query_string = "SELECT * FROM users";
+    	ResultSet rs = DBConnection.query(query_string);
+    	try {
+    		while (rs.next()) {
+    			System.out.println(rs.getString("username"));
+    		}
+    	} catch (SQLException ignored) {
+    		
+    	}
+    }
 }

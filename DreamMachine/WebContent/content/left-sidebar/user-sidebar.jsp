@@ -22,6 +22,26 @@
       
 	<h1 id = "user-welcome"><%=sess.getAttribute("username") %></h1>
 	
+	<div id = "achievements-container">
+		<div id = "achievements-row1">
+			<span class="glyphicon glyphicon glyphicon-ok" aria-hidden="true" id = "amateur-author"></span>
+			<span class="glyphicon glyphicon glyphicon-pencil" aria-hidden="true" id = "prolific-author"></span>
+			<span class="glyphicon glyphicon glyphicon-star" aria-hidden="true" id = "prodigious-author"></span>
+		</div>
+		
+		<div id = "achievements-row2">
+			<span class="glyphicon glyphicon glyphicon-apple" aria-hidden="true" id = "amateur-quizzer"></span>
+			<span class="glyphicon glyphicon glyphicon-education" aria-hidden="true" id = "prolific-quizzer"></span>
+			<span class="glyphicon glyphicon glyphicon-fire" aria-hidden="true" id = "prodigious-quizzer"></span>
+		</div>
+		
+		<div id = "achievements-row3">
+			<span class="glyphicon glyphicon glyphicon-heart" aria-hidden="true" id = "basic-buddy'"></span>
+			<span class="glyphicon glyphicon glyphicon-globe" aria-hidden="true" id = "social-butterfly"></span>
+			<span class="glyphicon glyphicon glyphicon-queen" aria-hidden="true" id = "the-greatest"></span>
+		</div>
+	</div>
+	
 	<div id="login-bar-container">
       <div id="logged-in-text">
         <div id="logout-options">
