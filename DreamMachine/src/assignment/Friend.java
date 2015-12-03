@@ -1,15 +1,23 @@
 package assignment;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Friend {
+	// instance variables
+	public ErrorMessages errorMessages;
+	public String statusString;
 	
+	// database variables
+	public int friend_id;
+	public int friend_a_user_id;
+	public int friend_b_user_id;
+	public int status;
+	public Date created_at;
 	
 	public static final String TABLE_NAME = "friends";
 	public static final int PENDING = 0;
@@ -17,18 +25,26 @@ public class Friend {
 	public static final int DECLINED = 2;
 	public static final int BLOCKED = 3;
 	
+	public Friend() {
+		errorMessages = new ErrorMessages();
+	}
+	
+	public Friend(ResultSet rs) {
+		
+	}
+	
 	/**
-	 * Search the database friend
-	 * @param user_id The id of the user to find friends of
+	 * Search the database for all friendships containing user_id
+	 * @param user_id The id of the user
 	 * @return a list of the id's of the friends of the user 
 	 * associated with the user_id
 	 */
-	public static List<Integer> getFriends (int user_id) {
+	public static List<Integer> searchByUserID (int user_id) {
     	List<Integer> friends = new ArrayList<Integer>();
 		String query = "SELECT * FROM " + TABLE_NAME + 
-	               " WHERE (sender = " + user_id + 
-	               " OR reciever = " + user_id + 
-	               ") AND status = " + ACCEPTED; 
+	                   " WHERE (sender = " + user_id + 
+	                   " OR reciever = " + user_id + 
+	                   ") AND status = " + ACCEPTED; 
 		ResultSet rs = DBConnection.query(query);
     	try {
 			while (rs.next()){

@@ -70,6 +70,7 @@ CREATE TABLE friends (
 	friend_a_user_id INT,
 	friend_b_user_id INT,
 	status INT,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (friend_id)
 );
 

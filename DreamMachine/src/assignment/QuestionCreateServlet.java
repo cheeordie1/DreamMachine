@@ -65,7 +65,10 @@ public class QuestionCreateServlet extends HttpServlet {
 				return;
 			}
 		}
-		request.setAttribute("quiz_id", quiz.quiz_id);
+		if (request.getParameter("questionType") != null) {
+			request.setAttribute("questionType", request.getParameter("type"));
+		} else request.setAttribute("questionType", Question.RESPONSE);
+		request.setAttribute("pageQuiz", quiz);
 		String forward = "/content/question/question-create.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);
@@ -75,33 +78,6 @@ public class QuestionCreateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int uid = -1;
-		if (request.getSession().getAttribute("loggedIn").toString().equals("false")) {
-			response.sendRedirect("/DreamMachine/login?notify=You Must Login to Create a Quiz");
-			return;
-		} else {
-			try {
-				uid = Integer.parseInt(request.getSession().getAttribute("uid").toString());
-			} catch (NumberFormatException nfe) {
-				response.sendError(HttpServletResponse.SC_NOT_FOUND);
-				return;
-			}
-		}
-		if (request.getParameter("quiz-id") == null) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
-			return;
-		}
-		int qid = Integer.parseInt(request.getParameter("quiz-id"));
-		List<Quiz> quizzes = Quiz.searchByID(qid);
-		if (quizzes.isEmpty()) {
-			response.sendError(HttpServletResponse.SC_NOT_FOUND);
-			return;
-		}
-		Quiz quiz = quizzes.get(0);
-		if (quiz.user_id != uid) {
-			response.sendRedirect("/DreamMachine/home");
-			return;
-		}
 		String questionType = request.getParameter("question-type").toString();
 		if (questionType.equals(Question.RESPONSE)) {
 			
@@ -111,6 +87,7 @@ public class QuestionCreateServlet extends HttpServlet {
 			
 		} else {
 			response.sendError(HttpServletResponse.SC_CONFLICT);
+			return;
 		}
 	}
 
