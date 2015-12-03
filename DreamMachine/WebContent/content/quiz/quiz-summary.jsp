@@ -49,7 +49,7 @@
 			<div id="pop-quizzes-cont" class="well">
 				<table class="table table-condensed">
 				  	<tr>
-				  		<th>quiz</th> 
+				  		<th>Date Created</th> 
 				  		<th>Times Played</th>
 				  		<th>Average Score</th>
 				  		<th>High Score</th>
