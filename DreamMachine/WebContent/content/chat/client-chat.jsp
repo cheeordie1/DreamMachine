@@ -22,7 +22,8 @@
 	List<User> userFriendsAsUsers = new ArrayList<User>();
 	if(userFriends != null) {
 		for(Friend friend : userFriends) {
-			user = assignment.User.searchByID(friend.friend_id).get(0);
+			int friendUserID = friend.sender == userID ? friend.receiver : friend.sender;
+			user = assignment.User.searchByID(friendUserID).get(0);
 			userFriendsAsUsers.add(user);
 			%>register_chat('<%=user.username%>');<%
 		}
@@ -32,10 +33,10 @@
 
 	/* set up faye subscriptions for messages and friend/challenge requests*/
 	var client = new Faye.Client('http://localhost:8123/faye', {timeout: 20});
-	<%String uname = "/" + (String) request.getSession().getAttribute("username");%>
+	<%String uname =  (String) request.getSession().getAttribute("username");%>
 	
 	/* chat subscription */	
-	client.subscribe('<%=uname%>', function(message) {
+	client.subscribe('/'+'<%=uname%>', function(message) {
 		var sender = message.substring(0,message.indexOf(' ')-1);
 
 		/* add the message to the chat box */
@@ -49,13 +50,13 @@
 	});
 	
 	/* friend request subscription */
-	client.subscribe('<%=uname%>'+ '/' + 'requests', function(message) {
+	client.subscribe('/'+'<%=uname%>'+ '/' + 'requests', function(message) {
 		var sender = message.substring(0,message.length);
 		
 		/* check it's not contained */
 		
 		/* add friend request to panel */
-		var requests = document.getElementById('<%=uname%>'+'-friend-requests');
+		var requests = document.getElementById('friend-requests');
 		var new_request = '<div class="friend-requests">' +
 			'<div class="sidebar-name">' +
 				'<a id="friend-response-link" class="response-link" \
@@ -110,7 +111,7 @@
   		var text_area = '<div class="textarea" id="'+friend+'textarea'+'"> \
   			<textarea name="styled-textarea" id="styled"></textarea></div>';
   		var send_button = '<div class="send-button"> \
-  			<a href="javascript:send_chat(\''+friend+'\');">-></a></div>';
+  			<a href="javascript:send_chat(\''+friend+'\');">:)</a></div>';
   	 	element = element + '<div class="chat-bar">'+
   	 		text_area + 
   	 		send_button +
@@ -153,7 +154,7 @@
 		});
 		
 		/* send the message instantly */
-		client.publish("/" + friend, message);
+		client.publish('/'+friend, message);
 		var id = friend+'popup-messages';
 		display_message(id, message, '#9266BD');
 			
@@ -188,7 +189,7 @@
 	}
 </script>
 <div class="sidebar-container">
-  <div class="friend-requests" id="<%=uname%>-friend-requests"></div>
+  <div class="friend-requests" id="friend-requests"></div>
   <div class="chat-sidebar">
   <%for(User userFriendAsUser : userFriendsAsUsers) {%>
 	<div class="sidebar-name">
@@ -197,13 +198,14 @@
   <%}%>
   </div>
 </div>
+<script>
 <%
-List<Friend> pendingRequests = Friend.searchByUserIDStatus(user.user_id, Friend.PENDING);
+List<Friend> pendingRequests = Friend.searchByReceiverIDStatus(user.user_id, Friend.PENDING);
 for(Friend pendingRequest : pendingRequests) {
 	User requestingUser = User.searchByID(pendingRequest.sender).get(0);
 	String requestingName = requestingUser.username;%>
 	
-	var friend_bar = document.getElementById('<%=uname%>'+'-friend-requests');
+	var friend_bar = document.getElementById('friend-requests');
 	friend_bar.innerHTML = friend_bar.innerHTML +
 		'<div class="sidebar-name">' +
 			'<a id="friend-response-link" class="response-link" href="/DreamMachine/friendResponse/' + '<%=requestingName%>' + '">' + 
@@ -211,3 +213,4 @@ for(Friend pendingRequest : pendingRequests) {
 			'</a>' +
 		'</div>';
 <%}%>
+</script>

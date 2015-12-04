@@ -9,7 +9,7 @@ public class Message {
 	private static final String TABLE_NAME = "messages";
 	
 	public static void sendMessage(String sender, String receiver, String message) {
-		String entry = "INSERT INTO " + TABLE_NAME + " (sender,receiver,message) VALUES ('" +
+		String entry = "INSERT INTO " + TABLE_NAME + " VALUES ('" +
 			sender + "', '" + receiver + "', '" + message + "')";
 		DBConnection.update(entry);
 	}
@@ -19,10 +19,9 @@ public class Message {
 			= new HashMap<String, ArrayList<String>>();
 		
 		String query = "SELECT * FROM " + TABLE_NAME + 
-					   " WHERE sender = '" + username + 
-					   "' OR receiver = '" + username + "'";
+			" WHERE sender = '" + username + 
+			"' OR receiver = '" + username + "'";
 		ResultSet rs = DBConnection.query(query);
-		if (rs == null) return map;
 		try {
 			while(rs.next()) {
 				ArrayList<String> senderList = map.get(rs.getString("sender"));

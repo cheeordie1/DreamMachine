@@ -10,9 +10,7 @@
 </head>
 <body>
   <jsp:include page="../header/top-bar.jsp" />
-  <% if (request.getSession().getAttribute("loggedIn").toString().equals("true")) { %>
-  <jsp:include page="/content/chat/client-chat.jsp" />
-  <% } %>
+
   <div id="home-div">
     <jsp:include page="words.jsp" />
     <div id="leaderboards-div">
@@ -27,5 +25,8 @@
       </div>
     </div>
   </div>
+  <% if ((boolean)request.getSession().getAttribute("loggedIn")) { %>
+  <jsp:include page="/content/chat/client-chat.jsp" />
+  <% } %>
 </body>
 </html>

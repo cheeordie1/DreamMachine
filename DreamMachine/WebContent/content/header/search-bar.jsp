@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/search-bar.css">
 <div id="search-bar-container" class="hori-vert-center">
-  <form method="post" action="/search">
+  <form method="post" action="/DreamMachine/search">
     <input id="search-term" type="text" name="term">
   </form>
 </div>

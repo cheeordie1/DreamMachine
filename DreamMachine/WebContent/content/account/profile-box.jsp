@@ -1,3 +1,4 @@
+<%@page import="assignment.User"%>
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/profile-box.css">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <div id="profile-container" class="hori-center">
@@ -26,5 +27,18 @@
         <li>number of perfect quizzes</li>
       </ul>
     </div>
+    <div>
+    <%
+      assignment.User u = assignment.User.searchByUsername(name).get(0);
+      int user_id = (Integer) request.getSession().getAttribute("uid"); 
+      String currentUser = (String) request.getSession().getAttribute("username");
+   	  int status = assignment.Friend.getStatusOfFriendship(user_id, u.user_id);
+   	  if(status == assignment.Friend.NONE && !name.equals(currentUser)) {%>
+   	  	<form id=friendRequestForm method="post" action="/DreamMachine/friendRequest">
+   	  		<input type="hidden" name="name" value="<%=name%>">
+   	  		<input type="submit" value="add friend">
+   	  	</form>
+   	  <%}%>
+   	  </div>
   </div>
 </div>

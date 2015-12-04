@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class FriendResponse
  */
-@WebServlet(urlPatterns = { "/friendResponse/*" })
+
+@WebServlet(urlPatterns = { "/friendResponse/*", "/response" })
 public class FriendResponseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -29,11 +30,10 @@ public class FriendResponseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* error checking on request sender */	
 		String url = request.getRequestURL().toString();
 		User sender = parseSenderFromURL(url);
 		request.setAttribute("sender", sender.username);
-		String forward = "/content/friends/friends-response.jsp";
+		String forward = "/content/friends/friend-response.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);
 	}
@@ -54,24 +54,24 @@ public class FriendResponseServlet extends HttpServlet {
 		senderString = request.getParameter("sender");
 		sender = User.searchByUsername(senderString).get(0); 
 		
-		if(request.getParameter("accept") != null) {
+		String result = request.getParameter("name");
+		if(result.equals("accept")) {
 			/* add this use to the friendsCache and update the db */
 			ArrayList<Integer> friendsCache = (ArrayList<Integer>) request.getSession().getAttribute("friends");
 			friendsCache.add(sender.user_id);
 			Friend.updateFriendRequest(sender.user_id, receiver.user_id, Friend.ACCEPTED);
 			request.getSession().setAttribute("friends", friendsCache); // TODO is this yes?
 		} 
-		else if(request.getParameter("reject") != null) {
-			ArrayList<Integer> rejectCache = (ArrayList<Integer>) request.getSession().getAttribute("friends");
-			rejectCache.add(sender.user_id);
+		else if(result.equals("reject")) {
 			Friend.updateFriendRequest(sender.user_id, receiver.user_id, Friend.DECLINED);
-			request.getSession().setAttribute("friends", rejectCache); // TODO is this yes?
 		}
-		else if(request.getParameter("block") != null) {
-			ArrayList<Integer> friendsCache = (ArrayList<Integer>) request.getSession().getAttribute("friends");
-			friendsCache.add(sender.user_id);
+		else if(result.equals("block")) {
+			ArrayList<Integer> blockedUsers = 
+				(ArrayList<Integer>) request.getSession().getAttribute("blockedUsers");
+			blockedUsers.add(sender.user_id);
 			Friend.updateFriendRequest(sender.user_id, receiver.user_id, Friend.BLOCKED);
-			request.getSession().setAttribute("friends", friendsCache); // TODO is this yes?
+			Friend.blockFriend(sender.user_id, receiver.user_id);
+			request.getSession().setAttribute("blockedUsers", blockedUsers);
 		}
 		
 		/* redirect back to home */

@@ -69,15 +69,13 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("friendRequests", friendRequests);
 
 				/* set up session information we must populate the friends caches here */
-				List<Integer> friendsCache = Friend.getFriends(user.user_id);
-				List<Integer> blockCache = Friend.getBlockedFriends(user.user_id);
-				List<Integer> rejectCache = new ArrayList<Integer>();
+				List<Integer> friends = Friend.getFriends(user.user_id);
 				
-				request.getSession().setAttribute("rejectedFriends", rejectCache);
-				request.getSession().setAttribute("blockedFriends", blockCache);
-				request.getSession().setAttribute("friends", friendsCache);
+				
+				
+				request.getSession().setAttribute("friends", friends);
 				request.getSession().setAttribute("cache", messageCache);
-				request.getSession().setAttribute("loggedIn", "true");
+				request.getSession().setAttribute("loggedIn", true);
 				request.getSession().setAttribute("username", user.username);
 				request.getSession().setAttribute("uid", user.user_id);
 				response.sendRedirect("/DreamMachine/home");
@@ -88,5 +86,9 @@ public class LoginServlet extends HttpServlet {
 		}
 		response.sendRedirect("/DreamMachine/login");
 	}
-
+	
+	private ArrayList<String> populateFriends(User user) {
+		List<Integer> friends = Friend.getFriends(user.user_id);
+		return null;
+	}
 }

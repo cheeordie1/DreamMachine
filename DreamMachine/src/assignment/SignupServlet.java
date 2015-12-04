@@ -28,7 +28,7 @@ public class SignupServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getSession().getAttribute("loggedIn").toString().equals("true")) {
+		if ((boolean) request.getSession().getAttribute("loggedIn")) {
 			response.sendRedirect("/DreamMachine/home");
 		} else {
 			response.setHeader("Content-transfer-encoding", "base64");
@@ -51,7 +51,7 @@ public class SignupServlet extends HttpServlet {
 			request.getSession().setAttribute("errors", user.errorMessages);
 			response.sendRedirect("/DreamMachine/signup");
 		} else {
-			request.getSession().setAttribute("loggedIn", "true");
+			request.getSession().setAttribute("loggedIn", true);
 			request.getSession().setAttribute("username", user.username);
 			request.getSession().setAttribute("uid", user.user_id);
 			response.sendRedirect("/DreamMachine/home");
