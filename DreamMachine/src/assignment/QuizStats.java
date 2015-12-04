@@ -1,8 +1,9 @@
 package assignment;
 
-import java.util.Date;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -11,18 +12,18 @@ public class QuizStats {
 	//All of the scores for the quiz
 	private ArrayList<Score> allScores;
 	
-	private int quiz_id; 
 	private static final int MAX_HIGH_PERFORMERS = 5;
 	private static final int MAX_RECENT_PERFORMANCES = 7;
 	
 	
-	public QuizStats(int quiz_id, int user_id){
-		this.quiz_id = quiz_id; 
-		String query = "SELECT * FROM scores WHERE quiz_id=" + quiz_id;
-		ResultSet AllScoreSet = DBConnection.query(query);
-		allScores = new ArrayList<Score>();
+	public QuizStats(){}
+	
+	
+	public void popAllScores(int quiz_id) {
+		String query = "SELECT * FROM scores";
+		ResultSet rs = DBConnection.query(query);
 		try {
-			while(AllScoreSet.next()) allScores.add(new Score(AllScoreSet));
+			while(rs.next()) allScores.add(new Score(rs));
 		} catch (SQLException e) {}
 	}
 	
@@ -48,14 +49,19 @@ public class QuizStats {
 		return allScores.get(allScores.size()-1).score; 
 	}
 	
-	public ArrayList<Score> pastPerformances(int user_id) {
-		String query = "SELECT * FROM scores WHERE quiz_id=" + quiz_id + " AND user_id=" + user_id;
-		ResultSet UserScoreSet = DBConnection.query(query);		
+	public ArrayList<Score> pastPerformances(int user_id, int quiz_id) {
+//		String query = "SELECT * FROM scores WHERE quiz_id=" + quiz_id + " AND user_id=" + user_id;
+//		ResultSet UserScoreSet = DBConnection.query(query);		
 		ArrayList<Score> allUserScores = new ArrayList<Score>();
-		try {
-			while(UserScoreSet.next()) allUserScores.add(new Score(UserScoreSet));
-		} catch (SQLException e) {}	
+//		try {
+//			while(UserScoreSet.next()) allUserScores.add(new Score(UserScoreSet));
+//		} catch (SQLException e) {}	
 
+		allUserScores.add(new Score(10, new Date((long)1000),new Date((long) 100000), 1, "mark"));
+		allUserScores.add(new Score(20, new Date((long)1000),new Date((long) 100000), 1, "mark"));
+		allUserScores.add(new Score(30, new Date((long)1000),new Date((long) 100000), 1, "mark"));
+		allUserScores.add(new Score(40, new Date((long)1000),new Date((long) 100000), 1, "mark"));
+		
 		Collections.sort(allUserScores, new Score.DateComparator());
 		return allUserScores; 
 	}
@@ -69,7 +75,7 @@ public class QuizStats {
 	public ArrayList<Score> highestPerformersPastDay() {
 		Collections.sort(allScores, new Score.DateComparator());
 		ArrayList <Score> highestPerformers = new ArrayList <Score>(); 
-		Date date = new Date();
+		Date date = new Date(Instant.now().toEpochMilli());
 
 		int index = 0; 
 		while (index < allScores.size() && highestPerformers.size() < MAX_RECENT_PERFORMANCES) {

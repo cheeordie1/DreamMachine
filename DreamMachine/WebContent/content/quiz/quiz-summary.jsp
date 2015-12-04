@@ -20,8 +20,10 @@
 	Quiz quiz = Quiz.searchByID(quiz_id).get(0);
 	User creator = User.searchByID(user_id).get(0);
 
-	QuizStats stats = new QuizStats(quiz_id, user_id);
-	ArrayList <Score> userScores = stats.pastPerformances(user_id);
+	QuizStats stats = new QuizStats();
+	stats.popAllScores(quiz_id);
+	
+	ArrayList <Score> userScores = stats.pastPerformances(user_id, quiz_id);
 	ArrayList <Score> bestScores = stats.highestPerformers();
 	ArrayList <Score> topDailyScores = stats.highestPerformersPastDay();
 	ArrayList <Score> recentScores = stats.recentPerformances();
