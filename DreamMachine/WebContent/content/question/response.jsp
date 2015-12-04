@@ -5,6 +5,8 @@
   <form method="post" action="/question-create">
     <label class="response-hdr hori-center">Create a Response Question for <%= pageQuiz.name %></label><br>
 	<input type="text" class="response-question-box hori-center"></input>
-	<jsp:include page="/content/templates/file-upload.jsp" />
+	<div id="response-photo-container" />
+	  <jsp:include page="/content/templates/file-upload.jsp" />
+	</div>
   </form>
 </div>

@@ -14,3 +14,21 @@
   margin-top: 15px;    
   font-size: 20px;
 }
+
+#response-photo-container {
+  position: relative;
+  margin-top: 15px;
+  margin-left: 20%;
+}
+
+#fake-file {
+  position: relative;
+  z-index: 2;
+}
+
+#real-file {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  left: 5px;
+}
