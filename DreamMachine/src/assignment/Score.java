@@ -11,20 +11,25 @@ public class Score {
 	public Date startTime;
 	public Date finishTime;
 	public int user_id;
+	public int quiz_id; 
 	public User user; 
 	
 	//for debugging
-	public Score(int score, Date startTime, Date finishTime, int user_id, String username) {
+	public Score(int score, Date startTime, Date finishTime, int user_id, String username, int quiz_id) {
 		this.score = score;
 		this.startTime = startTime;
 		this.finishTime = finishTime;
 		this.user_id = user_id; 
 		this.user = new User(username);
+		this.quiz_id = quiz_id; 
 	}
 
 	public Score(ResultSet set) throws SQLException {
 		user_id = set.getInt("user_id");
 		user = new User(DBConnection.query("SELECT * FROM users WHERE user_id =" + user_id));
+	
+		quiz_id = set.getInt("quiz_id");
+
 		score = set.getInt("score");
 		startTime = set.getDate("start_time");
 		finishTime = set.getDate("finishTime");
@@ -35,7 +40,7 @@ public class Score {
 	 * @param quiz_id the id to search by
 	 * @return the list of quizzes with the same id
 	 */
-	public static List<Score> searchByID(int quiz_id) {
+	public static List<Score> searchByQuizID(int quiz_id) {
 		List<Score> allScores = new ArrayList<Score>();
 		
 		//Not Connecting for some reason
@@ -50,10 +55,10 @@ public class Score {
 //		}
 		
 		//Remove when DBConnect Works
-		allScores.add(new Score(10, new Date((long)1000),new Date((long) 100000), 1, "mark"));
-		allScores.add(new Score(20, new Date((long)1000),new Date((long) 100000), 2, "jane"));
-		allScores.add(new Score(30, new Date((long)1000),new Date((long) 100000), 3, "bo"));
-		allScores.add(new Score(40, new Date((long)1000),new Date((long) 100000), 4, "shmee"));
+		allScores.add(new Score(10, new Date((long)1000),new Date((long) 100000), 1, "mark", quiz_id));
+		allScores.add(new Score(20, new Date((long)1000),new Date((long) 100000), 2, "jane", quiz_id));
+		allScores.add(new Score(30, new Date((long)1000),new Date((long) 100000), 3, "bo", quiz_id));
+		allScores.add(new Score(40, new Date((long)1000),new Date((long) 100000), 4, "shmee", quiz_id));
 
 		return allScores;
 	}

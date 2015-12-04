@@ -55,10 +55,10 @@ public class QuizStats {
 //		}
 		
 		//Remove when DBConnect Works
-		allUserScores.add(new Score(10, new Date((long)1000),new Date((long) 100000), 1, "mark"));
-		allUserScores.add(new Score(20, new Date((long)1000),new Date((long) 100000), 1, "mark"));
-		allUserScores.add(new Score(30, new Date((long)1000),new Date((long) 100000), 1, "mark"));
-		allUserScores.add(new Score(40, new Date((long)1000),new Date((long) 100000), 1, "mark"));
+		allUserScores.add(new Score(10, new Date((long)1000),new Date((long) 100000), user_id, "mark", quiz_id));
+		allUserScores.add(new Score(20, new Date((long)1000),new Date((long) 100000), user_id, "mark", quiz_id));
+		allUserScores.add(new Score(30, new Date((long)1000),new Date((long) 100000), user_id, "mark", quiz_id));
+		allUserScores.add(new Score(40, new Date((long)1000),new Date((long) 100000), user_id, "mark", quiz_id));
 		
 		Collections.sort(allUserScores, new Score.DateComparator());
 		return allUserScores; 

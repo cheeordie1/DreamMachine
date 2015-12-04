@@ -21,7 +21,7 @@
 	int user_id = 1; //(Integer) request.getAttribute("user_id");
 	Quiz quiz = Quiz.searchByID(quiz_id).get(0);
 	User creator = User.searchByID(user_id).get(0);
-	List<Score> allScores  = Score.searchByID(quiz_id);
+	List<Score> allScores  = Score.searchByQuizID(quiz_id);
 	
 	ArrayList<Score> userScores = QuizStats.pastPerformances(user_id, quiz_id);
 	ArrayList <Score> bestScores = QuizStats.highestPerformers(allScores);
@@ -49,20 +49,24 @@
 			<div id="pop-quizzes-cont" class="well">
 				<h3>Quiz Statistics:</h3>
 				<table class="table table-condensed">
-				  	<tr>
-				  		<th>Date Created</th> 
-				  		<th>Times Played</th>
-				  		<th>Average Score</th>
-				  		<th>High Score</th>
-				  		<th>Low Score</th>
-				  	</tr>
-				     	<tr>
-				        	<td> <%=quiz.created_at%></td>
-				        	<td> <%=QuizStats.timesPlayed(allScores)%> </td>
-				        	<td> <%=QuizStats.averageScore(allScores)%></td>
-				        	<td> <%=QuizStats.highScore(allScores)%></td>
-				        	<td> <%=QuizStats.lowScore(allScores)%></td>
-				      	</tr>
+					<thead>
+					  	<tr>
+					  		<th>Date Created</th> 
+					  		<th>Times Played</th>
+					  		<th>Average Score</th>
+					  		<th>High Score</th>
+					  		<th>Low Score</th>
+					  	</tr>
+				  	</thead>
+				  		<tbody>
+					     	<tr>
+					        	<td> <%=quiz.created_at%></td>
+					        	<td> <%=QuizStats.timesPlayed(allScores)%> </td>
+					        	<td> <%=QuizStats.averageScore(allScores)%></td>
+					        	<td> <%=QuizStats.highScore(allScores)%></td>
+					        	<td> <%=QuizStats.lowScore(allScores)%></td>
+					      	</tr>
+				      	</tbody>
 				</table>
 			</div>
 		</div>
