@@ -45,7 +45,7 @@ public class FriendResponseServlet extends HttpServlet {
 		
 		String senderString, receiverString;
 		User sender, receiver;
-		
+
 		/* get ourselves */
 		receiverString = (String) request.getSession().getAttribute("username");
 		receiver = User.searchByUsername(receiverString).get(0);

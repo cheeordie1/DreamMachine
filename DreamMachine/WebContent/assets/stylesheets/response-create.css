@@ -1,0 +1,16 @@
+@CHARSET "ISO-8859-1";
+.response-hdr {
+  position: relative;
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 28px;
+  color: #8D1CDF;
+}
+
+.response-question-box {
+  position: relative;
+  height: 30px;
+  width: 600px;
+  margin-top: 15px;    
+  font-size: 20px;
+}

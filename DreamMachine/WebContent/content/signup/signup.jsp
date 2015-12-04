@@ -46,10 +46,7 @@
         <div class="error-msg"><%= message %></div>
         <% } %>
         <br>
-      <div id="file-selector">
-        <input id="fake-file" type="button" value="Upload Photo">
-        <input id="real-file" type="file" name="photo">
-      </div>
+      <jsp:include page="/content/templates/file-upload.jsp" />
       <% messages = errors.getErrors(assignment.User.PHOTO_ERROR);
          for (String message : messages) { 
       %>
@@ -57,7 +54,6 @@
       <% } %>
       <input id="signup-submit" class="hori-center" type="submit" value="Enter Dream">
     </form>
-    <script src="/DreamMachine/assets/javascripts/signup.js"></script>
   </div>
 </body>
 </html>
