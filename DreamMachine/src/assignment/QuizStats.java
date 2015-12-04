@@ -19,6 +19,7 @@ public class QuizStats {
 	}
 	
 	public static int averageScore(List<Score> allScores ) {
+		if (allScores.isEmpty()) return 0;
 		int sum = 0; 
 		for (Score score: allScores) {
 			sum+= score.score; 
@@ -27,23 +28,32 @@ public class QuizStats {
 	}
 	
 	public static int highScore(List<Score> allScores ) {
+		if (allScores.isEmpty()) return 0;
 		Collections.sort(allScores, new Score.ScoreComparator());
 		return allScores.get(0).score; 
 	}
 	
 	public static int lowScore(List<Score> allScores ) {
+		if (allScores.isEmpty()) return 0;
 		Collections.sort(allScores, new Score.ScoreComparator());
 		return allScores.get(allScores.size()-1).score; 
 	}
 	
-	public static ArrayList<Score> pastPerformances(int user_id, int quiz_id) {
-//		String query = "SELECT * FROM scores WHERE quiz_id=" + quiz_id + " AND user_id=" + user_id;
-//		ResultSet UserScoreSet = DBConnection.query(query);		
-		ArrayList<Score> allUserScores = new ArrayList<Score>();
-//		try {
-//			while(UserScoreSet.next()) allUserScores.add(new Score(UserScoreSet));
-//		} catch (SQLException e) {}	
 
+	
+	public static ArrayList<Score> pastPerformances(int user_id, int quiz_id) {
+		ArrayList<Score> allUserScores = new ArrayList<Score>();
+
+//		String query = "SELECT * FROM scores WHERE quiz_id=" + quiz_id + " AND user_id=" + user_id;
+//		ResultSet rs = DBConnection.query(query);
+//		if (rs == null) return allUserScores;
+//		try {
+//			while (rs.next())
+//				allUserScores.add(new Score(rs));
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+		
 		allUserScores.add(new Score(10, new Date((long)1000),new Date((long) 100000), 1, "mark"));
 		allUserScores.add(new Score(20, new Date((long)1000),new Date((long) 100000), 1, "mark"));
 		allUserScores.add(new Score(30, new Date((long)1000),new Date((long) 100000), 1, "mark"));
@@ -54,6 +64,8 @@ public class QuizStats {
 	}
 	
 	public static ArrayList<Score> highestPerformers(List<Score> allScores ) {
+		if (allScores.isEmpty()) return new ArrayList <Score>();
+
 		Collections.sort(allScores, new Score.ScoreComparator());
 		int maxIndex = allScores.size() > MAX_HIGH_PERFORMERS ? MAX_HIGH_PERFORMERS-1 : allScores.size()-1;
 		return new ArrayList <Score>(allScores.subList(0, maxIndex));
@@ -61,6 +73,8 @@ public class QuizStats {
 	
 	@SuppressWarnings("deprecation")
 	public static ArrayList<Score> highestPerformersPastDay(List<Score> allScores ) {
+		if (allScores.isEmpty()) return new ArrayList <Score>();
+
 		Collections.sort(allScores, new Score.DateComparator());
 		ArrayList <Score> highestPerformers = new ArrayList <Score>(); 
 		Date date = new Date(Instant.now().toEpochMilli());
@@ -80,6 +94,8 @@ public class QuizStats {
 	}
 	
 	public static ArrayList<Score> recentPerformances(List<Score> allScores ) {
+		if (allScores.isEmpty()) return new ArrayList <Score>();
+
 		Collections.sort(allScores, new Score.DateComparator());
 		int maxIndex = allScores.size() > MAX_RECENT_PERFORMANCES ? MAX_RECENT_PERFORMANCES-1 : allScores.size()-1;
 		return new ArrayList <Score>(allScores.subList(0, maxIndex));

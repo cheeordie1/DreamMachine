@@ -41,18 +41,14 @@
 		<h2>Created by <a href=#><%=creator.username%></a></h2>
 	</div>
 	
-	<br><br>
-	
 	<div id="description"> 
-		<h2>Description:</h2>
+		<h3>Description:</h3>
 		<p><%=quiz.description%></p>
 	</div>
 	
-	<br><br>
-	
 	<div id="stats"> 
-			<h3>Quiz Statistics</h3>
 			<div id="pop-quizzes-cont" class="well">
+				<h3>Quiz Statistics:</h3>
 				<table class="table table-condensed">
 				  	<tr>
 				  		<th>Date Created</th> 
@@ -169,7 +165,7 @@
 			</div>
 		</div>	
 	</div>
-	
+	<br>
 	<div> <a href=#>Take Quiz</a></div>
 
 </body>

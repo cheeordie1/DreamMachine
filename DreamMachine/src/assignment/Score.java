@@ -52,12 +52,7 @@ public class Score {
 		allScores.add(new Score(20, new Date((long)1000),new Date((long) 100000), 2, "jane"));
 		allScores.add(new Score(30, new Date((long)1000),new Date((long) 100000), 3, "bo"));
 		allScores.add(new Score(40, new Date((long)1000),new Date((long) 100000), 4, "shmee"));
-		
-		Collections.sort(allScores, new Score.ScoreComparator());
-		Collections.sort(allScores, new Score.DateComparator());
 
-		
-		
 		return allScores;
 	}
 	
