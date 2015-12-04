@@ -28,16 +28,29 @@
       </ul>
     </div>
     <div>
-    <%
+    <% // for friend status information
       assignment.User u = assignment.User.searchByUsername(name).get(0);
       int user_id = (Integer) request.getSession().getAttribute("uid"); 
       String currentUser = (String) request.getSession().getAttribute("username");
-   	  int status = assignment.Friend.getStatusOfFriendship(user_id, u.user_id);
+   	  int status = assignment.Friend.getStatusOfFriendship(user_id, u.user_id);%>
+   	  <form id="friendRequestForm" method="post" action="/DreamMachine/block">
+   	  		<input type="hidden" name="name" value="<%=name%>">
+   	  		<input type="submit" value="add friend">
+   	  </form><%
    	  if(status == assignment.Friend.NONE && !name.equals(currentUser)) {%>
-   	  	<form id=friendRequestForm method="post" action="/DreamMachine/friendRequest">
+   	  	<form id="friendRequestForm" method="post" action="/DreamMachine/friendRequest">
    	  		<input type="hidden" name="name" value="<%=name%>">
    	  		<input type="submit" value="add friend">
    	  	</form>
+   	  <%} else if(status == assignment.Friend.ACCEPTED && !name.equals(currentUser)) {%>
+   	  	<form id="unfriend" method="post" action="/DreamMachine/unfriend">
+   	  		<input type="hidden" name="name" value="<%=name%>">
+   	  		<input type="submit" value="unfriend">
+   	  	</form> 
+   	  	<form id="challenge" method="post" action="/DreamMachine/challengeRequest">
+   	  		<input type="hidden" name="name" value="<%=name%>">
+   	  		<input type="submit" value="challenge them!">
+   	  	</form> 
    	  <%}%>
    	  </div>
   </div>

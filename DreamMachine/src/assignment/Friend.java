@@ -77,6 +77,13 @@ public class Friend {
 		return friends;
 	}
 
+	public static void removeFriendship(int friend_a, int friend_b) {
+		String update = "DELETE FROM friends WHERE " +
+			"(sender = "+friend_a+" AND receiver = " +friend_b+")" + " OR " +
+			"(sender = "+friend_b+" AND receiver = " +friend_a+")";
+		DBConnection.update(update);
+	}
+	
 	public static List<Friend> searchByReceiverIDStatus(int user_id, int status) {
 		List<Friend> friends = new ArrayList<Friend>();
 		String query = "SELECT * FROM " + TABLE_NAME + 

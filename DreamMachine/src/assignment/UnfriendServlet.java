@@ -1,8 +1,6 @@
 package assignment;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class FriendsRequestServlet
+ * Servlet implementation class UnfriendServlet
  */
-@WebServlet(urlPatterns = {"/friendRequest"})
-public class FriendRequestServlet extends HttpServlet {
+@WebServlet(urlPatterns = {"/unfriend"})
+public class UnfriendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FriendRequestServlet() {
+    public UnfriendServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,6 +27,7 @@ public class FriendRequestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -39,8 +38,8 @@ public class FriendRequestServlet extends HttpServlet {
 		User destinationUser = User.searchByUsername(destination).get(0);
 		
 		int sender_id = (Integer) request.getSession().getAttribute("uid");
-		Friend.sendFriendRequest(sender_id, destinationUser.user_id);
-		
+	    Friend.removeFriendship(sender_id, destinationUser.user_id);
+
 		response.sendRedirect("/DreamMachine/user/"+destinationUser.username);
 	}
 

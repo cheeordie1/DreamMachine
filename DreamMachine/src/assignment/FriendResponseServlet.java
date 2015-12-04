@@ -60,10 +60,10 @@ public class FriendResponseServlet extends HttpServlet {
 			ArrayList<Integer> friendsCache = (ArrayList<Integer>) request.getSession().getAttribute("friends");
 			friendsCache.add(sender.user_id);
 			Friend.updateFriendRequest(sender.user_id, receiver.user_id, Friend.ACCEPTED);
-			request.getSession().setAttribute("friends", friendsCache); // TODO is this yes?
+			request.getSession().setAttribute("friends", friendsCache);
 		} 
 		else if(result.equals("reject")) {
-			Friend.updateFriendRequest(sender.user_id, receiver.user_id, Friend.DECLINED);
+			Friend.updateFriendRequest(sender.user_id, receiver.user_id, Friend.NONE);
 		}
 		else if(result.equals("block")) {
 			ArrayList<Integer> blockedUsers = 
