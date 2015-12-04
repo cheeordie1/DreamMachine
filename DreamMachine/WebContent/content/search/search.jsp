@@ -10,8 +10,7 @@
 </head>
 <body>
 	<%
-	java.util.ArrayList<String> results =
-		(java.util.ArrayList<String>) request.getAttribute("searchResults");
+	java.util.ArrayList<String> results = (java.util.ArrayList<String>) request.getAttribute("searchResults");
 	%>
 	<div>
 		<%for(String user : results) {%>

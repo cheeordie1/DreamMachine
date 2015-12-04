@@ -29,8 +29,7 @@ public class FriendResponseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/* error checking on request sender */
-		
+		/* error checking on request sender */	
 		String url = request.getRequestURL().toString();
 		User sender = parseSenderFromURL(url);
 		request.setAttribute("sender", sender.username);
