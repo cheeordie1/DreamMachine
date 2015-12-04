@@ -4,34 +4,35 @@
 <%@page import = "assignment.QuizStats"%>
 <%@page import = "assignment.Score"%>
 <%@page import = "java.util.ArrayList"%>
+<%@page import = "java.util.List"%>
 <%@page import = "java.text.NumberFormat" %>
 <%@page import = "java.sql.ResultSet" %>
 <%@page import = "java.sql.SQLException" %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 	int quiz_id = 1; //(Integer) request.getAttribute("quiz_id"); 
 	int user_id = 1; //(Integer) request.getAttribute("user_id");
 
 	Quiz quiz = Quiz.searchByID(quiz_id).get(0);
 	User creator = User.searchByID(user_id).get(0);
-
-	QuizStats stats = new QuizStats();
-	stats.popAllScores(quiz_id);
+	List<Score> allScores  = Score.searchByID(quiz_id);
 	
-	ArrayList <Score> userScores = stats.pastPerformances(user_id, quiz_id);
-	ArrayList <Score> bestScores = stats.highestPerformers();
-	ArrayList <Score> topDailyScores = stats.highestPerformersPastDay();
-	ArrayList <Score> recentScores = stats.recentPerformances();
+	ArrayList<Score> userScores = QuizStats.pastPerformances(user_id, quiz_id);
+	ArrayList <Score> bestScores = QuizStats.highestPerformers(allScores);
+	ArrayList <Score> topDailyScores = QuizStats.highestPerformersPastDay(allScores);
+	ArrayList <Score> recentScores = QuizStats.recentPerformances(allScores);
 	
 %>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title><%=quiz.name%></title>
+<jsp:include page="/content/app.jsp" />
+<title>What Quizzes Do You Conjure</title>
 </head>
 
 <body>
@@ -62,32 +63,15 @@
 				  	</tr>
 				     	<tr>
 				        	<td> <%=quiz.created_at%></td>
-				      	</tr>
-				      	<tr>
-				        	<td> <%=stats.timesPlayed()%> </td>
-				      	</tr>
-				      	<tr>
-				        	<td> <%=stats.averageScore()%></td>
-				      	</tr>
-				      	<tr>
-				        	<td> <%=stats.highScore()%></td>
-				      	</tr>
-				      	<tr>
-				        	<td> <%=stats.lowScore()%></td>
+				        	<td> <%=QuizStats.timesPlayed(allScores)%> </td>
+				        	<td> <%=QuizStats.averageScore(allScores)%></td>
+				        	<td> <%=QuizStats.highScore(allScores)%></td>
+				        	<td> <%=QuizStats.lowScore(allScores)%></td>
 				      	</tr>
 				</table>
 			</div>
 		</div>
 		
-	
-	<div id="stats"> 
-		<h2>Quiz Statistics:</h2>
-		<h3>Date: </h3>
-	</div>
-	
-	<br><br>
-	
-	
 	<div> 
 		<div id="past-performanes"> 
 			<h3>Your Past Performance</h3>
@@ -103,14 +87,8 @@
 				    { %>
 				     	<tr>
 				        	<td> <%=score.finishTime%></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <a href=/DreamMachine/user?<%=score.user_id%>> <%=score.user.username%></a></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <%=score.score%></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <%=score.getDuration()%></td>
 				      	</tr>
 				      	
@@ -133,14 +111,8 @@
 				    { %>
 				     	<tr>
 				        	<td> <%=score.finishTime%></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <a href=/DreamMachine/user?<%=score.user_id%>> <%=score.user.username%></a></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <%=score.score%></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <%=score.getDuration()%></td>
 				      	</tr>
 				      	
@@ -163,14 +135,8 @@
 				    { %>
 				     	<tr>
 				        	<td> <%=score.finishTime%></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <a href=/DreamMachine/user?<%=score.user_id%>> <%=score.user.username%></a></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <%=score.score%></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <%=score.getDuration()%></td>
 				      	</tr>
 				      	
@@ -193,14 +159,8 @@
 				    { %>
 				     	<tr>
 				        	<td> <%=score.finishTime%></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <a href=/DreamMachine/user?<%=score.user_id%>> <%=score.user.username%></a></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <%=score.score%></td>
-				      	</tr>
-				      	<tr>
 				        	<td> <%=score.getDuration()%></td>
 				      	</tr>
 				      	

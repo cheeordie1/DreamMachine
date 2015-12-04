@@ -3,6 +3,9 @@ package assignment;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Score {
 	public int score; 
@@ -26,6 +29,36 @@ public class Score {
 		score = set.getInt("score");
 		startTime = set.getDate("start_time");
 		finishTime = set.getDate("finishTime");
+	}
+	
+	/**
+	 * Search for a quiz by its unique quiz_id
+	 * @param quiz_id the id to search by
+	 * @return the list of quizzes with the same id
+	 */
+	public static List<Score> searchByID(int quiz_id) {
+		List<Score> allScores = new ArrayList<Score>();
+//		String query = "SELECT * FROM scores WHERE quiz_id = " + quiz_id;
+//		ResultSet rs = DBConnection.query(query);
+//		if (rs == null) return allScores;
+//		try {
+//			while (rs.next())
+//				allScores.add(new Score(rs));
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+		
+		allScores.add(new Score(10, new Date((long)1000),new Date((long) 100000), 1, "mark"));
+		allScores.add(new Score(20, new Date((long)1000),new Date((long) 100000), 2, "jane"));
+		allScores.add(new Score(30, new Date((long)1000),new Date((long) 100000), 3, "bo"));
+		allScores.add(new Score(40, new Date((long)1000),new Date((long) 100000), 4, "shmee"));
+		
+		Collections.sort(allScores, new Score.ScoreComparator());
+		Collections.sort(allScores, new Score.DateComparator());
+
+		
+		
+		return allScores;
 	}
 	
 	
