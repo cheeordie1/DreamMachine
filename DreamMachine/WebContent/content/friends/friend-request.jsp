@@ -1,4 +1,4 @@
-<html>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <jsp:include page="../header/top-bar.jsp" />
 <script type="text/javascript" src="http://localhost:8123/faye/client.js"></script>
@@ -27,6 +27,9 @@
 </script>
 <div>
 	<%String destination = (String) request.getAttribute("sender"); %>
-	<a href="javascript:send_request('<%=destination%>')">send a request to <%=destination%></a>
+	
+		<button type = "button" id = "button-request">
+			<a href="javascript:send_request('<%=destination%>')" id = "friend-request">send a request to <%=destination%></a>
+		</button>
+	
 </div>
-</html>
