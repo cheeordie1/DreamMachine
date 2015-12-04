@@ -33,12 +33,12 @@
       int user_id = (Integer) request.getSession().getAttribute("uid"); 
       String currentUser = (String) request.getSession().getAttribute("username");
    	  int status = assignment.Friend.getStatusOfFriendship(user_id, u.user_id);%>
-   	  <form id="friendRequestForm" method="post" action="/DreamMachine/block">
+   	  <form id="block-form" method="post" action="/DreamMachine/block">
    	  		<input type="hidden" name="name" value="<%=name%>">
    	  		<input type="submit" value="add friend">
    	  </form><%
    	  if(status == assignment.Friend.NONE && !name.equals(currentUser)) {%>
-   	  	<form id="friendRequestForm" method="post" action="/DreamMachine/friendRequest">
+   	  	<form id="friend-request-form" method="post" action="/DreamMachine/friendRequest">
    	  		<input type="hidden" name="name" value="<%=name%>">
    	  		<input type="submit" value="add friend">
    	  	</form>

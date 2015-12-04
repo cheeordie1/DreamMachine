@@ -40,7 +40,7 @@ public class BlockServlet extends HttpServlet {
 		int sender_id = (Integer) request.getSession().getAttribute("uid");
 		Friend.blockFriend(destinationUser.user_id, sender_id);
 		
-		response.sendRedirect("/DreamMachine/user/"+destinationUser.username);
+		response.sendRedirect("/DreamMachine/home");
 	}
 
 }
