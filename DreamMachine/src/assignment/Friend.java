@@ -80,7 +80,7 @@ public class Friend {
 	public static List<Friend> searchByReceiverIDStatus(int user_id, int status) {
 		List<Friend> friends = new ArrayList<Friend>();
 		String query = "SELECT * FROM " + TABLE_NAME + 
-				" WHERE receiver = " + user_id;
+				" WHERE receiver = " + user_id + " AND status = " + status;
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return friends;
 		try {
