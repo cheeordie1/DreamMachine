@@ -66,7 +66,7 @@ CREATE TABLE answers (
 	PRIMARY KEY (answer_id)
 );
 
-CREATE TABLE message (
+CREATE TABLE messages (
 	sender CHAR(64),
 	receiver CHAR(64),
 	message TEXT

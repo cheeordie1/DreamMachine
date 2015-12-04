@@ -90,6 +90,7 @@ public class Friend {
 	               " OR reciever = " + user_id + 
 	               ") AND status = " + ACCEPTED; 
 		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return friends;
     	try {
 			while (rs.next()){
 				if (rs.getInt("sender") == user_id){
@@ -118,6 +119,7 @@ public class Friend {
 	               		" OR reciever = " + user_id +  
 	               		") AND status = " + PENDING;
 		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return pending;
 		try {
 			while (rs.next()) {
 					if (rs.getInt("sender") == user_id) {
@@ -144,6 +146,7 @@ public class Friend {
 						" WHERE reciever = " + user_id + 
 						" AND status = " + PENDING;
 		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return pendingRequests;
 		try {
 			while (rs.next()) {
 				pendingRequests.add(rs.getInt("sender"));
@@ -168,6 +171,7 @@ public class Friend {
 	               " OR reciever = " + user_id + 
 	               ") AND status = " + BLOCKED;
 		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return blocked;
 		try {
 			while (rs.next()) {
 				if (rs.getInt("sender") == user_id) {
@@ -220,6 +224,7 @@ public class Friend {
 					   " AND reciever = " + friend_b + 
 					   ");";
 		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return NONE;
 		try {
 			while (rs.next()) {
 				return rs.getInt("status");
