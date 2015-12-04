@@ -60,21 +60,7 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			User user = users.get(0);
 			if (user.checkPassword(password)) {
-				/* message cache will originally be empty */
-				HashMap<String, ArrayList<String>> messageCache
-					= Message.retreiveMessages(user.username);
-				
-				/* friend requests */
-				ArrayList<Integer> friendRequests = Friend.getAllPendingRequests(user.user_id);
-				request.getSession().setAttribute("friendRequests", friendRequests);
-
-				/* set up session information we must populate the friends caches here */
-				List<Integer> friends = Friend.getFriends(user.user_id);
-				
-				
-				
-				request.getSession().setAttribute("friends", friends);
-				request.getSession().setAttribute("cache", messageCache);
+				/* set up session information we must populate the friends caches here */				
 				request.getSession().setAttribute("loggedIn", true);
 				request.getSession().setAttribute("username", user.username);
 				request.getSession().setAttribute("uid", user.user_id);

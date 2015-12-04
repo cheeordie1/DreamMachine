@@ -35,7 +35,7 @@
    	  int status = assignment.Friend.getStatusOfFriendship(user_id, u.user_id);%>
    	  <form id="block-form" method="post" action="/DreamMachine/block">
    	  		<input type="hidden" name="name" value="<%=name%>">
-   	  		<input type="submit" value="add friend">
+   	  		<input type="submit" value="block">
    	  </form><%
    	  if(status == assignment.Friend.NONE && !name.equals(currentUser)) {%>
    	  	<form id="friend-request-form" method="post" action="/DreamMachine/friendRequest">

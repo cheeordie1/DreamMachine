@@ -57,21 +57,14 @@ public class FriendResponseServlet extends HttpServlet {
 		String result = request.getParameter("name");
 		if(result.equals("accept")) {
 			/* add this use to the friendsCache and update the db */
-			ArrayList<Integer> friendsCache = (ArrayList<Integer>) request.getSession().getAttribute("friends");
-			friendsCache.add(sender.user_id);
 			Friend.updateFriendRequest(sender.user_id, receiver.user_id, Friend.ACCEPTED);
-			request.getSession().setAttribute("friends", friendsCache);
 		} 
 		else if(result.equals("reject")) {
 			Friend.updateFriendRequest(sender.user_id, receiver.user_id, Friend.NONE);
 		}
 		else if(result.equals("block")) {
-			ArrayList<Integer> blockedUsers = 
-				(ArrayList<Integer>) request.getSession().getAttribute("blockedUsers");
-			blockedUsers.add(sender.user_id);
 			Friend.updateFriendRequest(sender.user_id, receiver.user_id, Friend.BLOCKED);
 			Friend.blockFriend(sender.user_id, receiver.user_id);
-			request.getSession().setAttribute("blockedUsers", blockedUsers);
 		}
 		
 		/* redirect back to home */
