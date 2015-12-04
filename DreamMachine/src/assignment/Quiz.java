@@ -51,7 +51,7 @@ public class Quiz {
 			single_page = quizData.getBoolean("single_page");
 			random_questions = quizData.getBoolean("random_questions");
 			practice_mode = quizData.getBoolean("practice_mode");
-			created_at = quizData.getDate("date");
+			created_at = quizData.getDate("created_at");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -12,8 +12,8 @@
 <html>
 <head>
 <%
-	int quiz_id = (Integer) request.getAttribute("quiz_id"); 
-	int user_id = (Integer) request.getAttribute("user_id");
+	int quiz_id = 1; //(Integer) request.getAttribute("quiz_id"); 
+	int user_id = 1; //(Integer) request.getAttribute("user_id");
 
 	Quiz quiz = Quiz.searchByID(quiz_id).get(0);
 	User creator = User.searchByID(user_id).get(0);

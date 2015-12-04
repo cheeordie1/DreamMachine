@@ -18,7 +18,7 @@ public class QuizStats {
 	
 	public QuizStats(int quiz_id, int user_id){
 		this.quiz_id = quiz_id; 
-		ResultSet AllScoreSet = DBConnection.query("SELECT * FROM scores WHERE quiz_id =" + quiz_id);
+		ResultSet AllScoreSet = DBConnection.query("SELECT * FROM scores WHERE quiz_id=" + quiz_id);
 		allScores = new ArrayList<Score>();
 		try {
 			while(AllScoreSet.next()) allScores.add(new Score(AllScoreSet));
@@ -48,7 +48,8 @@ public class QuizStats {
 	}
 	
 	public ArrayList<Score> pastPerformances(int user_id) {
-		ResultSet UserScoreSet = DBConnection.query("SELECT * FROM scores WHERE quiz_id =" + quiz_id + " AND user_id=" + user_id);		
+		String query = "SELECT * FROM scores WHERE quiz_id=" + quiz_id + " AND user_id=" + user_id;
+		ResultSet UserScoreSet = DBConnection.query(query);		
 		ArrayList<Score> allUserScores = new ArrayList<Score>();
 		try {
 			while(UserScoreSet.next()) allUserScores.add(new Score(UserScoreSet));
