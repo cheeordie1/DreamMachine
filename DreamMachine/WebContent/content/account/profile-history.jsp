@@ -44,10 +44,10 @@
            for (Friend friendship : friendships) {
         	   if (count++ >= 4) break;
         	   List<User> friendUsers;
-        	   if (friendship.friend_a_user_id == pageUser.user_id)
-        		   friendUsers = User.searchByID(friendship.friend_b_user_id);
+        	   if (friendship.sender == pageUser.user_id)
+        		   friendUsers = User.searchByID(friendship.receiver);
         	   else
-        		   friendUsers = User.searchByID(friendship.friend_a_user_id);
+        		   friendUsers = User.searchByID(friendship.sender);
         	   User friendUser = friendUsers.get(0);
         	   String url = "/DreamMachine/user/" + friendUser.user_id;
     %>
