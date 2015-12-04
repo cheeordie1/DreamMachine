@@ -33,7 +33,7 @@ public class Score {
 		return (finishTime.getTime() - startTime.getTime())/1000;
 	}
     
-	static class ScoreComparator implements java.util.Comparator<Score>
+	public static class ScoreComparator implements java.util.Comparator<Score>
 	 {
 		public int compare(Score s1, Score s2) {
 			if (s1.score == s2.score) 
@@ -42,7 +42,7 @@ public class Score {
 		}
 	 }
 
-	static class DateComparator implements java.util.Comparator<Score>
+	public static class DateComparator implements java.util.Comparator<Score>
 	 {
 		public int compare(Score s1, Score s2) {
 			if (s1.finishTime.equals(s2.finishTime)){

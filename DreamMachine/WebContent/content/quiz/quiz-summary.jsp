@@ -5,6 +5,8 @@
 <%@page import = "assignment.Score"%>
 <%@page import = "java.util.ArrayList"%>
 <%@page import = "java.text.NumberFormat" %>
+<%@page import = "java.sql.ResultSet" %>
+<%@page import = "java.sql.SQLException" %>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -23,6 +25,7 @@
 	ArrayList <Score> bestScores = stats.highestPerformers();
 	ArrayList <Score> topDailyScores = stats.highestPerformersPastDay();
 	ArrayList <Score> recentScores = stats.recentPerformances();
+	
 %>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

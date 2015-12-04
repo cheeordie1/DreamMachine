@@ -18,7 +18,8 @@ public class QuizStats {
 	
 	public QuizStats(int quiz_id, int user_id){
 		this.quiz_id = quiz_id; 
-		ResultSet AllScoreSet = DBConnection.query("SELECT * FROM scores WHERE quiz_id=" + quiz_id);
+		String query = "SELECT * FROM scores WHERE quiz_id=" + quiz_id;
+		ResultSet AllScoreSet = DBConnection.query(query);
 		allScores = new ArrayList<Score>();
 		try {
 			while(AllScoreSet.next()) allScores.add(new Score(AllScoreSet));
