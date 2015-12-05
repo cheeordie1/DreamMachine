@@ -76,7 +76,6 @@ public class MultiChoice extends Answer {
 	 * Second it checks that each answer is a valid option.
 	 */
 	
-	@Override
 	public boolean isValid() {
 		if (allAnswers.size() == 0 || allOptions.size() == 0 || numAnswers == 0) return false;
 		for (String a: allAnswers) {

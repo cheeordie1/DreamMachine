@@ -88,3 +88,13 @@ CREATE TABLE challenges (
 	link VARCHAR(100),
 	PRIMARY KEY (challenge_id)
 );
+
+CREATE TABLE scores (
+	score_id INT NOT NULL AUTO_INCREMENT,
+	quiz_id INT, 
+	user_id INT,
+	score INT, 
+	start_time TIMESTAMP DEFAULT 0,
+	finish_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (score_id)
+);
