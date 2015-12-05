@@ -72,6 +72,7 @@ public class QuestionCreateServlet extends HttpServlet {
 		String forward = "/content/question/question-create.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);
+		request.getSession().removeAttribute("errors");
 	}
 
 	/**
@@ -79,8 +80,20 @@ public class QuestionCreateServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String questionType = request.getParameter("question-type").toString();
+		int quiz_id = Integer.parseInt(request.getParameter("quiz-id").toString());
 		if (questionType.equals(Question.RESPONSE)) {
-			
+			Response responseQuestion = new Response();
+			responseQuestion.subset = request.getParameter("subset").toString();
+			responseQuestion.ordered = request.getParameter("order") != null;
+			int numAnswers = Integer.parseInt(request.getParameter("num-answers").toString());
+			for (int curAnswer = 0; curAnswer < numAnswers; curAnswer++) {
+				String answer = request.getParameter("answer" + curAnswer);
+				responseQuestion.addAnswer(answer);
+			}
+			if(!responseQuestion.save()) {
+				request.getSession().setAttribute("errors", responseQuestion.errorMessages);
+				response.sendRedirect("/DreamMachine/question-create?questionType=" + questionType + "&quiz-id=" + quiz_id);
+			}
 		} else if (questionType.equals(Question.MATCHING)) {
 			
 		} else if (questionType.equals(Question.MULTICHOICE)) {
