@@ -203,7 +203,8 @@
 </div>
 <script>
 <%
-List<Friend> pendingRequests = Friend.searchByReceiverIDStatus(user.user_id, Friend.PENDING);
+int me = (Integer) request.getSession().getAttribute("uid");
+List<Friend> pendingRequests = Friend.searchByReceiverIDStatus(me, Friend.PENDING);
 for(Friend pendingRequest : pendingRequests) {
 	User requestingUser = User.searchByID(pendingRequest.sender).get(0);
 	String requestingName = requestingUser.username;%>
