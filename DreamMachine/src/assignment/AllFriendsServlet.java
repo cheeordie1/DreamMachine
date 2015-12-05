@@ -36,7 +36,7 @@ public class AllFriendsServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int user_id = Integer.valueOf((String)request.getParameter("user_id"));
-		request.setAttribute("uid", request.getSession().getAttribute("uid"));
+		request.setAttribute("user_id", user_id);
 		
 		
 		User user = new User((String)request.getSession().getAttribute("username"));

@@ -27,6 +27,7 @@ public class User {
     public String passwordDigest; 
     public String salt;
     public int photo_id;
+    public boolean admin;
     public Date created_at;
     
     /* Error Key Strings */

@@ -17,6 +17,7 @@ CREATE TABLE users (
     digest CHAR(64),
     photo_id INT,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	admin BOOLEAN,
     PRIMARY KEY (user_id)
 );
 

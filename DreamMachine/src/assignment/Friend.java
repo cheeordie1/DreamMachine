@@ -124,7 +124,7 @@ public class Friend {
 	 * Search the database friend for pending requests
 	 * @param user_id The id of the user to find pending requests of
 	 * @return a list of the id's of the pending requests of the user
-	 * associated with the user_id, all pending requests (ones they have
+	 * associated,s they have
 	 * sent and ones received)
 	 */
 	public static ArrayList <Integer> getAllPendingRequests (int user_id) {
