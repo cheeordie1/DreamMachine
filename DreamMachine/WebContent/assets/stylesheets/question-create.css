@@ -18,7 +18,7 @@ body {
   display: inline-block;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  margin-right: 20px;
+  margin-right: 2vw;
   border-bottom: none;
   background: rgba(194, 37, 220, 0.04);
   padding: 10px;
@@ -31,6 +31,7 @@ body {
 .question-type-changer-link {
   display: inline-block;
   font-family: "Montserrat";
+  font-size: 2.2vh;
   text-decoration: none;
 }
 
@@ -58,13 +59,29 @@ body {
 
 #question-type-selector {
   position: relative;
-  margin-left: 60px;
+  margin-left: 6vw;
   display: inline-block;
 }
 
 #question-specific-container {
   position: relative;
-  width: 750px;
+  width: 75vw;
   background: rgba(194, 37, 220, 0.04);
   border-radius: 10px;
+}
+
+.question-submit {
+  position: relative;
+  margin-top: 4vh;
+  margin-bottom: 4vh;
+  height: 5vw;
+  width: 15vw;
+  font: 2.3vh Tahoma, sans-serif;	
+  color: purple;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eadaf2+0,d7aaed+74,a07b9c+100 */
+  background: #eadaf2; /* Old browsers */
+  background: -moz-linear-gradient(top,  #eadaf2 0%, #d7aaed 74%, #a07b9c 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top,  #eadaf2 0%,#d7aaed 74%,#a07b9c 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom,  #eadaf2 0%,#d7aaed 74%,#a07b9c 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eadaf2', endColorstr='#a07b9c',GradientType=0 ); /* IE6-9 */
 }

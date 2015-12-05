@@ -9,7 +9,6 @@ import javax.servlet.http.Part;
 public class Question {
 	//instance variables
 	public ErrorMessages errorMessages;
-	public Answer answer;
 	public Part photoPart;
 	
 	// database variables
@@ -60,22 +59,13 @@ public class Question {
 	 */
 	public boolean save() {
 		if (questionEmpty()) return false;
-		
-		/* save answer */
-		if (!answer.save()) {
-			for (String errorType : answer.errorMessages.errors.keySet()) {
-				List<String> curErrors = answer.errorMessages.getErrors(errorType);
-				for (String error : curErrors)
-					errorMessages.addError(errorType, error);
-			}
-    		return false;
-		}
-		answer_id = answer.answer_id;
+
     	/* save photo */
     	Photo photo = new Photo();
     	photo.part = photoPart;
     	if (photo.part != null && !photo.save()) {
-    		answer.delete();
+    		List<Answer> answers = Answer.searchByID(answer_id);
+    		if (!answers.isEmpty()) answers.get(0).delete();
     		for (String error : photo.errorMessages.errors.get(Photo.PHOTO_ERROR))
     			errorMessages.addError(Photo.PHOTO_ERROR, error);
     		return false;
@@ -146,11 +136,5 @@ public class Question {
 			errorMessages.addError(Question.QUESTION_ERROR, Question.QUESTION_EMPTY);
 		}
 		return false;
-	}
-	
-	@Override
-	public String toString(){
-		return "id: " + question_id + " Type: " + 	question_type + " Question: " + question +
-			   " Answer: " + answer;
 	}
 }

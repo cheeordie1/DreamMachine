@@ -10,7 +10,7 @@
 <%@ page import="java.util.List,assignment.*" %>
 <%
   Quiz pageQuiz = (Quiz) request.getAttribute("pageQuiz");
-  String type = request.getAttribute("questionType").toString();
+  String type = request.getAttribute("question-type").toString();
   String questionPageURL = "";
   if (type.equals(Question.RESPONSE)) {
       questionPageURL = "/content/question/response.jsp";
@@ -29,9 +29,9 @@
   <div id="question-creator-container" class="hori-center">
     <div id="question-type-selector">
       <%
-        String responseURL = request.getRequestURL().toString() + "&questionType=" + Question.RESPONSE;
-        String matchingURL = request.getRequestURL().toString() + "&questionType=" + Question.MATCHING;
-        String multichoiceURL = request.getRequestURL().toString() + "&questionType=" + Question.MULTICHOICE;
+        String responseURL = request.getRequestURL().toString() + "&question-type=" + Question.RESPONSE;
+        String matchingURL = request.getRequestURL().toString() + "&question-type=" + Question.MATCHING;
+        String multichoiceURL = request.getRequestURL().toString() + "&question-type=" + Question.MULTICHOICE;
       %>
       <div id="response-change" class="question-type-changer"><a class="<%= "question-type-changer-link" + (type.equals(Question.RESPONSE) ? " selected" : "") %>" href=<%= responseURL %>>Response</a></div>
       <div id="matching-change" class="question-type-changer"><a class="<%= "question-type-changer-link" + (type.equals(Question.MATCHING) ? " selected" : "") %>" href=<%= matchingURL %>>Matching</a></div>
