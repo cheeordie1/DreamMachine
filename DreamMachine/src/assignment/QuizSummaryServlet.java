@@ -33,7 +33,7 @@ public class QuizSummaryServlet extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
-		if (request.getSession().getAttribute("loggedIn").toString().equals("true")) {
+		if ((boolean)request.getSession().getAttribute("loggedIn")) {
 			List<User> users = User.searchByID(Integer.parseInt(request.getSession().getAttribute("uid").toString()));
 			User curUser = users.get(0);
 			users = User.searchByID(quiz.user_id);

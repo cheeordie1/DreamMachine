@@ -20,11 +20,19 @@
 	</div>
  	<div class = "results-list">
 			<%for(String user : userResults) {%>
-				<li><button type = "button" class = "button-results">
-					<a href="/DreamMachine/user/<%=user%>">
-						<h1><%=user%></h1>
-					</a>
-				</button></li>
+				<li>
+				<%if((boolean)request.getSession().getAttribute("loggedIn")) { %>
+					<button type = "button" class = "button-results">
+						<a href="/DreamMachine/user/<%=user%>">
+							<h1><%=user%></h1>
+						</a>
+					</button>
+				<%} else {%>
+					<div class="logged-out-display"	>
+						<%=user%>
+					</div>	
+				<%} %>
+				</li>
 			<%}%>
 	</div> 
 	
@@ -38,12 +46,20 @@
 	
 	<div class = "results-list">
 		<%for(assignment.Quiz q : quizResults) { %>
-			<li><button type="button" class = "quiz-button-results">
-				<a href="/DreamMachine/quiz/<%=q.quiz_id%>">				
-					<h1><%=q.name%></h1>
-				</a>
-			</button></li>
-		<%}%>
+			<li>
+			<%if((boolean)request.getSession().getAttribute("loggedIn")) { %>
+					<button type="button" class = "quiz-button-results">
+						<a href="/DreamMachine/quiz/<%=q.quiz_id%>">				
+							<h1><%=q.name%></h1>
+						</a>
+					</button>
+				<%} else {%>
+					<div class="logged-out-display"	>
+						<%=q.name%>
+					</div>	
+				<%}%>
+			<%}%>
+			</li>
 	</div>
 </body>
 </html>

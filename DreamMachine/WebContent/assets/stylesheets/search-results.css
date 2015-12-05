@@ -18,6 +18,20 @@ li {
 	list-style-type: none;
 }
 
+.logged-out-display {
+	display: inline-block;
+	width: 50%;
+	background-color: purple;
+	color: white;
+	border: none;
+	border-width: 1px;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: #ADADAD;
+	margin-bottom: 5px;
+	text-align:center;
+}
+
 .search-title {
 	color: black;
 	text-align: center;
