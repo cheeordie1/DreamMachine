@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.util.*;
+
 /**
  * Servlet implementation class LogoutServlet
  */
@@ -26,8 +28,21 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getSession().getAttribute("loggedIn").toString().equals("true")) {
-			request.getSession().setAttribute("loggedIn", "false");
+		if ((boolean)request.getSession().getAttribute("loggedIn")) {
+			/* remove this user from online listing */
+			HashSet<Integer> onlineUsers = 
+				(HashSet<Integer>) request.getServletContext().getAttribute("onlineUsers");
+			int uid = (Integer) request.getSession().getAttribute("uid");
+			onlineUsers.remove(new Integer(uid));
+			request.getServletContext().setAttribute("onlineUsers", onlineUsers);
+			
+			/* remove session information for this user */
+			request.getSession().removeAttribute("rejectedFriends");
+			request.getSession().removeAttribute("requests");
+			request.getSession().removeAttribute("blockedFriends");
+			request.getSession().removeAttribute("friends");
+			request.getSession().removeAttribute("cache");
+			request.getSession().removeAttribute("loggedIn");
 			request.getSession().removeAttribute("username");
 			request.getSession().removeAttribute("uid");
 		}

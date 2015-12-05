@@ -1,10 +1,13 @@
 package assignment;
 
+
+import java.util.HashSet;
 import java.util.Random;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+
 
 /**
  * Application Lifecycle Listener implementation class ContextListener
@@ -30,6 +33,8 @@ public class ContextListener implements ServletContextListener {
      * @see ServletContextListener#contextInitialized(ServletContextEvent)
      */
     public void contextInitialized(ServletContextEvent arg0) {
+
+    	arg0.getServletContext().setAttribute("onlineUsers", new HashSet<Integer>());
         arg0.getServletContext().setAttribute("rint", new Random(28462));
         DBConnection.connect();
     }

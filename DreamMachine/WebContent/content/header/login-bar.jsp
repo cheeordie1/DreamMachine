@@ -2,7 +2,7 @@
 <div id="login-bar-container" class="vert-center">
       <%
         HttpSession sess = request.getSession();
-        if (sess.getAttribute("loggedIn").toString().equals("true")) {
+        if ((boolean)sess.getAttribute("loggedIn")) {
       %>
       <div id="logged-in-text">
         Hello, <%= sess.getAttribute("username") %><br>

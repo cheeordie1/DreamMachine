@@ -8,6 +8,7 @@ DROP TABLE If EXISTS answers;
 DROP TABLE IF EXISTS tags;
 DROP TABLE IF EXISTS friends;
 DROP TABLE IF EXISTS challenges;
+DROP TABLE IF EXISTS messages;
 
 CREATE TABLE users (
     user_id INT NOT NULL AUTO_INCREMENT,
@@ -65,11 +66,18 @@ CREATE TABLE answers (
 	PRIMARY KEY (answer_id)
 );
 
+CREATE TABLE messages (
+	sender CHAR(64),
+	receiver CHAR(64),
+	message TEXT
+);
+
 CREATE TABLE friends (
 	friend_id INT NOT NULL AUTO_INCREMENT,
-	friend_a_user_id INT,
-	friend_b_user_id INT,
+	sender INT,
+	receiver INT,
 	status INT,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (friend_id)
 );
 
@@ -79,4 +87,14 @@ CREATE TABLE challenges (
 	receiver_user_id INT,
 	link VARCHAR(100),
 	PRIMARY KEY (challenge_id)
+);
+
+CREATE TABLE scores (
+	score_id INT NOT NULL AUTO_INCREMENT,
+	quiz_id INT, 
+	user_id INT,
+	score INT, 
+	start_time TIMESTAMP DEFAULT 0,
+	finish_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY (score_id)
 );

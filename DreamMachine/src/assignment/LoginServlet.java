@@ -1,6 +1,8 @@
 package assignment;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -58,7 +60,8 @@ public class LoginServlet extends HttpServlet {
 		} else {
 			User user = users.get(0);
 			if (user.checkPassword(password)) {
-				request.getSession().setAttribute("loggedIn", "true");
+				/* set up session information we must populate the friends caches here */				
+				request.getSession().setAttribute("loggedIn", true);
 				request.getSession().setAttribute("username", user.username);
 				request.getSession().setAttribute("uid", user.user_id);
 				response.sendRedirect("/DreamMachine/home");
@@ -69,5 +72,9 @@ public class LoginServlet extends HttpServlet {
 		}
 		response.sendRedirect("/DreamMachine/login");
 	}
-
+	
+	private ArrayList<String> populateFriends(User user) {
+		List<Integer> friends = Friend.getFriends(user.user_id);
+		return null;
+	}
 }

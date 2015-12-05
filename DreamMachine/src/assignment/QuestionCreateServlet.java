@@ -28,11 +28,18 @@ public class QuestionCreateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		if (request.getSession().getAttribute("loggedIn").equals("false")) {
+		int uid = -1;
+		if (request.getSession().getAttribute("loggedIn").toString().equals("false")) {
 			response.sendRedirect("/DreamMachine/login?notify=You Must Login to Create a Quiz");
 			return;
+		} else {
+			try {
+				uid = Integer.parseInt(request.getSession().getAttribute("uid").toString());
+			} catch (NumberFormatException nfe) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return;
+			}
 		}
-		int uid = Integer.parseInt(request.getSession().getAttribute("uid").toString());
 		if (request.getParameter("quiz-id") == null) {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
@@ -48,7 +55,20 @@ public class QuestionCreateServlet extends HttpServlet {
 			response.sendRedirect("/DreamMachine/home");
 			return;
 		}
-		List<Question> questions = Question.searchByUserID(uid);
+		int question_id = -1;
+		if (request.getParameter("question-id") != null) {
+			try {
+				question_id = Integer.parseInt(request.getParameter("question-id").toString());
+				request.setAttribute("question_id", question_id);
+			} catch (NumberFormatException nfe) {
+				response.sendError(HttpServletResponse.SC_NOT_FOUND);
+				return;
+			}
+		}
+		if (request.getParameter("questionType") != null) {
+			request.setAttribute("questionType", request.getParameter("type"));
+		} else request.setAttribute("questionType", Question.RESPONSE);
+		request.setAttribute("pageQuiz", quiz);
 		String forward = "/content/question/question-create.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);
@@ -58,7 +78,17 @@ public class QuestionCreateServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String questionType = request.getParameter("question-type").toString();
+		if (questionType.equals(Question.RESPONSE)) {
+			
+		} else if (questionType.equals(Question.MATCHING)) {
+			
+		} else if (questionType.equals(Question.MULTICHOICE)) {
+			
+		} else {
+			response.sendError(HttpServletResponse.SC_CONFLICT);
+			return;
+		}
 	}
 
 }
