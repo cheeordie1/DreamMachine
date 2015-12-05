@@ -31,8 +31,11 @@
 		
 	var cur_chat = null;
 
-	/* set up faye subscriptions for messages and friend/challenge requests*/
 	var client = new Faye.Client('http://localhost:8123/faye', {timeout: 20});
+
+	
+	/* set up faye subscriptions for messages and friend/challenge requests*/
+	//var client = new Faye.Client('https://dreammachine-faye.herokuapp.com/faye', {timeout: 20});
 	<%String uname =  (String) request.getSession().getAttribute("username");%>
 	
 	/* chat subscription */	

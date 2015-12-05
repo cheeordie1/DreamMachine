@@ -29,8 +29,8 @@ public class MessageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
-		HashMap<String, ArrayList<String>> allMessages = 
-			(HashMap<String, ArrayList<String>>) request.getSession().getAttribute("messages");
+		String uname = (String) request.getSession().getAttribute("username");
+		HashMap<String, ArrayList<String>> allMessages = Message.retreiveMessages(uname);
 		
 		String friend = request.getParameter("message");
 		ArrayList<String> messages = allMessages.get(friend);
@@ -55,21 +55,6 @@ public class MessageServlet extends HttpServlet {
 		String destination = request.getParameter("username");
 		
 		Message.sendMessage(sender, destination, message);
-		
-		/* update the message cache */
-		HashMap<String, ArrayList<String>> allMessages = 
-			(HashMap<String, ArrayList<String>>) request.getSession().getAttribute("messages");
-		ArrayList<String> senderList = allMessages.get(destination);
-		if(senderList == null) senderList = new ArrayList<String>();
-		ArrayList<String> destinationList = allMessages.get(destination);
-		if(destinationList == null) destinationList = new ArrayList<String>();
-		
-		senderList.add(message);
-		destinationList.add(message);
-		allMessages.put(sender, senderList);
-		allMessages.put(destination, destinationList);
-		
-		request.getSession().setAttribute("messages", allMessages);
 	}
 
 }
