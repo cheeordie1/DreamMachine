@@ -18,8 +18,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-	int quiz_id = 1; //(Integer) request.getAttribute("quiz_id"); 
-	int user_id = 1; //(Integer) request.getAttribute("user_id");
+	int quiz_id = (Integer) request.getAttribute("quiz_id"); 
+	int user_id = (Integer) request.getAttribute("user_id");
 	Quiz quiz = Quiz.searchByID(quiz_id).get(0);
 	User creator = User.searchByID(user_id).get(0);
 	List<Score> allScores  = Score.searchByQuizID(quiz_id);
@@ -171,7 +171,7 @@
 	</div>
 	<br>
 	<div>
-	<input type="hidden" id="quiz_id" value="<%=quiz.quiz_id%>">
+	<input type="hidden" id="" value="<%=quiz.quiz_id%>">
 	<script>
 		$("#take-quiz-button").on('click', function() {
 			window.location.replace ("/DreamMachine/quiz-take?quiz-id="+ $("#quiz-id").val());

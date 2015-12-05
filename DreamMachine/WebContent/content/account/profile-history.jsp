@@ -53,7 +53,7 @@
     %>
     <li><span class="profile-history-text hori-center"><a href=<%= url %> class="profile-history-link"><%= friendUser.username %></a> friended on <%= friendship.created_at.toString() %></span></li>
     <%	   } 
-       String friendsURL = "/DreamMachine/friends?user_id=" + pageUser.user_id;
+       String friendsURL = "/DreamMachine/friends/" + pageUser.username;
     %>
     </ul>
 	<span class="profile-history-link2"><a href=<%= friendsURL %>>See All Friends...</a></span>
