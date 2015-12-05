@@ -1,4 +1,4 @@
-<%@page import="assignment.User, assignment.QuizStats, assignment.Score, assignment.Quiz, assignment.Friend"%>
+<%@page import="assignment.User, assignment.Score, assignment.Quiz, assignment.Friend"%>
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/profile-box.css">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <div id="profile-container" class="hori-center">
@@ -23,7 +23,7 @@
         
         <li>Quizzes Taken: <%=Score.searchByUserID(uid).size()%></li>
         <li>Quizzes Made: <%=Quiz.searchByUserID(uid).size()%></li>
-        <li><%=User.searchByID(uid).get(0).admin%></li>
+        <li>Admin: <%=User.searchByID(uid).get(0).admin%></li>
         <li>Number of Friends: <%=Friend.getFriends(uid).size()%></li>
 
       </ul>
