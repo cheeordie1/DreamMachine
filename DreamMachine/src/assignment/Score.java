@@ -42,23 +42,35 @@ public class Score {
 	 */
 	public static List<Score> searchByQuizID(int quiz_id) {
 		List<Score> allScores = new ArrayList<Score>();
+		String query = "SELECT * FROM scores WHERE quiz_id = " + quiz_id;
+		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return allScores;
+		try {
+			while (rs.next())
+				allScores.add(new Score(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return allScores;
+	}
+	
+	/**
+	 * Search for a quiz by its unique quiz_id
+	 * @param quiz_id the id to search by
+	 * @return the list of quizzes with the same id
+	 */
+	public static List<Score> searchByUserID(int user_id) {
+		List<Score> allScores = new ArrayList<Score>();
 		
-		//Not Connecting for some reason
-//		String query = "SELECT * FROM scores WHERE quiz_id = " + quiz_id;
-//		ResultSet rs = DBConnection.query(query);
-//		if (rs == null) return allScores;
-//		try {
-//			while (rs.next())
-//				allScores.add(new Score(rs));
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-		
-		//Remove when DBConnect Works
-		allScores.add(new Score(10, new Date((long)1000),new Date((long) 100000), 1, "mark", quiz_id));
-		allScores.add(new Score(20, new Date((long)1000),new Date((long) 100000), 2, "jane", quiz_id));
-		allScores.add(new Score(30, new Date((long)1000),new Date((long) 100000), 3, "bo", quiz_id));
-		allScores.add(new Score(40, new Date((long)1000),new Date((long) 100000), 4, "shmee", quiz_id));
+		String query = "SELECT * FROM scores WHERE user_id = " + user_id;
+		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return allScores;
+		try {
+			while (rs.next())
+				allScores.add(new Score(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
 		return allScores;
 	}

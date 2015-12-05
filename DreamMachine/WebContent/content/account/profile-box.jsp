@@ -1,9 +1,10 @@
-<%@page import="assignment.User"%>
+<%@page import="assignment.User, assignment.Score, assignment.Quiz, assignment.Friend"%>
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/profile-box.css">
 <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
 <div id="profile-container" class="hori-center">
   <div id="profile-photo-container">
     <%
+      int uid = (Integer) request.getAttribute("pageUserID"); 
       java.util.List<assignment.Photo> photos = assignment.Photo.searchById((int)request.getAttribute("profilePic"));
       assignment.Photo photo = photos.get(0);
       String imgStyle = photo.height > photo.width ? "height:300px" : "width:300px";
@@ -19,12 +20,12 @@
     <div id="profile-info-title" class="profile-info-title hori-center">Statistics</div>
     <div id="profile-info-recently-taken-container">
       <ul id="profile-info-recently-taken-list">
-        PUT QUIZ STATS IN HERE e.g.:
-        <li># quizzes taken</li>
-        <li># quizzes made</li>
-        <li>Account status (moderator or not)</li>
-        <li>number of friends</li>
-        <li>number of perfect quizzes</li>
+        
+        <li>Quizzes Taken: <%=Score.searchByUserID(uid).size()%></li>
+        <li>Quizzes Made: <%=Quiz.searchByUserID(uid).size()%></li>
+        <li>Admin: <%=User.searchByID(uid).get(0).admin%></li>
+        <li>Number of Friends: <%=Friend.getFriends(uid).size()%></li>
+
       </ul>
     </div>
     <div>
