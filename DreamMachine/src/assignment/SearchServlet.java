@@ -46,7 +46,12 @@ public class SearchServlet extends HttpServlet {
 			if(!blockedList.contains(u.user_id))
 				result.add(u.username);
 		}
-		request.setAttribute("searchResults", result);
+		request.setAttribute("searchUserResults", result);
+		
+		/* quiz searches */
+		List<Quiz> quizzes = Quiz.searchBySubstring(text);
+		request.setAttribute("searchQuizResults", quizzes);
+		
 		String forward = "/content/search/search.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);

@@ -3,3 +3,8 @@ body {
   position: relative;
   background-image: radial-gradient(circle, #ffffff 0%,#e8e8e8 92%,#ededed 100%);
 }
+
+#quiz-take-button {
+	color: black;
+	text-decoration: none;
+}

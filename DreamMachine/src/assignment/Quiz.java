@@ -189,4 +189,19 @@ public class Quiz {
 		}
 		return false;
 	}
+	
+	public static List<Quiz> searchBySubstring(String quizSub) {
+    	List<Quiz> quizzes = new ArrayList<Quiz>();
+    	String query = "SELECT * FROM " + TABLE_NAME + 
+    	               " WHERE name LIKE " + "'%" + quizSub + "%'";
+    	ResultSet rs = DBConnection.query(query);
+    	if (rs == null) return quizzes;
+    	try {
+			while (rs.next())
+				quizzes.add(new Quiz(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return quizzes;
+    }
 }

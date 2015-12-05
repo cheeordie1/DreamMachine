@@ -18,6 +18,23 @@ li {
 	list-style-type: none;
 }
 
+.search-title {
+	color: black;
+	text-align: center;
+}
+
+.quiz-button-results {
+	width: 100%;
+	background-color: purple;
+	color: white;
+	border: none;
+	border-width: 1px;
+	border-radius: 5px;
+	border-style: solid;
+	border-color: #ADADAD;
+	margin-bottom: 5px;
+}
+
 .button-results{
 	width: 100%;
 	background-color: rgba(244, 244, 244, 0.5);

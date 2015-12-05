@@ -13,10 +13,13 @@
 <body>
 	<jsp:include page="../header/top-bar.jsp" />
 	<%
-	java.util.ArrayList<String> results = (java.util.ArrayList<String>) request.getAttribute("searchResults");
+	java.util.ArrayList<String> userResults = (java.util.ArrayList<String>) request.getAttribute("searchUserResults");
 	%>
+	<div class="search-title">
+		Dreamers (Users)
+	</div>
  	<div class = "results-list">
-			<%for(String user : results) {%>
+			<%for(String user : userResults) {%>
 				<li><button type = "button" class = "button-results">
 					<a href="/DreamMachine/user/<%=user%>">
 						<h1><%=user%></h1>
@@ -24,5 +27,23 @@
 				</button></li>
 			<%}%>
 	</div> 
+	
+	<%
+	java.util.ArrayList<assignment.Quiz> quizResults = 
+		(java.util.ArrayList<assignment.Quiz>) request.getAttribute("searchQuizResults");
+	%>
+	<div class="search-title">
+		Quizzes
+	</div>
+	
+	<div class = "results-list">
+		<%for(assignment.Quiz q : quizResults) { %>
+			<li><button type="button" class = "quiz-button-results">
+				<a href="/DreamMachine/quiz/<%=q.quiz_id%>">				
+					<h1><%=q.name%></h1>
+				</a>
+			</button></li>
+		<%}%>
+	</div>
 </body>
 </html>

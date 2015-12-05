@@ -170,7 +170,13 @@
 		</div>	
 	</div>
 	<br>
-	<div> <a href=#>Take Quiz</a></div>
-
+	<div>
+	<input type="hidden" id="quiz_id" value="<%=quiz.quiz_id%>">
+	<script>
+		$("#take-quiz-button").on('click', function() {
+			window.location.replace ("/DreamMachine/quiz-take?quiz-id="+ $("#quiz-id").val());
+		});
+	</script>
+	</div>
 </body>
 </html>
