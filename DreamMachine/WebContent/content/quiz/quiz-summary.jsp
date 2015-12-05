@@ -172,6 +172,5 @@
 	<br>
 	<div> <a href=#>Take Quiz</a></div>
 
->>>>>>> aedd162cb46b091384a9d5a847e59c1075f86fd8
 </body>
 </html>
