@@ -61,16 +61,18 @@ public class Question {
 		if (questionEmpty()) return false;
 
     	/* save photo */
-    	Photo photo = new Photo();
-    	photo.part = photoPart;
-    	if (photo.part != null && !photo.save()) {
-    		List<Answer> answers = Answer.searchByID(answer_id);
-    		if (!answers.isEmpty()) answers.get(0).delete();
-    		for (String error : photo.errorMessages.errors.get(Photo.PHOTO_ERROR))
-    			errorMessages.addError(Photo.PHOTO_ERROR, error);
-    		return false;
-    	}
-    	photo_id = photo.id;
+		if (photoPart != null) {
+			Photo photo = new Photo();
+    		photo.part = photoPart;
+    		if (!photo.save()) {
+    			List<Answer> answers = Answer.searchByID(answer_id);
+    			if (!answers.isEmpty()) answers.get(0).delete();
+    			for (String error : photo.errorMessages.errors.get(Photo.PHOTO_ERROR))
+    				errorMessages.addError(Photo.PHOTO_ERROR, error);
+    			return false;
+    		}
+        	photo_id = photo.id;
+		} else photo_id = -1;
 		String update = "INSERT INTO "+ TABLE_NAME + " (quiz_id, answer_id, photo_id, question_type, question) VALUES(?,?,?,?,?)";
 		PreparedStatement stmt = DBConnection.beginStatement(update);
 		try {

@@ -29,13 +29,14 @@
   <div id="question-creator-container" class="hori-center">
     <div id="question-type-selector">
       <%
-        String responseURL = request.getRequestURL().toString() + "&question-type=" + Question.RESPONSE;
-        String matchingURL = request.getRequestURL().toString() + "&question-type=" + Question.MATCHING;
-        String multichoiceURL = request.getRequestURL().toString() + "&question-type=" + Question.MULTICHOICE;
+      	String url = "/DreamMachine/question-create";
+        String responseURL = url + "?question-type=" + Question.RESPONSE + "&quiz-id=" + pageQuiz.quiz_id;
+        String matchingURL = url + "?question-type=" + Question.MATCHING + "&quiz-id=" + pageQuiz.quiz_id;
+        String multichoiceURL = url + "?question-type=" + Question.MULTICHOICE + "&quiz-id=" + pageQuiz.quiz_id;
       %>
-      <div id="response-change" class="question-type-changer"><a class="<%= "question-type-changer-link" + (type.equals(Question.RESPONSE) ? " selected" : "") %>" href=<%= responseURL %>>Response</a></div>
-      <div id="matching-change" class="question-type-changer"><a class="<%= "question-type-changer-link" + (type.equals(Question.MATCHING) ? " selected" : "") %>" href=<%= matchingURL %>>Matching</a></div>
-      <div id="multichoice-change" class="question-type-changer"><a class="<%= "question-type-changer-link" + (type.equals(Question.MULTICHOICE) ? " selected" : "") %>" href=<%= multichoiceURL %>>Multiple Choice</a></div>
+      <div id="response-change" class="question-type-changer"><a class="<%= type.equals(Question.RESPONSE) ? "selected" : "question-type-changer-link" %>" href=<%= responseURL %>>Response</a></div>
+      <div id="matching-change" class="question-type-changer"><a class="<%= type.equals(Question.MATCHING) ? "selected" : "question-type-changer-link" %>" href=<%= matchingURL %>>Matching</a></div>
+      <div id="multichoice-change" class="question-type-changer"><a class="<%= type.equals(Question.MULTICHOICE) ? "selected" : "question-type-changer-link" %>" href=<%= multichoiceURL %>>Multiple Choice</a></div>
     </div>
     <div id="question-specific-container">
       <jsp:include page="<%= questionPageURL %>" />

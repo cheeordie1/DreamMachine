@@ -129,6 +129,7 @@ public class Response extends Answer {
 	 */
 	public void addAnswer (String answer) {
 		if (answer == null) return;
+		if (answer.matches("\\s*")) return;
 		String [] parsedAnswerArray = answer.split(SEPARATOR);
 		answerOptions.add(new ArrayList<String>(Arrays.asList(parsedAnswerArray)));
 		numAnswers++;

@@ -35,6 +35,14 @@ body {
   text-decoration: none;
 }
 
+.selected {
+  display: inline-block;
+  font-family: "Montserrat";
+  font-size: 2.2vh;
+  text-decoration: none;
+  color: #F7A944;
+}
+
 .question-type-changer-link:link {
   color: #943BB7;
 }

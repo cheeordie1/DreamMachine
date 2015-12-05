@@ -68,7 +68,7 @@ public class QuestionCreateServlet extends HttpServlet {
 			}
 		}
 		if (request.getParameter("question-type") != null) {
-			request.setAttribute("question-type", request.getParameter("type"));
+			request.setAttribute("question-type", request.getParameter("question-type"));
 		} else request.setAttribute("question-type", Question.RESPONSE);
 		request.setAttribute("pageQuiz", quiz);
 		String forward = "/content/question/question-create.jsp";
@@ -82,34 +82,40 @@ public class QuestionCreateServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Question question = new Question();
-		String questionType = request.getParameter("question-type").toString();
-		question.photoPart = request.getPart("photo");
 		int quiz_id = Integer.parseInt(request.getParameter("quiz-id").toString());
+		String questionType = request.getParameter("question-type").toString();
+		question.quiz_id = quiz_id;
+		question.photoPart = request.getPart("photo");
+		question.question = request.getParameter("question");
 		if (questionType.equals(Question.RESPONSE)) {
 			question.question_type = Question.Type.RESPONSE;
-			Response responseQuestion = new Response();
-			responseQuestion.subset = request.getParameter("subset").toString();
-			responseQuestion.ordered = request.getParameter("order") != null;
+			Response responseAnswer = new Response();
+			responseAnswer.subset = request.getParameter("subset").toString();
+			responseAnswer.ordered = request.getParameter("order") != null;
 			int numAnswers = Integer.parseInt(request.getParameter("num-answers").toString());
 			for (int curAnswer = 0; curAnswer < numAnswers; curAnswer++) {
 				String answer = request.getParameter("answer" + curAnswer);
-				responseQuestion.addAnswer(answer);
+				responseAnswer.addAnswer(answer);
 			}
-			
-			if(!responseQuestion.save()) {
-				request.getSession().setAttribute("errors", responseQuestion.errorMessages);
-				response.sendRedirect("/DreamMachine/question-create?questionType=" + questionType + "&quiz-id=" + quiz_id);
+			if(!responseAnswer.save()) {
+				request.getSession().setAttribute("errors", responseAnswer.errorMessages);
+				response.sendRedirect("/DreamMachine/question-create?quiz-id=" + quiz_id + "&question-type=" + questionType);
+				return;
+			}
+			question.answer_id = responseAnswer.answer_id;
+			if (!question.save()) {
+				request.getSession().setAttribute("errors", question.errorMessages);
+				response.sendRedirect("/DreamMachine/question-create?quiz-id=" + quiz_id + "&question-type=" + questionType);
+				return;
 			}
 		} else if (questionType.equals(Question.MATCHING)) {
-			question.question_type = Question.Type.MATCHING;
-			
+			question.question_type = Question.Type.MATCHING;			
 		} else if (questionType.equals(Question.MULTICHOICE)) {
 			question.question_type = Question.Type.MULTICHOICE;
-			
 		} else {
 			response.sendError(HttpServletResponse.SC_CONFLICT);
 			return;
 		}
+		response.sendRedirect("/DreanMachine/quiz/" + quiz_id);
 	}
-
 }
