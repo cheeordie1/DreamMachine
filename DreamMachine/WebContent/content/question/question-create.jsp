@@ -10,34 +10,35 @@
 <%@ page import="java.util.List,assignment.*" %>
 <%
   Quiz pageQuiz = (Quiz) request.getAttribute("pageQuiz");
-  String type = request.getAttribute("questionType").toString();
+  String type = request.getAttribute("question-type").toString();
+  String questionPageURL = "";
+  if (type.equals(Question.RESPONSE)) {
+      questionPageURL = "/content/question/response.jsp";
+  } else if (type.equals(Question.MATCHING)) {
+      questionPageURL = "/content/question/matching.jsp";
+  } else if (type.equals(Question.MULTICHOICE)) {
+      questionPageURL = "/content/question/multichoice.jsp";
+  } else response.sendError(HttpServletResponse.SC_NOT_FOUND); 
 %>
+  
 <title><%= pageQuiz.name %> Question Creator</title>
 </head>
 <body>
   <jsp:include page="/content/header/top-bar.jsp" />
   <div id="background"></div>
-  <div id="question-creator-container">
+  <div id="question-creator-container" class="hori-center">
     <div id="question-type-selector">
       <%
-        String responseURL = request.getRequestURL().toString() + "&questionType=" + Question.RESPONSE;
-        String matchingURL = request.getRequestURL().toString() + "&questionType=" + Question.MATCHING;
-        String multichoiceURL = request.getRequestURL().toString() + "&questionType=" + Question.MULTICHOICE;
+        String responseURL = request.getRequestURL().toString() + "&question-type=" + Question.RESPONSE;
+        String matchingURL = request.getRequestURL().toString() + "&question-type=" + Question.MATCHING;
+        String multichoiceURL = request.getRequestURL().toString() + "&question-type=" + Question.MULTICHOICE;
       %>
-      <div id="response-change" class="question-type-changer"><a class="question-type-changer-link" href=<%= responseURL %>>Response</a></div>
-      <div id="matching-change" class="question-type-changer"><a class="question-type-changer-link" href=<%= matchingURL %>>Matching</a></div>
-      <div id="multichoice-change" class="question-type-changer"><a class="question-type-changer-link" href=<%= multichoiceURL %>>Multiple Choice</a></div>
+      <div id="response-change" class="question-type-changer"><a class="<%= "question-type-changer-link" + (type.equals(Question.RESPONSE) ? " selected" : "") %>" href=<%= responseURL %>>Response</a></div>
+      <div id="matching-change" class="question-type-changer"><a class="<%= "question-type-changer-link" + (type.equals(Question.MATCHING) ? " selected" : "") %>" href=<%= matchingURL %>>Matching</a></div>
+      <div id="multichoice-change" class="question-type-changer"><a class="<%= "question-type-changer-link" + (type.equals(Question.MULTICHOICE) ? " selected" : "") %>" href=<%= multichoiceURL %>>Multiple Choice</a></div>
     </div>
     <div id="question-specific-container">
-      <% if (type.equals(Question.RESPONSE)) { %>
-      <jsp:include page="/content/question/response.jsp" />
-      <% } else if (type.equals(Question.MATCHING)) { %>
-      <jsp:include page="/content/question/matching.jsp" />
-      <% } else if (type.equals(Question.MULTICHOICE)) { %>
-      <jsp:include page="/content/question/multichoice.jsp" />
-      <% } else { %>
-      <div id="what?">What?</div>
-      <% } %>
+      <jsp:include page="<%= questionPageURL %>" />
     </div>
   </div>
 </body>
