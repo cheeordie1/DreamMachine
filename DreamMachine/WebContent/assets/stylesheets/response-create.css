@@ -3,7 +3,7 @@
   position: relative;
   display: inline-block;
   margin-top: 20px;
-  font-size: 28px;
+  font-size: 4.5vh;
   color: #8D1CDF;
 }
 
@@ -15,10 +15,54 @@
   font-size: 20px;
 }
 
+.response-options-sub-container {
+  position: relative;
+  margin-top: 2vh;
+  color: #A47FFF;
+  font-size: 2.5vh;
+}
+
 #response-photo-container {
   position: relative;
   margin-top: 15px;
   margin-left: 20%;
+}
+
+#response-answer-container {
+  position: relative;
+  width: 60vw;
+  min-height: 2vh;
+  margin-top: 3vh;
+  border: 1px solid #454545;
+}
+
+#response-add-answer {
+  position: relative;
+  margin-top: 2vh;
+  height: 4vh;
+  width: 10vw;
+}
+
+#response-options-container {
+  position: relative;
+  display: inline-block;
+}
+
+#response-order-option {
+  position: relative;
+  top: .8vh;
+  height: 3vh;
+  width: 3vh;
+}
+
+#response-subset-option {
+  position: relative;
+  width: 25px;
+}
+
+#file-selector {
+  position: relative;
+  margin-top: 4vh;
 }
 
 #fake-file {
