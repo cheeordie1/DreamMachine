@@ -6,8 +6,9 @@ body {
 }
 
 #background {
-  position: absolute;
+  position: fixed;
   z-index: -1;
+  top: 0px;
   height: 100%;
   width: 100%;
   background: radial-gradient(circle at center, rgba(255,255,255,1) 0%, rgba(240,240,240,1) 71%, rgba(204,204,204,1) 100%);

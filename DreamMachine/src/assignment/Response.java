@@ -21,7 +21,7 @@ public class Response extends Answer {
 	public static final String SUBSET_ERROR = "subset";
 	
 	// error strings
-	public static final String ANSWER_EMPTY = "Please fill in all the answer slots.";
+	public static final String ANSWER_EMPTY = "Please fill in at least 1 answer slot.";
 	public static final String SUBSET_INVALID = "Please enter a correct number";
 	
 	public Response() {

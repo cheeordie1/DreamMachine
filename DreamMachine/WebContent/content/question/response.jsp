@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/response-create.css">
-<script src="/DreamMachine/content/response-adder.js"></script>
+<script src="/DreamMachine/assets/javascripts/response-adder.js"></script>
 <%@ page import="java.util.List,assignment.*" %>
 <% Quiz pageQuiz = (Quiz) request.getAttribute("pageQuiz"); %>
 <div id="response-create-container">
@@ -12,7 +12,7 @@
     <input type="hidden" name="question-type" value=<%= Question.RESPONSE %>>
     <input type="hidden" name="quiz-id" value=<%= pageQuiz.quiz_id %>>
     <label class="response-hdr hori-center">Create a Response Question for <%= pageQuiz.name %></label><br>
-	<input type="text" name="question" class="<%= "response-question-box hori-center" + (messages.isEmpty() ? "" : " error-box") %>">
+	<input type="text" name="question" class="<%= "response-question-box hori-center" + (messages.isEmpty() ? "" : " error-box") %>"><br>
     <% for (String message : messages) { %>
     <div class="error-msg hori-center"><%= message %></div>
     <% } %>
@@ -20,6 +20,7 @@
 	  <jsp:include page="/content/templates/file-upload.jsp" />
 	</div>
 	<% messages = errors.getErrors(Response.ANSWER_ERROR); %>
+	<div id="response-answer-label" class="response-hdr hori-center">Answers</div>
 	<div id="response-answer-container" class="<%= "hori-center" + (messages.isEmpty() ? "" : " error-box")  %>"></div>
 	<% for (String message : messages) { %>
     <div class="error-msg hori-center"><%= message %></div>

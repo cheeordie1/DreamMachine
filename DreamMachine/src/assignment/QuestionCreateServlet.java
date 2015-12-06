@@ -93,7 +93,7 @@ public class QuestionCreateServlet extends HttpServlet {
 			responseAnswer.subset = request.getParameter("subset").toString();
 			responseAnswer.ordered = request.getParameter("order") != null;
 			int numAnswers = Integer.parseInt(request.getParameter("num-answers").toString());
-			for (int curAnswer = 0; curAnswer < numAnswers; curAnswer++) {
+			for (int curAnswer = 1; curAnswer <= numAnswers; curAnswer++) {
 				String answer = request.getParameter("answer" + curAnswer);
 				responseAnswer.addAnswer(answer);
 			}
