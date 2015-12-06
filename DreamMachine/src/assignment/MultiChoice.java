@@ -131,6 +131,7 @@ public class MultiChoice extends Answer {
 		String optionsToSplit = parsedAnswers[0];
 		String answersToSplit = parsedAnswers[1];
 		
+		
 		String [] splitOptions = optionsToSplit.split(SEPERATOR);
 		for (String option: splitOptions) allOptions.add(option);
 		
@@ -147,12 +148,10 @@ public class MultiChoice extends Answer {
 	public boolean checkAnswer (String userInput) {
 		//user input has to have "<>"
 		//example of user input: "milk<>sausage"
-		
 		String [] splitUserInput = userInput.split(DELIM);
 		for (String answer: splitUserInput) {
 			if (!allAnswers.contains(answer)) return false;
 		}
-		
 		if (allAnswers.size() != splitUserInput.length) return false;
 		
 		return true;

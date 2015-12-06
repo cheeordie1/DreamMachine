@@ -44,6 +44,7 @@ public class Quiz {
 	 * Constructor for uploading quiz from database 
 	 */
 	public Quiz (ResultSet quizData) {
+		questions = new ArrayList<Question>();
 		try {
 			quiz_id = quizData.getInt("quiz_id"); 
 			name = quizData.getString("name");
@@ -163,7 +164,17 @@ public class Quiz {
 	 * from the database.
 	 */
 	public void loadQuestions() {
-		
+		String query = "SELECT * FROM questions WHERE quiz_id= " + quiz_id;
+		ResultSet rs = DBConnection.query(query);
+		if (rs == null) return;
+		try {
+			while (rs.next()){
+				Question singleQuestion = new Question(rs);
+				questions.add(singleQuestion);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -203,5 +214,5 @@ public class Quiz {
 			e.printStackTrace();
 		}
     	return quizzes;
-    }
+    }	
 }
