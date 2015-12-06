@@ -50,37 +50,38 @@ public class Functionality {
 	
 	private static void listQuizzes(){
 		System.out.println("All Quizzes in Database: ");
-		for (int i = 0, size = quizzes.size(); i < size; i++) 
-			System.out.println(i+") " + quizzes.get(i).name);
+		for (int i = 1, size = quizzes.size(); i <= size; i++) 
+			System.out.println(i+") " + quizzes.get(i-1).name);
 		System.out.println();
 
 	}
 	
 	private static int getAction() {
 		int action = 0;
-		Scanner scanner = new Scanner (System.in);
 		
-		System.out.println(PROMPT + "Or type " + quizzes.size() + " to quit!");
+		System.out.println(PROMPT + "Or type " + (quizzes.size()+1) + " to quit!");
 		while (true) {
 			System.out.print("Your choice: ");  
 			action = Integer.parseInt(scanner.next()); 
-			if (action >= 0 && action <= quizzes.size()) break;
+			scanner.reset();
+			if (action >= 0 && action <= quizzes.size()+1) break;
 			else System.out.println("Please enter a valid integer between 0 and " + quizzes.size() + "!");
 		}
-		scanner.close();
 		
 		return action; 
 	}
 	
+	static Scanner scanner;
 	static final int user_id = 1; 
 	static final String PROMPT = "Enter the number by a quiz to take it. Type 0 to make a quiz! ";
-	static final String WELCOME_MESSAGE = "Welcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness";
+	static final String WELCOME_MESSAGE = "Welcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness\n";
 	private static ArrayList<Quiz> quizzes;
 	
 	public static void main (String args []) {
 		DBConnection.connect();
 		quizzes = populateQuizzesFromDB();
 		quizzes.add(makeSampleQuiz());
+		scanner = new Scanner(System.in);
 		
 		System.out.println(WELCOME_MESSAGE);
 		
@@ -90,19 +91,21 @@ public class Functionality {
 			
 			//Figure out next steps
 			int action = getAction(); 
-			if (action == quizzes.size()) break; 
+			//Quit Program
+			if (action == quizzes.size()+1) break; 
 		
 			switch(action){
 				case 0:
 					createNewQuiz();
 					break;
-				case 1: 
-					takeQuiz(action); 
+				default: 
+					takeQuiz(action-1); 
 					break; 
 			}
 		}
 		
 		System.out.println("Thanks for playing!");
+		scanner.close();
 	}
 
 	private static void takeQuiz(int action) {
@@ -112,25 +115,22 @@ public class Functionality {
 
 	private static void createNewQuiz() {
 		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	    System.out.print("Enter String");
-	    try {
-			String s = br.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	    
-//		Scanner scanner = new Scanner (System.in);
-//
-//		System.out.print("Enter Quiz Name: "); 
-//		//while(!scanner.hasNext()){}
-//		String name = scanner.nextLine(); 
-//		
-//		System.out.print("Enter Quiz Description: ");  
-//		String description = scanner.next(); 
+//		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+//	    System.out.print("Enter String");
+//	    try {
+//			String s = br.readLine();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	    
+		System.out.print("Enter Quiz Name: "); 
+		String name = scanner.nextLine(); 
 		
-	//	Quiz quiz = createQuiz(user_id, name, description);
+		System.out.print("Enter Quiz Description: ");  
+		String description = scanner.next(); 
+		
+		Quiz quiz = createQuiz(user_id, name, description);
 		
 		addQuestions();
 		
@@ -153,6 +153,7 @@ public class Functionality {
 		try {
 			while(rs.next()) {
 				Quiz newQuiz = new Quiz(rs);
+				newQuiz.loadQuestions();
 				allQuizzes.add(newQuiz);
 			}
 		} catch (SQLException e) {
