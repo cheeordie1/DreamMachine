@@ -36,11 +36,16 @@ public class Functionality {
 		
 			switch(action){
 				case 0:
-					createNewQuiz();
+					System.out.println("This is not working");
 					break;
+
+//					createNewQuiz();
+//					break;
 				default: 
-					takeQuiz(action-1); 
-					break; 
+					System.out.println("This is not working");
+					break;
+//					takeQuiz(action-1); 
+//					break; 
 			}
 		}
 		
@@ -120,7 +125,13 @@ public class Functionality {
 		int numQuestions = currQuestions.size();
 		for (int i = 0; i < numQuestions; i++) {
 			Question single = currQuestions.get(i);
-			
+			if (single.type == Question.MULTICHOICE){
+				System.out.println(single.question);
+				List<String>options = ((MultiChoice) single.answer).allOptions;
+				for (String a: options) System.out.println(a);
+			} else {
+				System.out.println(single.question);
+			}
 		}
 	}
 
