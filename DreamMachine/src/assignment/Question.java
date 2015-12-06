@@ -3,30 +3,36 @@ package assignment;
 import java.sql.*;
 
 public class Question {
-	public enum Type {
-	    RESPONSE, MULTICHOICE, MATCHING 
-	}
 	
+	
+	public static final int RESPONSE = 1;
+	public static final int MULTICHOICE = 2;
+	public static final int MATCHING = 3;
+
 	public int question_id;
 	public int quiz_id; 
-	public Type type; 
+	public int type; 
 	public String question;
 	public Answer answer; 
 	public String imageName;  
+	public int typeInt;
 	
-	public Question (Type type) {
+	public Question (int type) {
 		this.type = type; 
 		
 		switch(type) {
 			case RESPONSE: 
+				typeInt = 0;
 				answer = new Response(); 
 				break;
 		
 			case MULTICHOICE: 
+				typeInt = 1;
 				answer = new MultiChoice(); 
 				break;
 		
 			case MATCHING: 
+				typeInt = 2;
 				answer = new Matching(); 
 				break; 
 		}
@@ -37,18 +43,21 @@ public class Question {
 			this.question_id = questionData.getInt("question_id");
 			this.quiz_id = questionData.getInt("quiz_id");
 			this.question = questionData.getString("question");
-		
+			this.type = questionData.getInt("question_type");
 			String options = questionData.getString("answer_id");
 			switch(type) {
 				case RESPONSE: 
+					typeInt = 0;
 					answer = new Response(options); 
 					break;
 	
 				case MULTICHOICE:
+					typeInt = 1;
 					answer = new MultiChoice(options);
 					break;
 		
 				case MATCHING:
+					typeInt = 2;
 					answer = new Matching(options);
 					break;
 			}
@@ -58,7 +67,7 @@ public class Question {
 	}
 	
 	public boolean isValid() {
-		return type != null && question != null && imageName != null && answer.isValid();
+		return (type == RESPONSE ||  type == MULTICHOICE || type == MATCHING)  && question != null && imageName != null && answer.isValid();
 	}
 	
 	public boolean checkAnswer(String userInput){
@@ -87,7 +96,7 @@ public class Question {
 			return false;
 		}
 		String entry = "INSERT INTO questions (quiz_id, question_type, question, answer) " +
-				"VALUE("+ quiz_id +",'"+ type +"','"+ question +"','"+ answer.toString() +"')";
+				"VALUE("+ quiz_id +","+ type +",'"+ question +"','"+ answer.toString() +"')";
 		question_id = DBConnection.update(entry);
 		return true;
 	}

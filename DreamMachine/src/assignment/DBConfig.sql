@@ -48,7 +48,7 @@ CREATE TABLE questions (
 	question_id INT NOT NULL AUTO_INCREMENT,
 	quiz_id INT,
 	answer VARCHAR(150),
-	question_type BLOB,
+	question_type INT,
 	question TEXT,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (question_id)

@@ -6,70 +6,10 @@ import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Functionality {
-	
-	public static Quiz createQuiz(int user_id, String quizName, String description) {
-		Quiz quiz = new Quiz();
-		quiz.user_id = user_id;
-		quiz.name = quizName;
-		quiz.description = description; 
-		quiz.single_page = true; 
-		quiz.random_questions = false;
-		quiz.immediate_correct = false;
-		quiz.practice_mode = false; 
-		quiz.save(); 
-		return quiz; 
-	}
-	
-	public static Question createQuestion(int quiz_id, String questionStr, Question.Type type, Answer answer ) {
-		Question question = new Question(type);
-		question.quiz_id = quiz_id;
-		question.question = questionStr; 
-		question.answer = answer;
-		question.imageName = "";
-		question.save(); 
-		return question; 
-	}
-	
-	public static Answer createAnswer(Question.Type type, String options){
-		switch(type) {
-			case RESPONSE: 
-				return new Response(options); 
-		
-			case MULTICHOICE:
-				return new MultiChoice(options);
-
-			case MATCHING:
-				return new Matching(options);
-		}
-		return null;
-		
-	}
-	
-	private static void listQuizzes(){
-		System.out.println("All Quizzes in Database: ");
-		for (int i = 1, size = quizzes.size(); i <= size; i++) 
-			System.out.println(i+") " + quizzes.get(i-1).name);
-		System.out.println();
-
-	}
-	
-	private static int getAction() {
-		int action = 0;
-		
-		System.out.println(PROMPT + "Or type " + (quizzes.size()+1) + " to quit!");
-		while (true) {
-			System.out.print("Your choice: ");  
-			action = Integer.parseInt(scanner.next()); 
-			scanner.reset();
-			if (action >= 0 && action <= quizzes.size()+1) break;
-			else System.out.println("Please enter a valid integer between 0 and " + quizzes.size() + "!");
-		}
-		
-		return action; 
-	}
 	
 	static Scanner scanner;
 	static final int user_id = 1; 
@@ -107,10 +47,81 @@ public class Functionality {
 		System.out.println("Thanks for playing!");
 		scanner.close();
 	}
+	
+	public static Quiz createQuiz(int user_id, String quizName, String description) {
+		Quiz quiz = new Quiz();
+		quiz.user_id = user_id;
+		quiz.name = quizName;
+		quiz.description = description; 
+		quiz.single_page = true; 
+		quiz.random_questions = false;
+		quiz.immediate_correct = false;
+		quiz.practice_mode = false; 
+		quiz.save(); 
+		return quiz; 
+	}
+	
+	public static Question createQuestion(int quiz_id, String questionStr, int type, Answer answer ) {
+		Question question = new Question(type);
+		question.quiz_id = quiz_id;
+		question.question = questionStr; 
+		question.answer = answer;
+		question.imageName = "";
+		question.type = type;
+		question.save(); 
+		return question; 
+	}
+	
+	public static Answer createAnswer(int type, String options){
+		switch(type) {
+			case Question.RESPONSE: 
+				return new Response(options); 
+		
+			case Question.MULTICHOICE:
+				return new MultiChoice(options);
+
+			case Question.MATCHING:
+				return new Matching(options);
+		}
+		return null;
+		
+	}
+	
+	private static void listQuizzes(){
+		System.out.println("All Quizzes in Database: ");
+		for (int i = 1, size = quizzes.size(); i <= size; i++) 
+			System.out.println(i+") " + quizzes.get(i-1).name);
+		System.out.println();
+
+	}
+	
+	private static int getAction() {
+		int action = 0;
+		
+		System.out.println(PROMPT + "Or type " + (quizzes.size()+1) + " to quit!");
+		while (true) {
+			System.out.print("Your choice: ");  
+			action = Integer.parseInt(scanner.next()); 
+			scanner.reset();
+			if (action >= 0 && action <= quizzes.size()+1) break;
+			else System.out.println("Please enter a valid integer between 0 and " + quizzes.size() + "!");
+		}
+		
+		return action; 
+	}
 
 	private static void takeQuiz(int action) {
 		// TODO Auto-generated method stub
+		int action_ = 1;
+		int quizIndex = action_-1;
+		Quiz currQuiz = quizzes.get(quizIndex);
 		
+		List<Question> currQuestions = currQuiz.questions;
+		int numQuestions = currQuestions.size();
+		for (int i = 0; i < numQuestions; i++) {
+			Question single = currQuestions.get(i);
+			
+		}
 	}
 
 	private static void createNewQuiz() {
@@ -173,9 +184,9 @@ public class Functionality {
 
 		String responseUserAnswer = "Patrick";
 		String responseWrongUserAnswer = "PYoung";
-		Question.Type responseType = Question.Type.RESPONSE;
+		int responseType = Question.RESPONSE;
 	
-		Answer RESPONSE_answer = createAnswer(Question.Type.RESPONSE, responseAnswers);
+		Answer RESPONSE_answer = createAnswer(Question.RESPONSE, responseAnswers);
 		Quiz quiz = createQuiz(user_id, quizName, description);
 		Question RESPONSE_question = createQuestion(quiz.quiz_id, responseQuestion, responseType, RESPONSE_answer);
 
@@ -186,9 +197,9 @@ public class Functionality {
 
 		String responseMultiAnswerUserAnswer = "CS106A" + Answer.DELIM + "CS 106B" + Answer.DELIM + "CS106X";
 		String responseMultiAnswerWrongUserAnswer = "CS108";
-		Question.Type responseMultiAnswerType = Question.Type.RESPONSE;
+		int responseMultiAnswerType = Question.RESPONSE;
 	
-		Answer RESPONSEMULTI_answer = createAnswer(Question.Type.RESPONSE, responseMultiAnswerAnswers);
+		Answer RESPONSEMULTI_answer = createAnswer(Question.RESPONSE, responseMultiAnswerAnswers);
 		Question RESPONSEMULTI_question = createQuestion(quiz.quiz_id, responseMultiAnswerQuestion, responseMultiAnswerType, RESPONSEMULTI_answer);
 
 		String multipleQuestion = "Who teaches CS106A?";
@@ -197,9 +208,9 @@ public class Functionality {
 
 		String multipleUserAnswer = "Mehran" + Answer.DELIM + "Keith";
 		String multipleWrongUserAnswer = "Mehran";
-		Question.Type multipleType = Question.Type.MULTICHOICE;
+		int multipleType = Question.MULTICHOICE;
 		
-		Answer MULTIPLE_answer = createAnswer (Question.Type.MULTICHOICE, multipleAnswers);
+		Answer MULTIPLE_answer = createAnswer (Question.MULTICHOICE, multipleAnswers);
 		Question MULTIPLE_question = createQuestion (quiz.quiz_id, multipleQuestion, multipleType, MULTIPLE_answer);
 		
 		return quiz; 
