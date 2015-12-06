@@ -61,7 +61,7 @@ public class Question {
 		if (questionEmpty()) return false;
 
     	/* save photo */
-		if (photoPart != null) {
+		if (photoPart != null && photoPart.getSize() != 0) {
 			Photo photo = new Photo();
     		photo.part = photoPart;
     		if (!photo.save()) {
@@ -136,6 +136,7 @@ public class Question {
 	public boolean questionEmpty() {
 		if (question == null || question.isEmpty() || question.matches("\\s*")) {
 			errorMessages.addError(Question.QUESTION_ERROR, Question.QUESTION_EMPTY);
+			return true;
 		}
 		return false;
 	}

@@ -86,7 +86,7 @@ public class QuestionCreateServlet extends HttpServlet {
 		String questionType = request.getParameter("question-type").toString();
 		question.quiz_id = quiz_id;
 		question.photoPart = request.getPart("photo");
-		question.question = request.getParameter("question");
+		question.question = request.getParameter("question").toString();
 		if (questionType.equals(Question.RESPONSE)) {
 			question.question_type = Question.Type.RESPONSE;
 			Response responseAnswer = new Response();
@@ -94,7 +94,7 @@ public class QuestionCreateServlet extends HttpServlet {
 			responseAnswer.ordered = request.getParameter("order") != null;
 			int numAnswers = Integer.parseInt(request.getParameter("num-answers").toString());
 			for (int curAnswer = 1; curAnswer <= numAnswers; curAnswer++) {
-				String answer = request.getParameter("answer" + curAnswer);
+				String answer = request.getParameter("answer" + curAnswer).toString();
 				responseAnswer.addAnswer(answer);
 			}
 			if(!responseAnswer.save()) {
@@ -116,6 +116,6 @@ public class QuestionCreateServlet extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_CONFLICT);
 			return;
 		}
-		response.sendRedirect("/DreanMachine/quiz/" + quiz_id);
+		response.sendRedirect("/DreamMachine/quiz/" + quiz_id);
 	}
 }
