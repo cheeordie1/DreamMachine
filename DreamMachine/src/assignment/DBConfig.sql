@@ -1,4 +1,4 @@
-USE c_cs108_jevans2;
+USE c_cs108_balegria;
 
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS photos;
@@ -47,8 +47,7 @@ CREATE TABLE quizzes (
 CREATE TABLE questions (
 	question_id INT NOT NULL AUTO_INCREMENT,
 	quiz_id INT,
-	answer_id INT,
-	photo_id INT,
+	answer VARCHAR(150),
 	question_type BLOB,
 	question TEXT,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -101,12 +100,4 @@ CREATE TABLE challenges (
 	PRIMARY KEY (challenge_id)
 );
 
-CREATE TABLE scores (
-	score_id INT NOT NULL AUTO_INCREMENT,
-	quiz_id INT, 
-	user_id INT,
-	score INT, 
-	start_time TIMESTAMP DEFAULT 0,
-	finish_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY (score_id)
 );

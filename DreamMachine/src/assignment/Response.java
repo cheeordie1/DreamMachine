@@ -1,109 +1,72 @@
 package assignment;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Response extends Answer {
-	// instance variables
-	public boolean ordered;
-	public String subset;
-	public int subsetNum;
+	
 	private ArrayList <ArrayList<String>> answerOptions;
 	public int numAnswers; 
 	
-	// static variables
-	public static final String ORDERED = "*";
-	
-	// error types
-	public static final String ANSWER_ERROR = "answer";
-	public static final String SUBSET_ERROR = "subset";
-	
-	// error strings
-	public static final String ANSWER_EMPTY = "Please fill in all the answer slots.";
-	public static final String SUBSET_INVALID = "Please enter a correct number";
-	
 	public Response() {
-		super();
 		answerOptions = new ArrayList <ArrayList<String>>();
 		numAnswers = 0;
 	}
 	
-	public Response(ResultSet rs) {
-		super(rs);
+	public Response(String options) {
 		answerOptions = new ArrayList <ArrayList<String>>();
-		parseOptions(answer); 
+		parseOptions(options); 
 		numAnswers = answerOptions.size();
 	}
 
-	/**
-	 * Override the save function in Answer to allow for response-specific
-	 * saving.
-	 * @return true if save works, false otherwise
-	 */
-	@Override
-	public boolean save() {
-		boolean error = false;
-		if (subsetEmpty() || subsetInvalid()) error = true;
-		if (answersEmpty()) error = true;
-		if (error) return false;
-		answer = this.toString();
-		return super.save();
-	}
-	
 	/*
 	 * Function that returns a string object version of the 
 	 * response question. It returns a string that has
 	 * the correct SEPERATOR separated answer options for a particular field 
 	 * separated by DELIM. 
 	 */
+	
 	@Override
 	public String toString () {
 		String options = "";
-		if (ordered) options += '*';
-		if (subset != null) options += "<" + subset + ">";
 		for  (int listIndex = 0, listIndexLen = answerOptions.size(); listIndex < listIndexLen; listIndex++){
-			if (listIndex != 0) options += DELIM;
+			if (listIndex != 0) options += " " + DELIM;
 			ArrayList<String> answerList = answerOptions.get(listIndex);
 			for (int i = 0, len = answerList.size(); i < len; i++) {
-				if (i != 0) options += SEPARATOR;
+				if (i != 0) options += SEPERATOR;
 				options += answerList.get(i); 
 			}	 
 		}
 		return options; 
 	}
 	
-	/**
-	 * Function that parses the string answer to a response
-	 * question. Because this can become a multiple response
-	 * question, The String form is as follows.
-	 * 1 answer, multiple forms: "*<1>Obama=Barrack Obama=Barrack"
-	 * 2 answers, multiple forms: "obama=Obama,St.Nick=Santa Claus=Santa"
+	/*
+	 * Function that parses the string object of the multiple 
+	 * choice question. Then it stores all the options into an
+	 * internal options list and the answers into an internal
+	 * answers list.
 	 */
 	public void parseOptions (String options) {
-		if (options.charAt(0) == '*') {
-			options = options.substring(1);
-			ordered = true;
-		}
-		int start = options.indexOf('<');
-		int end = options.indexOf('>');
-		subset = options.substring(start + 1, end);
-	    subsetNum = Integer.parseInt(subset);
-		String[] answers = options.split(SEPARATOR);
-		for (String singleAnswer : answers) {
-			ArrayList<String> singleAnswerOptions = new ArrayList<String>();
-			singleAnswerOptions.addAll(Arrays.asList(singleAnswer.split(DELIM)));
-			answerOptions.add(singleAnswerOptions);
+		//example of options string => "Obama SEPERATOR Barrack SEPERATOR Barrack Obama DELIM The White House SEPERATOR White House"
+		
+		String [] parsedAnswerLists = options.split(DELIM);
+		
+		for (int i = 0, len = parsedAnswerLists.length; i < len; i++) {
+			String parsedAnswerListStr = parsedAnswerLists[i]; 
+			String [] parsedAnswerArray = parsedAnswerListStr.split(SEPERATOR);
+			answerOptions.add(new ArrayList<String>(Arrays.asList(parsedAnswerArray)));
 		}
 	}
 	
-	/**
-	 * Boolean that checks the user's input answer and returns
+	/*
+	 * Boolean that checks the user's inputted answer and returns
 	 * whether it is a valid answer or not.
 	 */
+	@Override
 	public boolean checkAnswer (String userInput) {
-		// example input: Barack,Santa,Apollo Creed
+		//user input has to have "<>"
+		//example of user input: "milk<>sausage"
+		
 		boolean correctResponses[] = new boolean[numAnswers];
 		Arrays.fill(correctResponses, false);
 		
@@ -118,8 +81,7 @@ public class Response extends Answer {
 				}
 			}
 		}
-		for (boolean isCorrect : correctResponses) 
-			if (!isCorrect) return false; 
+		for (boolean isCorrect : correctResponses) if (!isCorrect) return false; 
 		return true;
 	}
 	
@@ -128,8 +90,7 @@ public class Response extends Answer {
 	 * and answer and adds it into the answer options list
 	 */
 	public void addAnswer (String answer) {
-		if (answer == null) return;
-		String [] parsedAnswerArray = answer.split(SEPARATOR);
+		String [] parsedAnswerArray = answer.split(SEPERATOR);
 		answerOptions.add(new ArrayList<String>(Arrays.asList(parsedAnswerArray)));
 		numAnswers++;
 	}
@@ -167,41 +128,35 @@ public class Response extends Answer {
 		if (answerOptions.get(index).isEmpty()) deleteAnswer(index);
 		return true;
 	}
-	
-	/**
-	 * Validate subset is filled
-	 * @return true if subset is null, false otherwise
+
+	/*
+	 * Function that validates a response question.
+	 * First it checks that the size of answerOptions and options do not equal zero.
 	 */
-	public boolean subsetEmpty() {
-		if (subset == null) {
-			errorMessages.addError(SUBSET_ERROR, SUBSET_INVALID);
-			return true;
+	@Override
+	public boolean isValid () {
+		if (answerOptions.size() == 0 || numAnswers == 0) return false;
+		for (ArrayList<String> answerList: answerOptions) {
+			if (answerList.isEmpty()) return false;
 		}
-		return false;
+		return true;
 	}
 	
-	/**
-	 * Validate subset number
-	 * @return true if subset unparseable, false otherwise
-	 */
-	public boolean subsetInvalid() {
-		try {
-			Integer.parseInt(subset);
-		} catch (NumberFormatException nfe) {
-			errorMessages.addError(SUBSET_ERROR, SUBSET_INVALID);
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * Validate that at least one answer was given
-	 * @return true if answers are empty, false otherwise
-	 */
-	public boolean answersEmpty() {
-		if (answerOptions.isEmpty()) {
-			errorMessages.addError(ANSWER_ERROR, ANSWER_EMPTY);
-		}
-		return false;
+	public static void main (String[] args) {
+		Response response1 = new Response(); 
+		response1.addAnswer("Sage, Mary, Bob");
+		
+		System.out.println(response1.isValid());
+		System.out.println(response1.checkAnswer("Sage"));
+		
+		response1.addAnswer("lime, orange, lemon");
+		
+		System.out.println(response1.isValid());
+		System.out.println(response1.checkAnswer("lemon" + DELIM + "Bob"));
+		
+		response1.deleteFromAnswer("lemon", 1);
+		System.out.println(response1.isValid());
+		System.out.println(response1.checkAnswer("lemon"));
+		
 	}
 }
