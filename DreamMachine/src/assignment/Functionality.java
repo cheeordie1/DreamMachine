@@ -29,6 +29,7 @@ public class Functionality {
 		
 		while(true) {
 			//Go through database and populate quizzes
+			quizzes = populateQuizzesFromDB();
 			listQuizzes();
 			
 			//Figure out next steps
@@ -39,10 +40,10 @@ public class Functionality {
 			switch(action){
 				case 0:
 					createNewQuiz();
-//					break;
+					break;
 				default: 
 					takeQuiz(action-1); 
-//					break; 
+					break; 
 			}
 		}
 		
@@ -91,7 +92,6 @@ public class Functionality {
 
 	
 	private static void takeQuiz(int action) {
-		// TODO Auto-generated method stub
 		Quiz currQuiz = quizzes.get(action);
 		List<Question> questions_local = currQuiz.questions;
 		int i = 0;
