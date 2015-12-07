@@ -202,6 +202,7 @@ public class Response extends Answer {
 	public boolean answersEmpty() {
 		if (answerOptions.isEmpty()) {
 			errorMessages.addError(ANSWER_ERROR, ANSWER_EMPTY);
+			return true;
 		}
 		return false;
 	}

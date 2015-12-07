@@ -26,7 +26,6 @@ body {
 
 .error-msg {
   position: relative;
-  display: inline-block;
   color: #FD2727;
   font: 1.8vh "Slabo 27px", sans-serif; 
 }

@@ -11,10 +11,10 @@
   <form id="response-question-form" method="post" action="question-create" enctype="multipart/form-data">
     <input type="hidden" name="question-type" value=<%= Question.RESPONSE %>>
     <input type="hidden" name="quiz-id" value=<%= pageQuiz.quiz_id %>>
-    <label class="response-hdr hori-center">Create a Response Question for <%= pageQuiz.name %></label><br>
+    <label class="response-hdr hori-center">Create a Response Question for <span id="quiz-name-span"><%= pageQuiz.name %></span></label><br>
 	<input type="text" name="question" class="<%= "response-question-box hori-center" + (messages.isEmpty() ? "" : " error-box") %>"><br>
     <% for (String message : messages) { %>
-    <div class="error-msg hori-center"><%= message %></div>
+    <div class="response-error error-msg hori-center"><%= message %></div>
     <% } %>
 	<div id="response-photo-container">
 	  <jsp:include page="/content/templates/file-upload.jsp" />
@@ -23,7 +23,7 @@
 	<div id="response-answer-label" class="response-hdr hori-center">Answers</div>
 	<div id="response-answer-container" class="<%= "hori-center" + (messages.isEmpty() ? "" : " error-box")  %>"></div>
 	<% for (String message : messages) { %>
-    <div class="error-msg hori-center"><%= message %></div>
+    <div class="response-error error-msg hori-center"><%= message %></div><br>
     <% } %>
     <button id="response-add-answer" class="hori-center" type="button">Add an Answer</button><br>
 	<input type="hidden" name="num-answers" id="response-num-answers" value=0>

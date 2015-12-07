@@ -22,6 +22,10 @@
   font-size: 2.5vh;
 }
 
+#quiz-name-span {
+  color: #0DAF97;
+}
+
 #response-photo-container {
   position: relative;
   margin-top: 15px;
@@ -37,6 +41,10 @@
   height: 2.3vh;
   font-size: 2vh;
   text-align: center;
+}
+
+.response-error {
+  display: inline-block;
 }
 
 #response-answer-container {
