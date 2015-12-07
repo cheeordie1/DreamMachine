@@ -8,9 +8,7 @@
         <div id="search-quiz-options-container" class="search-by-option-container">
           <label class="search-by-label">Search for Quiz</label>
           <input type="radio" name="search-by" id="search-by-quiz-radio" class="search-by-radio" value="quiz" checked="checked" />
-  		  <div id="search-quiz-sub-options-container">
-  		    <label class="search-by-sub-label">by name</label>
-            <input type="checkbox" id="search-by-name" class="search-by-sub-checkbox" name="by-name" value="name" />  		     
+  		  <div id="search-quiz-sub-options-container">		     
   		    <label id="search-by-tag-sub-label" class="search-by-sub-label">by tag</label>
             <input type="checkbox" id="search-by-tag" class="search-by-sub-checkbox" name="by-tag" value="tag" />  		  
   		    <label id="search-by-creator-sub-label" class="search-by-sub-label">by creator</label>

@@ -38,7 +38,9 @@
 }
 
 #search-options-container {
+  position: relative;
   display: flex;
+  top: 4px;
 }
 
 #search-quiz-options-container {
@@ -53,7 +55,12 @@
 
 #search-quiz-sub-options-container {
   position: relative;
-  margin-left: -50px;
+  margin-left: -14px;
+}
+
+#search-user-sub-options-container {
+  position: relative;
+  margin-left: 22px;	
 }
 
 #search-by-tag-sub-label {
