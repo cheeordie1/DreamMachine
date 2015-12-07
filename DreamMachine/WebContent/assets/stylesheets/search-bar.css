@@ -1,5 +1,69 @@
+.search-by-option-container {
+  position: relative;
+  display: inline-block;
+}
+
+.search-by-radio {
+  position: relative;
+  height: 18px;
+  width: 18px;
+  top: 4px;
+  margin: 0px;
+  margin-left: 4px;
+}
+
+.search-by-sub-checkbox {
+  position: relative;
+  height: 14px;
+  width: 14px;
+  margin: 0px;
+  margin-left: 3px;
+  top: 3px;
+}
+
+.search-by-label {
+  color: #FFFFFF;
+  font-size: 17px;
+  font-family: "PT Sans";
+}
+
+.search-by-sub-label {
+  color: #DDDDDD;
+  font-size: 14px;
+  font-family: "PT Sans";
+}
+
 #search-bar-container {
   position: absolute;	
+}
+
+#search-options-container {
+  display: flex;
+}
+
+#search-quiz-options-container {
+  position: relative;
+  margin-left: 4vw;
+}
+
+#search-user-options-container {
+  position: relative;
+  margin-left: 4vw;
+}
+
+#search-quiz-sub-options-container {
+  position: relative;
+  margin-left: -50px;
+}
+
+#search-by-tag-sub-label {
+  position: relative;
+  margin-left: 8px;
+}
+
+#search-by-creator-sub-label {
+  position: relative;
+  margin-left: 8px;
 }
 
 #search-term {

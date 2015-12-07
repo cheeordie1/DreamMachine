@@ -12,7 +12,7 @@
           <a id="logout-link" class="login-link" href="/DreamMachine/logout">Logout</a>
           <div class="login-separator">|</div>
           <div class="preload">
-   			<img src="/DreamMachine/content/assets/images/create_button_highlight.png" width="1" height="1" />
+   			<img src="/DreamMachine/assets/images/create_button_highlight.png" width="1" height="1" />
 		  </div>
           <img id="create-quiz-button" src="/DreamMachine/assets/images/create_button_normal.png" />
           <script src="/DreamMachine/assets/javascripts/create_quiz_button.js"></script>
