@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * Servlet implementation class SearchServlet
  */
-@WebServlet(description = "Servlet to handle searching", urlPatterns = { "/search", "/search/*", "/SearchServlet" })
+@WebServlet(description = "Servlet to handle searching", urlPatterns = { "/search" })
 public class SearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,14 +27,6 @@ public class SearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String text = request.getParameter("term");
 		List<User> list = User.searchBySubstring(text);
 		
@@ -50,6 +42,13 @@ public class SearchServlet extends HttpServlet {
 		String forward = "/content/search/search.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doGet(request, response);
 	}
 
 }

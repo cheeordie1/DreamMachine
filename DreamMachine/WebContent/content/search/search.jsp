@@ -5,7 +5,6 @@
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/search-results.css">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
 <title>results for search <%=request.getParameter("term")%></title>
 </head>
 <body>

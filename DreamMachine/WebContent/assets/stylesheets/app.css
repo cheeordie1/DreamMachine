@@ -34,3 +34,8 @@ body {
 .error-box {
   border: solid 2px #FF0000;
 }
+
+.undraggable {
+  -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
+  user-drag: none;
+}
