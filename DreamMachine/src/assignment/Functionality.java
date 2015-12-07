@@ -176,18 +176,7 @@ public class Functionality {
 		int user_id = 10;
 		
 		Quiz quiz = createQuiz(user_id, quizName, quizDescription);
-		
-		String query = "SELECT * FROM quizzes WHERE quizName = " + quizName;
-		ResultSet rs = DBConnection.query(query);
-		int quiz_id = 0;
-		try {
-			while(rs.next()) {
-				quiz_id = rs.getInt(quiz_id);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		int quiz_id = quiz.quiz_id;
 		addQuestions(quiz_id);
 	}
 	
@@ -205,13 +194,14 @@ public class Functionality {
 
 	private static void addQuestions(int quiz_id) {
 		while (true) {
-			System.out.println("What kind of question would you like to add (Response or Multiple Choice)?");
+			System.out.println("What kind of question would you like to add (Response or Multiple Choice)?, 'quit' to quit");
 			System.out.println("Type 'R' or 'MC' (without the ' ')");
 			
 			String questionType = "";
 			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			try {
 				questionType = br.readLine();
+				if (questionType.equals("quit"))break;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
