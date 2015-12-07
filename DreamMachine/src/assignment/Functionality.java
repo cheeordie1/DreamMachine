@@ -1,54 +1,66 @@
 package assignment;
 
 import java.io.BufferedReader;
-import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Functionality {
 	
-	static Scanner scanner;
-	static final int user_id = 1; 
-	static final String PROMPT = "DIRECTIONS: Enter the number by a quiz to take it. Type 0 to make a quiz! ";
-	static final String WELCOME_MESSAGE = "Welcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness\n";
-	private static ArrayList<Quiz> quizzes;
+	static int user_id; 
+	static final String QUIZ_TAKE_PROMPT = "\nDIRECTIONS: Enter the number by a quiz to take it. Type 0 to return to main menu. ";
+	static final String PROMPT = "\nDIRECTIONS: Type 1 to take quiz. Type 2 to make quiz. Type 3 to switch users. Type 0 to quit.";
+	static final String WELCOME_MESSAGE = "\nWelcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness\n";
+	static final String SELECT_USER = "\nSelect user account 1, 2, or 3";
+	private static final int NUM_OPTIONS = 3;
+	
+	static BufferedReader br; 
 	
 	public static void main (String args []) {
 		DBConnection.connect();
-		quizzes = populateQuizzesFromDB();
-		quizzes.add(makeSampleQuiz());
-		quizzes = populateQuizzesFromDB();
-		scanner = new Scanner(System.in);
-		
 		System.out.println(WELCOME_MESSAGE);
+		user_id = getUser();
 		
 		while(true) {
-			//Go through database and populate quizzes
-			quizzes = populateQuizzesFromDB();
-			listQuizzes();
-			
-			//Figure out next steps
-			int action = getAction(); 
-			//Quit Program
-			if (action == quizzes.size()+1) break; 
-		
+			int action = getAction();
+			if (action == 0) break;
+
 			switch(action){
-				case 0:
+				case 1:
+					takeQuiz();
+					break;
+				case 2:
 					createNewQuiz();
 					break;
-				default: 
-					takeQuiz(action-1); 
-					break; 
+				case 3:
+					user_id = getUser();
+					break;
 			}
 		}
 		
 		System.out.println("Thanks for playing!");
-		scanner.close();
+	}
+	
+	private static int getUser() {
+		int user;
+		br = new BufferedReader(new InputStreamReader(System.in));
+
+		
+		System.out.println(SELECT_USER);
+		while (true) {
+			System.out.print("Your choice: ");
+			try {
+				user = Integer.parseInt(br.readLine());
+				if (user >= 1 && user <= 3) return user;
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			System.out.println("Please enter a valid integer between 1 and 3");
+		}
 	}
 	
 	public static Answer createAnswer(int type, String options){
@@ -66,78 +78,123 @@ public class Functionality {
 		
 	}
 	
-	private static void listQuizzes(){
-		System.out.println("All Quizzes in Database: ");
+	private static void listQuizzes(ArrayList<Quiz> quizzes){
+		System.out.println("\nAll Quizzes in Database: ");
 		for (int i = 1, size = quizzes.size(); i <= size; i++) 
 			System.out.println(i+") " + quizzes.get(i-1).name);
 		System.out.println();
-
 	}
 	
 	private static int getAction() {
-		int action = 0;
+		int action;
+		br = new BufferedReader(new InputStreamReader(System.in));
+
 		
-		System.out.println(PROMPT + "Or type " + (quizzes.size()+1) + " to quit!");
+		System.out.println(PROMPT);
 		while (true) {
 			System.out.print("Your choice: ");  
-			action = Integer.parseInt(scanner.next()); 
-			scanner.reset();
-			if (action >= 0 && action <= quizzes.size()+1) break;
-			else System.out.println("Please enter a valid integer between 0 and " + quizzes.size() + "!");
+			try {
+				action = Integer.parseInt(br.readLine());
+				if (action >= 0 && action <= NUM_OPTIONS) break;
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			System.out.println("Please enter a valid integer between 1 and " + NUM_OPTIONS);
 		}
 		
 		return action; 
 	}
 
+	private static Quiz selectQuiz() {
+		br = new BufferedReader(new InputStreamReader(System.in));
 
-	
-	private static void takeQuiz(int action) {
-		Quiz currQuiz = quizzes.get(action);
-		List<Question> questions_local = currQuiz.questions;
-		int i = 0;
-		System.out.println("");
-		System.out.println("Let's begin the quiz!");
+		ArrayList<Quiz >quizzes = populateQuizzesFromDB();
+		if(quizzes.isEmpty()) quizzes.add(makeSampleQuiz());
+		listQuizzes(quizzes);
 		
-		while (i < questions_local.size()) {
-			
-			
-			if (questions_local.get(i).type == Question.RESPONSE) {
-				System.out.println("RESPONSE QUESTION: " + questions_local.get(i).question);
-				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				String answer = "";
-				System.out.println("DIRECTIONS: Please type your response. If this a multiple part question, \n"
-						+ "such as 'name the five first presidents,' add this symbol '<>' between answers");
-				try {
-					answer = br.readLine();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-				System.out.println("\n Checking answer: " + questions_local.get(i).checkAnswer(answer));
-			} else if (questions_local.get(i).type == Question.MULTICHOICE) {
-				System.out.println("MULTIPLE CHOICE QUESTION: " + questions_local.get(i).question);
-				List<String>allOptions = ((MultiChoice)questions_local.get(i).answer).allOptions;
-				System.out.println("CHOICES: ");
-				for (String option: allOptions) System.out.println(option);
-				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-				String answer = "";
-				System.out.println("\nDIRECTIONS: Please retype the phrase that you select as your answer. \nIf there are multiple"
-						+ "answers that you want to choose, use '<>' to signal between answers. Watch for typos!");
-				try {
-					answer = br.readLine();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				int numCorrect = questions_local.get(i).checkAnswer(answer);
-				System.out.println("\nnumber of correct answers" + numCorrect);
-			}			
-			
-			
-			
-			i++;
+		int action;
+		System.out.println(QUIZ_TAKE_PROMPT);
+		while (true) {
+			System.out.print("Your choice: ");  
+			try {
+				action = Integer.parseInt(br.readLine());
+				if (action > 0 && action <= quizzes.size()) return quizzes.get(action-1);
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}		
 		}
+	}
+	
+	private static int playQuiz(Quiz currQuiz) {
+		List<Question> questions_local = currQuiz.questions;	
+		int totalCorrect = 0; 
+		System.out.println("\nYou chose " + currQuiz.name + ". Let's begin the quiz!");
+
+		for (int i = 0, size = questions_local.size(); i < size; i++) {
+			br = new BufferedReader(new InputStreamReader(System.in));
+
+			Question currQuestion = questions_local.get(i); 
+			String answer = "";
+			int numCorrect = 0; 
+			int numAnswers = 0; 
+
+			switch(currQuestion.type) {
+			
+				case Question.RESPONSE:
+					System.out.println("\n"+(i+1) + ") RESPONSE QUESTION: " + currQuestion.question);
+					
+					numAnswers = ((Response) currQuestion.answer).numAnswers; 
+					for (int rindex = 0; rindex < numAnswers; rindex++) {
+						System.out.print("Please type response " + (rindex+1) + " of " + numAnswers+ ": ");
+						if (rindex > 0) answer += "<>";
+						try {
+							answer += br.readLine();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}	
+					}
+					break;
+					
+					
+				case Question.MULTICHOICE:
+					System.out.println("\n"+(i+1) + ") MULTIPLE CHOICE QUESTION: " + currQuestion.question);
+					
+					List<String>allOptions = ((MultiChoice) currQuestion.answer).allOptions;
+					
+					for (int index = 0, max = allOptions.size(); index < max; index++){
+						System.out.println((char)('A' + index) + ") " + allOptions.get(index));
+					}
+					
+					numAnswers = ((MultiChoice) currQuestion.answer).allAnswers.size(); 
+					for (int mindex = 0; mindex < numAnswers; mindex++) {
+						if (mindex != 0) answer += "<>";
+						System.out.print("Please letter choice " + (mindex+1) + " of " + numAnswers+ ": ");
+						try {
+							int index = ((int) br.readLine().toUpperCase().charAt(0) - 'A');
+							if (index >= 0 && index < numAnswers) answer += allOptions.get(index);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}	
+					}
+					break; 	
+				default: break; 
+			}
+			
+			numCorrect = currQuestion.checkAnswer(answer);
+			System.out.println("Correctly answered " + numCorrect + " of " + numAnswers);
+			totalCorrect += numCorrect;
+		}
+		return totalCorrect;
+	}
+
+	private static void takeQuiz() {
+		Quiz currQuiz = selectQuiz();
+		int score = playQuiz(currQuiz); 
+		String insertStr = "INSERT INTO scores (quiz_id, user_id, score) value(" +
+							currQuiz.quiz_id +","+ user_id +","+ score + ");";
+		DBConnection.update(insertStr);
 	}
 	
 	
@@ -155,8 +212,8 @@ public class Functionality {
 	}
 
 	private static void createNewQuiz() {
-		
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		br = new BufferedReader(new InputStreamReader(System.in));
+
 		String quizName = "";
 		String quizDescription = "";
 		System.out.println("ENTER QUIZ NAME: ");
@@ -193,12 +250,13 @@ public class Functionality {
 	}
 
 	private static void addQuestions(int quiz_id) {
+		br = new BufferedReader(new InputStreamReader(System.in));
+
 		while (true) {
 			System.out.println("What kind of question would you like to add (Response or Multiple Choice)?, 'quit' to quit");
 			System.out.println("Type 'R' or 'MC' (without the ' ')");
 			
 			String questionType = "";
-			BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 			try {
 				questionType = br.readLine();
 				if (questionType.equals("quit"))break;

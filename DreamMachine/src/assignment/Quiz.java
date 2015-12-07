@@ -9,7 +9,7 @@ import java.sql.*;
 public class Quiz {
 	// instance variables
 	public ErrorMessages errors;
-	public List<Question> questions;
+	public ArrayList<Question> questions;
 	
 	// database variables
 	public int quiz_id;

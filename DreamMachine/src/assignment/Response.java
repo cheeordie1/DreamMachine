@@ -66,6 +66,7 @@ public class Response extends Answer {
 		//user input has to have "<>"
 		//example of user input: "milk<>sausage"
 		
+		int ncorrectResponses = 0; 
 		boolean correctResponses[] = new boolean[numAnswers];
 		Arrays.fill(correctResponses, false);
 		
@@ -80,8 +81,9 @@ public class Response extends Answer {
 				}
 			}
 		}
-		for (boolean isCorrect : correctResponses) if (!isCorrect) return -1; //used to be return false
-		return 0; //used to be return true
+		
+		for (boolean isCorrect : correctResponses) if (isCorrect) ncorrectResponses++; 
+		return ncorrectResponses; //used to be return true
 	}
 	
 	/*

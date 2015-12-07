@@ -4,7 +4,7 @@ import java.util.*;
 
 public class MultiChoice extends Answer {
 
-	private List <String> allAnswers;
+	public List <String> allAnswers;
 	public List <String> allOptions;
 	
 	private int numAnswers;
