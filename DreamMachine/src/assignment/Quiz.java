@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class Quiz {
 	// instance variables
-	public ErrorMessages errors;
+//	public ErrorMessages errors;
 	public ArrayList<Question> questions;
 	
 	// database variables
@@ -38,7 +38,7 @@ public class Quiz {
 	 */
 	public Quiz () {
 		questions = new ArrayList<Question>();
-		errors = new ErrorMessages();
+//		errors = new ErrorMessages();
 	}
 	
 	/**
@@ -184,7 +184,7 @@ public class Quiz {
 	 */
 	public boolean nameEmpty() {
 		if (isEmpty(name)) {
-			errors.addError(NAME_ERROR, NAME_EMPTY);
+//			errors.addError(NAME_ERROR, NAME_EMPTY);
 			return true;
 		}
 		return false;
@@ -196,7 +196,7 @@ public class Quiz {
 	 */
 	public boolean descriptionEmpty() {
 		if (isEmpty(description)) {
-			errors.addError(DESCRIPTION_ERROR, DESCRIPTION_EMPTY);
+//			errors.addError(DESCRIPTION_ERROR, DESCRIPTION_EMPTY);
 			return true;
 		}
 		return false;

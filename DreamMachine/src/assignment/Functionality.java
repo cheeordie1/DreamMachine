@@ -7,7 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Date;
+import java.sql.Timestamp;
 public class Functionality {
 	
 	static int user_id; 
@@ -191,9 +192,11 @@ public class Functionality {
 
 	private static void takeQuiz() {
 		Quiz currQuiz = selectQuiz();
+		Date startTime = new Date();
+		Timestamp startTimestamp = new Timestamp(startTime.getTime());
 		int score = playQuiz(currQuiz); 
-		String insertStr = "INSERT INTO scores (quiz_id, user_id, score) value(" +
-							currQuiz.quiz_id +","+ user_id +","+ score + ");";
+		String insertStr = "INSERT INTO scores (quiz_id, user_id, score, start_time) value(" +
+							currQuiz.quiz_id +","+ user_id +","+ score +", '"+ startTimestamp +"');";
 		DBConnection.update(insertStr);
 	}
 	
