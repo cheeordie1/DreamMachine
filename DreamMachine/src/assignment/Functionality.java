@@ -11,9 +11,9 @@ import java.util.List;
 public class Functionality {
 	
 	static int user_id; 
-	static final String QUIZ_TAKE_PROMPT = "\nDIRECTIONS: Enter the number by a quiz to take it. Type 0 to return to main menu. ";
+	static final String QUIZ_TAKE_PROMPT = "\nDIRECTIONS: Enter the number by a quiz to take it.";
 	static final String PROMPT = "\nDIRECTIONS: Type 1 to take quiz. Type 2 to make quiz. Type 3 to switch users. Type 0 to quit.";
-	static final String WELCOME_MESSAGE = "\nWelcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness\n";
+	static final String WELCOME_MESSAGE = "\nWelcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness";
 	static final String SELECT_USER = "\nSelect user account 1, 2, or 3";
 	private static final int NUM_OPTIONS = 3;
 	
@@ -38,6 +38,7 @@ public class Functionality {
 				case 3:
 					user_id = getUser();
 					break;
+			
 			}
 		}
 		
@@ -172,8 +173,11 @@ public class Functionality {
 						if (mindex != 0) answer += "<>";
 						System.out.print("Please letter choice " + (mindex+1) + " of " + numAnswers+ ": ");
 						try {
-							int index = ((int) br.readLine().toUpperCase().charAt(0) - 'A');
-							if (index >= 0 && index < numAnswers) answer += allOptions.get(index);
+							String line = br.readLine();
+							if (!line.isEmpty()) {
+								int index = ((int) br.readLine().toUpperCase().charAt(0) - 'A');
+								if (index >= 0 && index < numAnswers) answer += allOptions.get(index);
+							}
 						} catch (IOException e) {
 							e.printStackTrace();
 						}	
