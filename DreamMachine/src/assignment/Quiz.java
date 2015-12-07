@@ -37,6 +37,7 @@ public class Quiz {
 	 * Constructor for making a quiz on website
 	 */
 	public Quiz () {
+		questions = new ArrayList<Question>();
 		errors = new ErrorMessages();
 	}
 	

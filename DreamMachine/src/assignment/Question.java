@@ -75,6 +75,7 @@ public class Question {
 	public boolean checkAnswer(String userInput){
 		switch(type) {
 		case RESPONSE: 
+			System.out.println("QUESTION CLASS: " + answer.options);
 			return ((Response) answer).checkAnswer(userInput); 
 
 		case MULTICHOICE:

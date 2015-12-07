@@ -1,6 +1,7 @@
 package assignment;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.sql.ResultSet;
@@ -14,6 +15,7 @@ public class Functionality {
 	static Scanner scanner;
 	static final int user_id = 1; 
 	static final String PROMPT = "Enter the number by a quiz to take it. Type 0 to make a quiz! ";
+	static final String QUESTION_PROMPT = "Enter your answer for the quiz question above";
 	static final String WELCOME_MESSAGE = "Welcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness\n";
 	private static ArrayList<Quiz> quizzes;
 	
@@ -42,9 +44,7 @@ public class Functionality {
 //					createNewQuiz();
 //					break;
 				default: 
-					System.out.println("This is not working");
-					break;
-//					takeQuiz(action-1); 
+					takeQuiz(action-1); 
 //					break; 
 			}
 		}
@@ -115,24 +115,52 @@ public class Functionality {
 		return action; 
 	}
 
+
+	
 	private static void takeQuiz(int action) {
 		// TODO Auto-generated method stub
-		int action_ = 1;
-		int quizIndex = action_-1;
+		int quizIndex = 0;
 		Quiz currQuiz = quizzes.get(quizIndex);
-		
-		List<Question> currQuestions = currQuiz.questions;
-		int numQuestions = currQuestions.size();
-		for (int i = 0; i < numQuestions; i++) {
-			Question single = currQuestions.get(i);
-			if (single.type == Question.MULTICHOICE){
-				System.out.println(single.question);
-				List<String>options = ((MultiChoice) single.answer).allOptions;
-				for (String a: options) System.out.println(a);
-			} else {
-				System.out.println(single.question);
-			}
+		List<Question> questions_local = currQuiz.questions;
+		int i = 0;
+		while (i < questions_local.size()) {
+			System.out.println("");
+			System.out.println(questions_local.get(i).question);
+			
+			
+			
+			if (questions_local.get(i).type == Question.RESPONSE) {
+				BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+				String answer = "";
+				System.out.println(QUESTION_PROMPT);
+				try {
+					answer = br.readLine();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println("\n Checking answer: " + questions_local.get(i).checkAnswer(answer));
+			} else if (questions_local.get(i).type == Question.MULTICHOICE) {
+				System.out.println("MULTIPLE CHOICE QUESTION!!!!");
+			}			
+			
+			
+			
+			i++;
 		}
+		
+//		List<Question> currQuestions = currQuiz.questions;
+//		int numQuestions = currQuestions.size();
+//		for (int i = 0; i < numQuestions; i++) {
+//			Question single = currQuestions.get(i);
+//			if (single.type == Question.MULTICHOICE){
+//				System.out.println(single.question);
+//				List<String>options = ((MultiChoice) single.answer).allOptions;
+//				for (String a: options) System.out.println(a);
+//			} else {
+//				System.out.println(single.question);
+//			}
+//		}
 	}
 
 	private static void createNewQuiz() {

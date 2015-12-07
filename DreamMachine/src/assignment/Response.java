@@ -142,21 +142,21 @@ public class Response extends Answer {
 		return true;
 	}
 	
-	public static void main (String[] args) {
-		Response response1 = new Response(); 
-		response1.addAnswer("Sage, Mary, Bob");
-		
-		System.out.println(response1.isValid());
-		System.out.println(response1.checkAnswer("Sage"));
-		
-		response1.addAnswer("lime, orange, lemon");
-		
-		System.out.println(response1.isValid());
-		System.out.println(response1.checkAnswer("lemon" + DELIM + "Bob"));
-		
-		response1.deleteFromAnswer("lemon", 1);
-		System.out.println(response1.isValid());
-		System.out.println(response1.checkAnswer("lemon"));
-		
-	}
+//	public static void main (String[] args) {
+//		Response response1 = new Response(); 
+//		response1.addAnswer("Sage, Mary, Bob");
+//		
+//		System.out.println(response1.isValid());
+//		System.out.println(response1.checkAnswer("Sage"));
+//		
+//		response1.addAnswer("lime, orange, lemon");
+//		
+//		System.out.println(response1.isValid());
+//		System.out.println(response1.checkAnswer("lemon" + DELIM + "Bob"));
+//		
+//		response1.deleteFromAnswer("lemon", 1);
+//		System.out.println(response1.isValid());
+//		System.out.println(response1.checkAnswer("lemon"));
+//		
+//	}
 }
