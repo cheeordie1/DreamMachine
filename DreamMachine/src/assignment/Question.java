@@ -17,24 +17,20 @@ public class Question {
 	public String question;
 	public Answer answer; 
 	public String imageName;  
-	public int typeInt;
 	
 	public Question (int type) {
 		this.type = type; 
 		
 		switch(type) {
 			case RESPONSE: 
-				typeInt = 0;
 				answer = new Response(); 
 				break;
 		
 			case MULTICHOICE: 
-				typeInt = 1;
 				answer = new MultiChoice(); 
 				break;
 		
 			case MATCHING: 
-				typeInt = 2;
 				answer = new Matching(); 
 				break; 
 		}
@@ -46,22 +42,13 @@ public class Question {
 			this.quiz_id = questionData.getInt("quiz_id");
 			this.question = questionData.getString("question");
 			this.type = questionData.getInt("question_type");
-			String options = questionData.getString("answer_id");
-			switch(type) {
-				case RESPONSE: 
-					typeInt = 0;
-					answer = new Response(options); 
-					break;
-	
-				case MULTICHOICE:
-					typeInt = 1;
-					answer = new MultiChoice(options);
-					break;
-		
-				case MATCHING:
-					typeInt = 2;
-					answer = new Matching(options);
-					break;
+			String options = questionData.getString("answer");
+			if (type == RESPONSE) {
+				answer = new Response(options); 
+			} else if (type == MULTICHOICE) {
+				answer = new MultiChoice(options);
+			} else if (type == MATCHING) {
+				answer = new Matching(options);
 			}
 		} catch (Exception ex) {
 			
@@ -72,19 +59,19 @@ public class Question {
 		return (type == RESPONSE ||  type == MULTICHOICE || type == MATCHING)  && question != null && imageName != null && answer.isValid();
 	}
 	
-	public boolean checkAnswer(String userInput){
+	public int checkAnswer(String userInput){
 		switch(type) {
 		case RESPONSE: 
-			System.out.println("QUESTION CLASS: " + answer.options);
 			return ((Response) answer).checkAnswer(userInput); 
 
 		case MULTICHOICE:
 			return ((MultiChoice) answer).checkAnswer(userInput); 
 
-		case MATCHING:
-			return ((Matching) answer).checkAnswer(userInput);
+//		case MATCHING:
+//			return ((Matching) answer).checkAnswer(userInput);
+//		}
 		}
-		return false;
+		return -1;
 	}
 	
 	

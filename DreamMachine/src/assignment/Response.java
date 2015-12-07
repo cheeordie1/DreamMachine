@@ -62,8 +62,7 @@ public class Response extends Answer {
 	 * Boolean that checks the user's inputted answer and returns
 	 * whether it is a valid answer or not.
 	 */
-	@Override
-	public boolean checkAnswer (String userInput) {
+	public int checkAnswer (String userInput) {
 		//user input has to have "<>"
 		//example of user input: "milk<>sausage"
 		
@@ -81,8 +80,8 @@ public class Response extends Answer {
 				}
 			}
 		}
-		for (boolean isCorrect : correctResponses) if (!isCorrect) return false; 
-		return true;
+		for (boolean isCorrect : correctResponses) if (!isCorrect) return -1; //used to be return false
+		return 0; //used to be return true
 	}
 	
 	/*

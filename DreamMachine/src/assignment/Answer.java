@@ -3,8 +3,7 @@ package assignment;
 public class Answer {
 	
 	public static final String DELIM = "<>";
-	public static final String SEPERATOR = ", ";
-	public String options;
+	public static final String SEPERATOR = ",";
 
 	
 	public boolean isValid(){
@@ -15,13 +14,7 @@ public class Answer {
 	}
 	
 	public String toString(){
-		return options; 
-	}
-	
-
-	public boolean checkAnswer(String userInput) {
-		// TODO Auto-generated method stub
-		return false;
+		return "Not overridden, fix extended class"; 
 	}
 
 }

@@ -146,16 +146,21 @@ public class MultiChoice extends Answer {
 	 * Boolean that checks the user's inputted answer and returns
 	 * whether it is a valid answer or not.
 	 */
-	public boolean checkAnswer (String userInput) {
+	public int checkAnswer (String userInput) {
 		//user input has to have "<>"
 		//example of user input: "milk<>sausage"
 		String [] splitUserInput = userInput.split(DELIM);
+		List<String>toCheck = new ArrayList<String>();
+		int answersCorrect = 0;
 		for (String answer: splitUserInput) {
-			if (!allAnswers.contains(answer)) return false;
+//			if (!allAnswers.contains(answer)) return false;
+			if (allAnswers.contains(answer) && !toCheck.contains(answer)) {
+				answersCorrect ++;
+				toCheck.add(answer);
+			}
 		}
-		if (allAnswers.size() != splitUserInput.length) return false;
 		
-		return true;
+		return answersCorrect;
 	}
 	
 	public void printContents(){
