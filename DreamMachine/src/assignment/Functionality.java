@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 public class Functionality {
@@ -131,7 +133,9 @@ public class Functionality {
 	private static int playQuiz(Quiz currQuiz) {
 		List<Question> questions_local = currQuiz.questions;	
 		int totalCorrect = 0; 
-		System.out.println("\nYou chose " + currQuiz.name + ". Let's begin the quiz!");
+		System.out.println("\nYou chose \"" + currQuiz.name +"\"");
+		System.out.println("Quiz Description: \"" + currQuiz.description +"\"");
+		System.out.println("Let's begin the quiz!");
 
 		for (int i = 0, size = questions_local.size(); i < size; i++) {
 			br = new BufferedReader(new InputStreamReader(System.in));
@@ -195,12 +199,12 @@ public class Functionality {
 
 	private static void takeQuiz() {
 		Quiz currQuiz = selectQuiz();
+		Timestamp startTimestamp = new Timestamp(new Date().getTime());
 		int score = playQuiz(currQuiz); 
 		String insertStr = "INSERT INTO scores (quiz_id, user_id, score) value(" +
-							currQuiz.quiz_id +","+ user_id +","+ score + ");";
+							currQuiz.quiz_id +","+ user_id +","+ score +", \"" +startTimestamp +"\");";
 		DBConnection.update(insertStr);
 	}
-	
 	
 	public static Quiz createQuiz(int user_id, String quizName, String description) {
 		Quiz quiz = new Quiz();
@@ -217,28 +221,26 @@ public class Functionality {
 
 	private static void createNewQuiz() {
 		br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("\nWelcome to Quiz Creator!");
 
 		String quizName = "";
 		String quizDescription = "";
-		System.out.println("ENTER QUIZ NAME: ");
+		System.out.print("ENTER QUIZ NAME: ");
 		try {
 			quizName = br.readLine();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("ENTER QUIZ DESCRIPTION: ");
+		System.out.print("ENTER QUIZ DESCRIPTION: ");
 		try {
 			quizDescription = br.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		int user_id = 10;
-		
+				
 		Quiz quiz = createQuiz(user_id, quizName, quizDescription);
-		int quiz_id = quiz.quiz_id;
-		addQuestions(quiz_id);
+		addQuestions(quiz.quiz_id);
 	}
 	
 	
@@ -260,19 +262,22 @@ public class Functionality {
 			System.out.println("What kind of question would you like to add (Response or Multiple Choice)?, 'quit' to quit");
 			System.out.println("Type 'R' or 'MC' (without the ' ')");
 			
-			String questionType = "";
+			int type = 0;
 			try {
-				questionType = br.readLine();
-				if (questionType.equals("quit"))break;
+				String questionType = br.readLine();
+				if (questionType.equals("quit")) break;
+				if (questionType.equals("R")) type = Question.RESPONSE;
+				if (questionType.equals("MC")) type = Question.MULTICHOICE;
+				
+				if (!(type == Question.MULTICHOICE || type == Question.RESPONSE)) {
+					System.out.println("Wrong Input! Try Again!");
+					continue;
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
-			int type = 0;
-			if (questionType.equals("R")) type = 1;
-			if (questionType.equals("MC")) type = 2;
-			
-			System.out.println("DIRECTION: Please type the question");
+			System.out.print("Please type the question: ");
 			String question = "";
 			try {
 				question = br.readLine();
@@ -282,34 +287,50 @@ public class Functionality {
 			
 			String answerString = "";
 			Answer answer = new Answer();
-			if (type == 1) {
-				System.out.println("DIRECTION: Please type the answer to your questions. \nIf this is "
-						+ "a multiple part question, split the answers by using this symbol '<>' \n"
-						+ "If there are different answers that might all count as correct, separate them by using a comma");
-				try {
-					answerString = br.readLine();
-					answer = new Response(answerString);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else if (type == 2) {
-				
-				String multipleAnswers = "Patrick Young" + Answer.SEPERATOR + "Mehran" + Answer.SEPERATOR + "Keith" + 
-						Answer.SEPERATOR + "Cynthia Bailey" + Answer.DELIM + "Mehran" + Answer.SEPERATOR	 + "Keith";
+			
+			int numAnswers = 1; 
+			switch (type) {
+				case Question.RESPONSE:
+					System.out.print("How many responses are there to this question: ");
+					try {
+						numAnswers = Integer.parseInt(br.readLine());
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					//Get 
+				/*for (int i = 0; i < numAnswers; i++) {
+				 * 
+				 * 
+					*/
+					System.out.println("DIRECTION: Please type the answer to your questions. \nIf this is "
+							+ "a multiple part question, split the answers by using this symbol '<>' \n"
+							+ "If there are different answers that might all count as correct, separate them by using a comma");
+					try {
+						answerString = br.readLine();
+						answer = new Response(answerString);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break; 
+					
+				case Question.MULTICHOICE:
+					String multipleAnswers = "Patrick Young" + Answer.SEPERATOR + "Mehran" + Answer.SEPERATOR + "Keith" + 
+							Answer.SEPERATOR + "Cynthia Bailey" + Answer.DELIM + "Mehran" + Answer.SEPERATOR	 + "Keith";
 
-				
-				System.out.println("DIRECTION: Please type the options and the answer on one line. "
-						+ "\nSeparate the options using a comma and then separate the options from the answer using this symbol '<>'"
-						+ "\nEXAMPLE: 'choiceA,choiceB,choiceC<>choiceA,choiceC'");
-				try{
-					answerString = br.readLine();
-					answer = new MultiChoice(answerString);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+					
+					System.out.println("DIRECTION: Please type the options and the answer on one line. "
+							+ "\nSeparate the options using a comma and then separate the options from the answer using this symbol '<>'"
+							+ "\nEXAMPLE: 'choiceA,choiceB,choiceC<>choiceA,choiceC'");
+					try{
+						answerString = br.readLine();
+						answer = new MultiChoice(answerString);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break; 
 			}
 			
-			Question entireQuestion = createQuestion (quiz_id, question, type, answer);
+			createQuestion (quiz_id, question, type, answer);
 		}
 	}
 
