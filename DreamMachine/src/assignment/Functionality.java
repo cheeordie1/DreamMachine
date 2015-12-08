@@ -14,14 +14,14 @@ public class Functionality {
 	static int user_id; 
 	static final String QUIZ_TAKE_PROMPT = "\nDIRECTIONS: Enter the number by a quiz to take it.";
 	static final String PROMPT = "\nDIRECTIONS: Type 1 to take quiz. "
-								+ "Type 2 to make quiz. "
-								+ "Type 3 to switch users. "
-								+ "Type 4 to see user history. "
-								+ "Type 5 to send a challenge"
-								+ "Type 0 to quit.";
+								+ "\nType 2 to make quiz. "
+								+ "\nType 3 to switch users. "
+								+ "\nType 4 to see user history. "
+								+ "\nType 5 to send/view challenges"
+								+ "\nType 0 to quit.";
 	static final String WELCOME_MESSAGE = "\nWelcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness";
 	static final String SELECT_USER = "\nSelect user account 1, 2, or 3";
-	private static final int NUM_OPTIONS = 4;
+	private static final int NUM_OPTIONS = 5;
 	
 	static BufferedReader br; 
 	
@@ -48,7 +48,7 @@ public class Functionality {
 					userHistory();
 					break;
 				case 5:
-					sendChallenge();
+					challenges();
 					break;
 			}
 		}
@@ -56,9 +56,79 @@ public class Functionality {
 		System.out.println("Thanks for playing!");
 	}
 	
-	private static void sendChallenge() {
-		//
+	private static void challenges() {
+		System.out.println("DIRECTIONS: Type 1 to view your challenges, Type 2 to send a challenge.");
+		br = new BufferedReader(new InputStreamReader(System.in));
+		int challengeChoice;
+		while (true) {
+			try {
+				challengeChoice = Integer.parseInt(br.readLine());
+				if (challengeChoice == 1) {
+					viewChallenges();
+					break;
+				} else if (challengeChoice == 2) {
+					sendChallenge();
+					break;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			System.out.println("Please enter a valid integer between 1 and 2");
+		}
 	}
+	
+	private static void viewChallenges() {
+		ResultSet quizzesChallenged = Challenges.getChallengedQuizzes(user_id);
+		try {
+			while (quizzesChallenged.next()){
+				System.out.println("You were challenged by USER " + quizzesChallenged.getInt("sender_user_id")
+									+ " to take the quiz titled '" + quizzesChallenged.getString("link") + "'");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private static void sendChallenge() {
+		System.out.println("Who would you like to send a challenge to?\nSelect user 1, 2, or 3");
+		int receiver;
+		br = new BufferedReader(new InputStreamReader(System.in));
+		while (true) {
+			try {
+				receiver = Integer.parseInt(br.readLine());
+				break;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			System.out.println("Please enter a valid user 1, 2, or 3");
+		}
+		
+		
+		
+		
+		int challengeQuiz;
+		br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Select Quiz to Send");
+		ArrayList<Quiz >quizzes = populateQuizzesFromDB();
+		if(quizzes.isEmpty()) quizzes.add(makeSampleQuiz());
+		quizzes = populateQuizzesFromDB();
+		listQuizzes(quizzes);
+		while (true) {
+			
+			try {
+				challengeQuiz = Integer.parseInt(br.readLine());
+				break;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			System.out.println("Please enter a valid quiz choice");
+		}
+		
+		Challenges.save(user_id, receiver, quizzes.get(challengeQuiz-1).name);
+		System.out.println("UPDATE: CHALLENGE SENT!\n");
+	}
+	
 	
 	private static void userHistory() {
 		int quizzesMade = Quiz.searchByUserID(user_id).size();
