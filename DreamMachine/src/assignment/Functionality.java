@@ -13,7 +13,12 @@ public class Functionality {
 	
 	static int user_id; 
 	static final String QUIZ_TAKE_PROMPT = "\nDIRECTIONS: Enter the number by a quiz to take it.";
-	static final String PROMPT = "\nDIRECTIONS: Type 1 to take quiz. Type 2 to make quiz. Type 3 to switch users. Type 4 to see user history. Type 0 to quit.";
+	static final String PROMPT = "\nDIRECTIONS: Type 1 to take quiz. "
+								+ "Type 2 to make quiz. "
+								+ "Type 3 to switch users. "
+								+ "Type 4 to see user history. "
+								+ "Type 5 to send a challenge"
+								+ "Type 0 to quit.";
 	static final String WELCOME_MESSAGE = "\nWelcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness";
 	static final String SELECT_USER = "\nSelect user account 1, 2, or 3";
 	private static final int NUM_OPTIONS = 4;
@@ -42,10 +47,17 @@ public class Functionality {
 				case 4:
 					userHistory();
 					break;
+				case 5:
+					sendChallenge();
+					break;
 			}
 		}
 		
 		System.out.println("Thanks for playing!");
+	}
+	
+	private static void sendChallenge() {
+		//
 	}
 	
 	private static void userHistory() {
