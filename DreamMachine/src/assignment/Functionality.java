@@ -23,6 +23,8 @@ public class Functionality {
 	static final String WELCOME_MESSAGE = "\nWelcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness";
 	static final String SELECT_USER = "\nSelect user account 1, 2, or 3";
 	private static final int NUM_OPTIONS = 5;
+	private static final int MAX_USERS = 3;
+
 	
 	static BufferedReader br; 
 	
@@ -94,7 +96,7 @@ public class Functionality {
 	private static void sendChallenge() {
 		System.out.println("\nWho would you like to send a challenge to?");
 		System.out.print("Please enter a valid user");
-		for (int user = 1; user <=3; user++) {
+		for (int user = 1; user <=MAX_USERS; user++) {
 			if (user_id == user) continue;
 			System.out.print(" " + user);
 		}
@@ -105,12 +107,12 @@ public class Functionality {
 		while (true) {
 			try {
 				receiver = Integer.parseInt(br.readLine());
-				if (receiver > 0 && receiver <= 3 && receiver != user_id) break;
+				if (receiver > 0 && receiver <= MAX_USERS && receiver != user_id) break;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}	
 			System.out.print("Please enter a valid user");
-			for (int user = 1; user <=3; user++) {
+			for (int user = 1; user <=MAX_USERS; user++) {
 				if (user_id == user) continue;
 				System.out.print(" " + user);
 			}
@@ -163,12 +165,12 @@ public class Functionality {
 				String line = br.readLine();
 				if (!line.equals(null) && !line.isEmpty()) {
 					user = Integer.parseInt(line);
-					if (user >= 1 && user <= 3) return user;
+					if (user >= 1 && user <= MAX_USERS) return user;
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}	
-			System.out.println("Please enter a valid integer between 1 and 3");
+			System.out.println("Please enter a valid integer between 1 and " +  MAX_USERS);
 		}
 	}
 	
@@ -463,10 +465,6 @@ public class Functionality {
 					e.printStackTrace();
 				}
 			} else if (type == 2) {
-				
-				String multipleAnswers = "Patrick Young" + Answer.SEPERATOR + "Mehran" + Answer.SEPERATOR + "Keith" + 
-						Answer.SEPERATOR + "Cynthia Bailey" + Answer.DELIM + "Mehran" + Answer.SEPERATOR	 + "Keith";
-
 				
 				System.out.println("DIRECTION: Please type the options and the answer on one line. "
 						+ "\nSeparate the options using a comma and then separate the options from the answer using this symbol '<>'"
