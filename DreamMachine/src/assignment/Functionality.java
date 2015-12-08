@@ -135,7 +135,7 @@ public class Functionality {
 		while (true) {
 			try {
 				challengeQuiz = Integer.parseInt(br.readLine());
-				if (challengeQuiz > 0 && challengeQuiz < quizzes.size()) break;
+				if (challengeQuiz > 0 && challengeQuiz <= quizzes.size()) break;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}	
