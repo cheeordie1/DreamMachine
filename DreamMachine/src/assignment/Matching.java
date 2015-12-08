@@ -141,7 +141,7 @@ public class Matching extends Answer {
 		for (int i = 0; i < matchResponses.length; i++) {
 			String currMatch = matchResponses[i];
 			String[] splitUserInput = currMatch.split("=");
-			if (matches.get(splitUserInput[0]) == splitUserInput[1]) {
+			if (matches.get(splitUserInput[0]).equals(splitUserInput[1])) {
 				numCorrect++;
 			}
 		}

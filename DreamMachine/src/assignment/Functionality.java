@@ -318,7 +318,7 @@ public class Functionality {
 					
 					numAnswers = matches.size();
 					for (int mindex = 0; mindex < numAnswers; mindex++) {
-						System.out.println("Match Response " +mindex+1+ "of " +numAnswers+ ": ");
+						System.out.println("Match Response " + (mindex+1) + " of " +numAnswers+ ": ");
 						try {
 							System.out.println("Left-side of match.. ");
 							String line = br.readLine();
@@ -524,11 +524,16 @@ public class Functionality {
 						+ "heavy       hate\n"
 						+ "love        low\n"
 						+ "and quiz-takers will need to match an option on the left side \n"
-						+ "to an option on the right side. With this in mind, the format of the "
-						+ "answer will be as such: "
-						+ "leftOpt1,leftOpt2,leftOpt3<>rightOpt1,rightOpt2,rightOpt3<>leftOpt1=rightOpt3,leftOpt2=rightOpt1...");
+						+ "to an option on the right side. \n");
 				try{
-					answerString = br.readLine();
+					System.out.println("Type in left options seperated by commas: (ex. 'option1,option2,option3')");
+					String leftOptStr = br.readLine();
+					System.out.println("Type in right options seperated by commas: (ex. 'option1b,option2b,option3b')");
+					String rightOptStr = br.readLine();
+					System.out.println("Type in matches between two options with a '=' in between"
+							+ "them : (ex. 'option1=option2b,option3=option1b')");
+					String matchStr = br.readLine();
+					answerString = leftOptStr + Answer.DELIM + rightOptStr + Answer.DELIM + matchStr;
 					answer = new Matching(answerString);
 				} catch (IOException e) {
 					e.printStackTrace();
