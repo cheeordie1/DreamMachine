@@ -1,4 +1,4 @@
-USE c_cs108_balegria;
+USE c_cs108_morozco2;
 
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS photos;
