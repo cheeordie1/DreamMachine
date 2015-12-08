@@ -78,7 +78,7 @@ public class Functionality {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}	
-			System.out.print("Please enter a valid integer between 1 and 2: ");
+			System.out.print("Please enter a valid 1 or 2: ");
 		}
 	}
 	
