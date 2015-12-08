@@ -432,22 +432,25 @@ public class Functionality {
 		br = new BufferedReader(new InputStreamReader(System.in));
 
 		while (true) {
-			System.out.println("What kind of question would you like to add (Response or Multiple Choice)?, 'quit' to quit");
-			System.out.println("Type 'R' or 'MC' (without the ' ')");
+			System.out.println("What kind of question would you like to add (Response or Multiple Choice)?");
+			System.out.print("Type 'R', 'MC', or 'quit' to stop adding questions: ");
 			
-			String questionType = "";
+			int type = 0;
 			try {
-				questionType = br.readLine();
-				if (questionType.equals("quit"))break;
+				String questionType = br.readLine().toUpperCase();
+				if (questionType.equals("quit")) break;
+				if (questionType.equals("R")) type = Question.RESPONSE;
+				if (questionType.equals("MC")) type = Question.MULTICHOICE;
+				
+				if (!(type == Question.MULTICHOICE || type == Question.RESPONSE)) {
+					System.out.println("Wrong Input! Try Again!");
+					continue;
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
-			int type = 0;
-			if (questionType.equals("R")) type = 1;
-			if (questionType.equals("MC")) type = 2;
-			
-			System.out.println("DIRECTION: Please type the question");
+			System.out.print("Please type the question: ");
 			String question = "";
 			try {
 				question = br.readLine();
@@ -455,32 +458,84 @@ public class Functionality {
 				e.printStackTrace();
 			}
 			
-			String answerString = "";
 			Answer answer = new Answer();
-			if (type == 1) {
-				System.out.println("DIRECTION: Please type the answer to your questions. \nIf this is "
-						+ "a multiple part question, split the answers by using this symbol '<>' \n"
-						+ "If there are different answers that might all count as correct, separate them by using a comma");
-				try {
-					answerString = br.readLine();
-					answer = new Response(answerString);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else if (type == 2) {
-				
-				System.out.println("DIRECTION: Please type the options and the answer on one line. "
-						+ "\nSeparate the options using a comma and then separate the options from the answer using this symbol '<>'"
-						+ "\nEXAMPLE: 'choiceA,choiceB,choiceC<>choiceA,choiceC'");
-				try{
-					answerString = br.readLine();
-					answer = new MultiChoice(answerString);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+			int numAnswers = 1; 
 			
-			createQuestion (quiz_id, question, type, answer);
+			switch (type) {
+				case Question.RESPONSE:
+					System.out.print("How many responses are there to this question: ");
+					try {
+						String line = br.readLine(); 
+						if (!line.equals(null) && !line.isEmpty())
+							numAnswers = Integer.parseInt(line);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					
+					String options = "";
+					for (int qnum = 0; qnum < numAnswers; qnum++) {
+						if (qnum > 0) options += Answer.DELIM;
+						System.out.println("Keep entering correct answers for Response " + qnum +" of "+ numAnswers +". When done hit enter!");
+						String answerOption = ""; 
+						while (true) {
+							System.out.print("Answer: ");
+							try {
+								String line = br.readLine();
+								if (line.equals(null) || line.isEmpty()) break;
+								if (!answerOption.isEmpty()) answerOption += Answer.SEPERATOR;
+								answerOption += line;
+								
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						}
+						options += answerOption;
+					}
+					
+					answer = new Response(options);
+					break; 
+					
+				case Question.MULTICHOICE:
+					System.out.println("DIRECTIONS: You will be prompted to enter answer choices one by one. "
+							+ "\nAfter each one you will be asked if it is a correct answer. "
+							+ "\nHit enter when done adding choices!");
+					
+					String answersString ="";
+					String optionsString ="";
+					
+					while (true) {
+						String option = ""; 
+						System.out.print("Enter Choice (Or hit enter when done!: ");
+						try {
+							option = br.readLine();
+							if (option.equals(null) || option.isEmpty()) {
+								if (answersString.isEmpty()) {
+									System.out.println("Must enter a choice with a correct answer before finishing!");
+								} else break;
+							}
+							if (!optionsString.isEmpty()){
+								optionsString += Answer.SEPERATOR;
+							}
+							optionsString += option;
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						
+						System.out.print("Is " + option + " a correct answer? Y or N? Your choice: ");
+						try {
+							String response = br.readLine();
+							if (!response.equals(null) && !response.isEmpty() && response.toUpperCase().charAt(0) == 'Y') {
+								if (!answersString.isEmpty()) answersString += Answer.SEPERATOR; 
+								answersString += option;
+							}
+						} catch (IOException e) {
+								e.printStackTrace();
+						}
+					}
+					answer = new MultiChoice(optionsString + Answer.DELIM + answersString);	
+					break;
+			}
+			createQuestion(quiz_id, question, type, answer);		
 		}
 	}
 
