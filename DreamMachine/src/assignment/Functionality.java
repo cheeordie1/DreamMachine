@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 public class Functionality {
 	
 	static int user_id; 
@@ -310,6 +311,7 @@ public class Functionality {
 	}
 
 	private static void showSummaryPage(Quiz quiz) {
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");      
 		List<Score> scores = Score.searchByQuizID(quiz.quiz_id);
 		
 		System.out.println("\n" + quiz.name + "");
@@ -320,29 +322,30 @@ public class Functionality {
 		ArrayList<Score> highScores = QuizStats.highestPerformers(scores);
 		for (int i = 0; i < highScores.size(); i++) {
 			Score currScore = highScores.get(i);
-			System.out.print(currScore.startTime);
-			System.out.print("  user" + currScore.user_id);
-			System.out.print("  " + currScore.score);
-			System.out.println("  " + currScore.getDuration() + "sec");
+			System.out.print("Date:" + sdf.format(currScore.startTime));
+			System.out.print("\t\tusername: user" + currScore.user_id);
+			System.out.print("\t\tscore: " + currScore.score);
+			System.out.println("\t\ttime:" + currScore.getDuration() + "s");
 		}
 		
 		System.out.println("\nTop Performers of Past Day: ");
 		ArrayList<Score> highScoresDay = QuizStats.highestPerformersPastDay(scores);
 		for (int i = 0; i < highScoresDay.size(); i++) {
 			Score currScore = highScoresDay.get(i);
-			System.out.print(currScore.startTime);
-			System.out.print("  user" + currScore.user_id);
-			System.out.print("  " + currScore.score);
-			System.out.println("  " + currScore.getDuration() + "sec");
+			System.out.print("Date:" + sdf.format(currScore.startTime));
+			System.out.print("\t\tusername: user" + currScore.user_id);
+			System.out.print("\t\tscore: " + currScore.score);
+			System.out.println("\t\ttime:" + currScore.getDuration() + "s");
 		}
 				
 		System.out.println("\nYour Past Performances: ");
 		ArrayList<Score> pastScores = QuizStats.pastPerformances(user_id, quiz.quiz_id);
 		for (int i = 0; i < pastScores.size(); i++) {
 			Score currScore = pastScores.get(i);
-			System.out.print(currScore.startTime);
-			System.out.print("  " + currScore.score + " Points");
-			System.out.println("  " + currScore.getDuration() + "sec");
+			System.out.print("Date:" + sdf.format(currScore.startTime));
+			System.out.print("\t\tusername: user" + currScore.user_id);
+			System.out.print("\t\tscore: " + currScore.score);
+			System.out.println("\t\ttime:" + currScore.getDuration() + "s");
 
 		}
 		
@@ -350,10 +353,10 @@ public class Functionality {
 		ArrayList<Score> pastPerformances = QuizStats.recentPerformances(scores);
 		for (int i = 0; i < pastPerformances.size(); i++) {
 			Score currScore = pastPerformances.get(i);
-			System.out.print(currScore.startTime);
-			System.out.print("  user" + currScore.user_id);
-			System.out.print("  " + currScore.score);
-			System.out.println("  " + currScore.getDuration() + "sec");
+			System.out.print("Date:" + sdf.format(currScore.startTime));
+			System.out.print("\t\tusername: user" + currScore.user_id);
+			System.out.print("\t\tscore: " + currScore.score);
+			System.out.println("\t\ttime:" + currScore.getDuration() + "s");
 		}
 		
 		System.out.print("\nHit enter to begin taking quiz");
