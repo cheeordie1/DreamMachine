@@ -526,8 +526,15 @@ public class Functionality {
 						+ "and quiz-takers will need to match an option on the left side \n"
 						+ "to an option on the right side. \n");
 				try{
-					System.out.println("Type in left options seperated by commas: (ex. 'option1,option2,option3')");
-					String leftOptStr = br.readLine();
+					System.out.println("How many options on the left side?");
+					int leftOptNum = Integer.valueOf(br.readLine());
+					
+					String leftOptStr = "";
+					for (int i = 0; i < leftOptNum; i++) {
+						if (i != 0) leftOptions += ",";
+						System.out.println("left option " + i + ": ");
+						leftOptions += br.readLine();
+					}
 					System.out.println("Type in right options seperated by commas: (ex. 'option1b,option2b,option3b')");
 					String rightOptStr = br.readLine();
 					System.out.println("Type in matches between two options with a '=' in between"
