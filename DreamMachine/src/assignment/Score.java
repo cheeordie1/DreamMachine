@@ -78,7 +78,7 @@ public class Score {
 	
 	
 	public long getDuration() {
-		return (finishTime.getTime() - startTime.getTime())/1000;
+		return (finishTime.getTime() - startTime.getTime());
 	}
     
 	public static class ScoreComparator implements java.util.Comparator<Score>
