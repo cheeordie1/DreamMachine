@@ -15,10 +15,10 @@ public class Functionality {
 	static int user_id; 
 	static final String QUIZ_TAKE_PROMPT = "\nDIRECTIONS: Enter the number by a quiz to take it.";
 	static final String PROMPT = "\nDIRECTIONS: "
-								+ "\nType 1 to take quiz. "
-								+ "\nType 2 to make quiz. "
-								+ "\nType 3 to switch users. "
-								+ "\nType 4 to see user history. "
+								+ "\nType 1 to take quiz"
+								+ "\nType 2 to make quiz"
+								+ "\nType 3 to switch users"
+								+ "\nType 4 to see user history and achievements"
 								+ "\nType 5 to send/view challenges"
 								+ "\nType 0 to quit";
 	static final String WELCOME_MESSAGE = "\nWelcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness";
@@ -26,7 +26,6 @@ public class Functionality {
 	private static final int NUM_OPTIONS = 5;
 	private static final int MAX_USERS = 3;
 
-	
 	static BufferedReader br; 
 	
 	public static void main (String args []) {
@@ -187,7 +186,6 @@ public class Functionality {
 				return new Matching(options);
 		}
 		return null;
-		
 	}
 	
 	private static void listQuizzes(ArrayList<Quiz> quizzes){
@@ -213,7 +211,6 @@ public class Functionality {
 			}	
 			System.out.println("Please enter a valid integer between 1 and " + NUM_OPTIONS);
 		}
-		
 		return action; 
 	}
 
@@ -302,8 +299,7 @@ public class Functionality {
 			numCorrect = currQuestion.checkAnswer(answer);
 			System.out.println("Correctly answered " + numCorrect + " of " + numAnswers);
 			totalCorrect += numCorrect;
-			totalAnswers+=numAnswers; 
-
+			totalAnswers += numAnswers; 
 		}
 		
 		System.out.println("You recieved a total of " + totalCorrect + " out of " + totalAnswers);
@@ -475,7 +471,7 @@ public class Functionality {
 					String options = "";
 					for (int qnum = 0; qnum < numAnswers; qnum++) {
 						if (qnum > 0) options += Answer.DELIM;
-						System.out.println("Keep entering correct answers for Response " + qnum +" of "+ numAnswers +". When done hit enter!");
+						System.out.println("Keep entering correct answers for Response " + (qnum+1) +" of "+ numAnswers +". When done hit enter!");
 						String answerOption = ""; 
 						while (true) {
 							System.out.print("Answer: ");
