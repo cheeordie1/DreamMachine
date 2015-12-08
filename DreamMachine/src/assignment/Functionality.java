@@ -13,10 +13,15 @@ public class Functionality {
 	
 	static int user_id; 
 	static final String QUIZ_TAKE_PROMPT = "\nDIRECTIONS: Enter the number by a quiz to take it.";
-	static final String PROMPT = "\nDIRECTIONS: Type 1 to take quiz. Type 2 to make quiz. Type 3 to switch users. Type 4 to see user history. Type 0 to quit.";
+	static final String PROMPT = "\nDIRECTIONS: Type 1 to take quiz. "
+								+ "\nType 2 to make quiz. "
+								+ "\nType 3 to switch users. "
+								+ "\nType 4 to see user history. "
+								+ "\nType 5 to send/view challenges"
+								+ "\nType 0 to quit.";
 	static final String WELCOME_MESSAGE = "\nWelcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness";
 	static final String SELECT_USER = "\nSelect user account 1, 2, or 3";
-	private static final int NUM_OPTIONS = 4;
+	private static final int NUM_OPTIONS = 5;
 	
 	static BufferedReader br; 
 	
@@ -42,11 +47,100 @@ public class Functionality {
 				case 4:
 					userHistory();
 					break;
+				case 5:
+					challenges();
+					break;
 			}
 		}
 		
 		System.out.println("Thanks for playing!");
 	}
+	
+	private static void challenges() {
+		System.out.println("\nDIRECTIONS: Type 1 to view your challenges, Type 2 to send a challenge.");
+		System.out.print("Your choice: ");
+		br = new BufferedReader(new InputStreamReader(System.in));
+		int challengeChoice;
+		while (true) {
+			try {
+				challengeChoice = Integer.parseInt(br.readLine());
+				if (challengeChoice == 1) {
+					viewChallenges();
+					break;
+				} else if (challengeChoice == 2) {
+					sendChallenge();
+					break;
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			System.out.print("Please enter a valid integer between 1 and 2: ");
+		}
+	}
+	
+	private static void viewChallenges() {
+		ResultSet quizzesChallenged = Challenges.getChallengedQuizzes(user_id);
+		try {
+			while (quizzesChallenged.next()){
+				System.out.println("You were challenged by USER " + quizzesChallenged.getInt("sender_user_id")
+									+ " to take the quiz titled '" + quizzesChallenged.getString("link") + "'");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private static void sendChallenge() {
+		System.out.println("\nWho would you like to send a challenge to?");
+		System.out.print("Please enter a valid user");
+		for (int user = 1; user <=3; user++) {
+			if (user_id == user) continue;
+			System.out.print(" " + user);
+		}
+		System.out.print(": ");
+
+		int receiver;
+		br = new BufferedReader(new InputStreamReader(System.in));
+		while (true) {
+			try {
+				receiver = Integer.parseInt(br.readLine());
+				if (receiver > 0 && receiver <= 3 && receiver != user_id) break;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			System.out.print("Please enter a valid user");
+			for (int user = 1; user <=3; user++) {
+				if (user_id == user) continue;
+				System.out.print(" " + user);
+			}
+			System.out.print(": ");
+		}
+		
+		int challengeQuiz;
+		br = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Select Quiz to Send");
+		ArrayList<Quiz>quizzes = populateQuizzesFromDB();
+		if(quizzes.isEmpty()) {
+			makeSampleQuiz();
+			quizzes = populateQuizzesFromDB();
+		}
+		listQuizzes(quizzes);
+		
+		System.out.print("Your choice: ");
+		while (true) {
+			try {
+				challengeQuiz = Integer.parseInt(br.readLine());
+				if (challengeQuiz > 0 && challengeQuiz < quizzes.size()) break;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}	
+			System.out.print("Please enter a valid quiz choice: ");
+		}
+		
+		Challenges.save(user_id, receiver, quizzes.get(challengeQuiz-1).name);
+		System.out.println("UPDATE: CHALLENGE SENT!\n");
+	}
+	
 	
 	private static void userHistory() {
 		int quizzesMade = Quiz.searchByUserID(user_id).size();
@@ -122,9 +216,11 @@ public class Functionality {
 	private static Quiz selectQuiz() {
 		br = new BufferedReader(new InputStreamReader(System.in));
 
-		ArrayList<Quiz >quizzes = populateQuizzesFromDB();
-		if(quizzes.isEmpty()) quizzes.add(makeSampleQuiz());
-		quizzes = populateQuizzesFromDB();
+		ArrayList<Quiz>quizzes = populateQuizzesFromDB();
+		if(quizzes.isEmpty()) {
+			makeSampleQuiz();
+			quizzes = populateQuizzesFromDB();
+		}
 		listQuizzes(quizzes);
 		
 		int action;
