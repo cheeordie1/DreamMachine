@@ -531,15 +531,31 @@ public class Functionality {
 					
 					String leftOptStr = "";
 					for (int i = 0; i < leftOptNum; i++) {
-						if (i != 0) leftOptions += ",";
-						System.out.println("left option " + i + ": ");
-						leftOptions += br.readLine();
+						if (i != 0) leftOptStr += ",";
+						System.out.println("left option " + (i+1) + ": ");
+						leftOptStr += br.readLine();
 					}
-					System.out.println("Type in right options seperated by commas: (ex. 'option1b,option2b,option3b')");
-					String rightOptStr = br.readLine();
-					System.out.println("Type in matches between two options with a '=' in between"
-							+ "them : (ex. 'option1=option2b,option3=option1b')");
-					String matchStr = br.readLine();
+					
+					System.out.println("How many options on the right side?");
+					int rightOptNum = Integer.valueOf(br.readLine());
+					
+					String rightOptStr = "";
+					for (int i = 0; i < rightOptNum; i++) {
+						if (i != 0) rightOptStr += ",";
+						System.out.println("right option " + (i+1) + ": ");
+						rightOptStr += br.readLine();
+					}
+					
+					System.out.println("How many matches?");
+					int matchNum = Integer.valueOf(br.readLine());
+					
+					String matchStr = "";
+					for (int i = 0; i < matchNum; i++) {
+						if (i != 0) matchStr += ",";
+						System.out.println("input match " + (i+1) + " by following this template");
+						System.out.println("leftOption=rightOption");
+						matchStr += br.readLine();
+					}
 					answerString = leftOptStr + Answer.DELIM + rightOptStr + Answer.DELIM + matchStr;
 					answer = new Matching(answerString);
 				} catch (IOException e) {
