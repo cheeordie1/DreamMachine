@@ -432,13 +432,13 @@ public class Functionality {
 		br = new BufferedReader(new InputStreamReader(System.in));
 
 		while (true) {
-			System.out.println("What kind of question would you like to add (Response or Multiple Choice)?");
-			System.out.print("Type 'R', 'MC', or 'quit' to stop adding questions: ");
+			System.out.println("\nWhat kind of question would you like to add (Response or Multiple Choice)?");
+			System.out.print("Type 'R', 'MC', or 'QUIT' to stop adding questions: ");
 			
 			int type = 0;
 			try {
 				String questionType = br.readLine().toUpperCase();
-				if (questionType.equals("quit")) break;
+				if (questionType.equals("QUIT")) break;
 				if (questionType.equals("R")) type = Question.RESPONSE;
 				if (questionType.equals("MC")) type = Question.MULTICHOICE;
 				
@@ -505,12 +505,13 @@ public class Functionality {
 					
 					while (true) {
 						String option = ""; 
-						System.out.print("Enter Choice (Or hit enter when done!: ");
+						System.out.print("Enter Choice (Or hit enter when done!): ");
 						try {
 							option = br.readLine();
 							if (option.equals(null) || option.isEmpty()) {
 								if (answersString.isEmpty()) {
 									System.out.println("Must enter a choice with a correct answer before finishing!");
+									continue;
 								} else break;
 							}
 							if (!optionsString.isEmpty()){
