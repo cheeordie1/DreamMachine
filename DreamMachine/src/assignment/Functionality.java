@@ -142,7 +142,7 @@ public class Functionality {
 	private static int playQuiz(Quiz currQuiz) {
 		List<Question> questions_local = currQuiz.questions;	
 		int totalCorrect = 0; 
-		System.out.println("\nYou chose " + currQuiz.name + ". Let's begin the quiz!");
+		System.out.println("\nLet's begin the quiz!");
 
 		for (int i = 0, size = questions_local.size(); i < size; i++) {
 			br = new BufferedReader(new InputStreamReader(System.in));
@@ -181,13 +181,13 @@ public class Functionality {
 					
 					numAnswers = ((MultiChoice) currQuestion.answer).allAnswers.size(); 
 					for (int mindex = 0; mindex < numAnswers; mindex++) {
-						if (mindex != 0) answer += "<>";
 						System.out.print("Letter choice " + (mindex+1) + " of " + numAnswers+ ": ");
 						try {
 							String line = br.readLine();
 							if (!line.isEmpty()) {
+								if (mindex != 0) answer += "<>";
 								int index = ((int) line.toUpperCase().charAt(0) - 'A');
-								if (index >= 0 && index < numAnswers) answer += allOptions.get(index);
+								if (index >= 0 && index < allOptions.size()) answer += allOptions.get(index);
 							}
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -207,35 +207,38 @@ public class Functionality {
 	private static void showSummaryPage(Quiz quiz) {
 		List<Score> scores = Score.searchByQuizID(quiz.quiz_id);
 		
-		System.out.println("\nHigh Score: " + QuizStats.highScore(scores));
+		System.out.println("\n" + quiz.name + "");
+		System.out.println(quiz.description);
+		System.out.println("\nHigh Score: " + QuizStats.highScore(scores) + " // Lowest Score: " + QuizStats.lowScore(scores) + " // Average Score: " + QuizStats.averageScore(scores) +" // Times Played: " + QuizStats.timesPlayed(scores));
 		
-		System.out.println("\nAverage Score: " + QuizStats.averageScore(scores));
-
 		System.out.println("\nLeaderboard: ");
 		ArrayList<Score> highScores = QuizStats.highestPerformers(scores);
 		for (int i = 0; i < highScores.size(); i++) {
 			Score currScore = highScores.get(i);
-			System.out.print("user" + currScore.user_id);
+			System.out.println(currScore.startTime);
+			System.out.print("  user" + currScore.user_id);
 			System.out.println("  " + currScore.score);
+			System.out.println("  " + currScore.getDuration() + "sec");
 		}
 		
 		System.out.println("\nTop Performers of Past Day: ");
 		ArrayList<Score> highScoresDay = QuizStats.highestPerformersPastDay(scores);
 		for (int i = 0; i < highScoresDay.size(); i++) {
 			Score currScore = highScoresDay.get(i);
-			System.out.print("user" + currScore.user_id);
+			System.out.println(currScore.startTime);
+			System.out.print("  user" + currScore.user_id);
 			System.out.println("  " + currScore.score);
+			System.out.println("  " + currScore.getDuration() + "sec");
 		}
-		
-		System.out.println("\nLowest Score: " + QuizStats.lowScore(scores));
-		
+				
 		System.out.println("\nYour Past Performances: ");
 		ArrayList<Score> pastScores = QuizStats.pastPerformances(user_id, quiz.quiz_id);
 		for (int i = 0; i < pastScores.size(); i++) {
-			System.out.println(pastScores.get(i).score);
+			System.out.println(pastScores.get(i).startTime);
+			System.out.println("  " + pastScores.get(i).score);
+			System.out.println("  " + pastScores.get(i).getDuration() + "sec");
+
 		}
-		
-		System.out.println("\nTimes Played: " + QuizStats.timesPlayed(scores));
 		
 		System.out.println("\nRecent Performances: ");
 		ArrayList<Score> pastPerformances = QuizStats.recentPerformances(scores);
@@ -373,7 +376,7 @@ public class Functionality {
 				}
 			}
 			
-			Question entireQuestion = createQuestion (quiz_id, question, type, answer);
+			createQuestion (quiz_id, question, type, answer);
 		}
 	}
 
@@ -383,6 +386,7 @@ public class Functionality {
 		
 		String query_selectall = "SELECT * FROM quizzes";
 		ResultSet rs = DBConnection.query(query_selectall);
+		if (rs.equals(null)) return allQuizzes;
 		try {
 			while(rs.next()) {
 				Quiz newQuiz = new Quiz(rs);
@@ -399,41 +403,22 @@ public class Functionality {
 	private static Quiz makeSampleQuiz() {
 		String quizName = "The CS Classes At Stanford";
 		String description = "Test whether you are familiar with CS Classes at Stanford!";
-		
+		Quiz quiz = createQuiz(user_id, quizName, description);
+
 		String responseQuestion = "Who teaches CS108?";
 		String responseAnswers = "Patrick Young" + Answer.SEPERATOR + "Professor Young" + Answer.SEPERATOR + "Patrick";
-		Response responseResponse = new Response(responseAnswers); 
-
-		String responseUserAnswer = "Patrick";
-		String responseWrongUserAnswer = "PYoung";
-		int responseType = Question.RESPONSE;
-	
 		Answer RESPONSE_answer = createAnswer(Question.RESPONSE, responseAnswers);
-		Quiz quiz = createQuiz(user_id, quizName, description);
-		Question RESPONSE_question = createQuestion(quiz.quiz_id, responseQuestion, responseType, RESPONSE_answer);
+		createQuestion(quiz.quiz_id, responseQuestion, Question.RESPONSE, RESPONSE_answer);
 
 		String responseMultiAnswerQuestion = "Name the three introductory CS courses";
-		String responseMultiAnswerAnswers = "CS106A" + Answer.SEPERATOR + "CS 106A" + Answer.DELIM + "CS106B" + Answer.SEPERATOR + "CS 106B" + 
-											Answer.DELIM + "CS106X" + Answer.SEPERATOR + "CS 106X";
-		Response responseMultiAnswerResponse = new Response(responseMultiAnswerAnswers); 
-
-		String responseMultiAnswerUserAnswer = "CS106A" + Answer.DELIM + "CS 106B" + Answer.DELIM + "CS106X";
-		String responseMultiAnswerWrongUserAnswer = "CS108";
-		int responseMultiAnswerType = Question.RESPONSE;
-	
+		String responseMultiAnswerAnswers = "CS106A" + Answer.SEPERATOR + "CS 106A" + Answer.DELIM + "CS106B" + Answer.SEPERATOR + "CS 106B" + Answer.DELIM + "CS106X" + Answer.SEPERATOR + "CS 106X";
 		Answer RESPONSEMULTI_answer = createAnswer(Question.RESPONSE, responseMultiAnswerAnswers);
-		Question RESPONSEMULTI_question = createQuestion(quiz.quiz_id, responseMultiAnswerQuestion, responseMultiAnswerType, RESPONSEMULTI_answer);
+		createQuestion(quiz.quiz_id, responseMultiAnswerQuestion, Question.RESPONSE, RESPONSEMULTI_answer);
 
 		String multipleQuestion = "Who teaches CS106A?";
-		String multipleAnswers = "Patrick Young" + Answer.SEPERATOR + "Mehran" + Answer.SEPERATOR + "Keith" + 
-									Answer.SEPERATOR + "Cynthia Bailey" + Answer.DELIM + "Mehran" + Answer.SEPERATOR	 + "Keith";
-
-		String multipleUserAnswer = "Mehran" + Answer.DELIM + "Keith";
-		String multipleWrongUserAnswer = "Mehran";
-		int multipleType = Question.MULTICHOICE;
-		
+		String multipleAnswers = "Patrick Young" + Answer.SEPERATOR + "Mehran" + Answer.SEPERATOR + "Keith" + Answer.SEPERATOR + "Cynthia Bailey" + Answer.DELIM + "Mehran" + Answer.SEPERATOR + "Keith";
 		Answer MULTIPLE_answer = createAnswer (Question.MULTICHOICE, multipleAnswers);
-		Question MULTIPLE_question = createQuestion (quiz.quiz_id, multipleQuestion, multipleType, MULTIPLE_answer);
+		createQuestion (quiz.quiz_id, multipleQuestion, Question.MULTICHOICE, MULTIPLE_answer);
 		
 		return quiz; 
 	}	
