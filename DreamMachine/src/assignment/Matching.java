@@ -133,13 +133,18 @@ public class Matching extends Answer {
 		}
 	}
 
-	public boolean checkAnswer (String userInput) {
+	public int checkAnswer (String userInput) {
 		//user input has to have "<>"
-		//example of user input: "milk<>sausage"	
-		String[] splitUserInput = userInput.split("=");
-		if (matches.get(splitUserInput[0]) != splitUserInput[1]) {
-			return false;
+		//example of user input: "milk<>sausage"
+		int numCorrect = 0;
+		String[] matchResponses = userInput.split(DELIM);
+		for (int i = 0; i < matchResponses.length; i++) {
+			String currMatch = matchResponses[i];
+			String[] splitUserInput = currMatch.split("=");
+			if (matches.get(splitUserInput[0]) == splitUserInput[1]) {
+				numCorrect++;
+			}
 		}
-		return true;
+		return numCorrect;
 	}
 }

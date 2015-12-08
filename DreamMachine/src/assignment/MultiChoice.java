@@ -150,7 +150,7 @@ public class MultiChoice extends Answer {
 		//user input has to have "<>"
 		//example of user input: "milk<>sausage"
 		String [] splitUserInput = userInput.split(DELIM);
-		List<String>toCheck = new ArrayList<String>();
+		List<String> toCheck = new ArrayList<String>();
 		int answersCorrect = 0;
 		for (String answer: splitUserInput) {
 //			if (!allAnswers.contains(answer)) return false;

@@ -67,9 +67,8 @@ public class Question {
 		case MULTICHOICE:
 			return ((MultiChoice) answer).checkAnswer(userInput); 
 
-//		case MATCHING:
-//			return ((Matching) answer).checkAnswer(userInput);
-//		}
+		case MATCHING:
+			return ((Matching) answer).checkAnswer(userInput);
 		}
 		return -1;
 	}

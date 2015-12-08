@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Date;
 import java.sql.Timestamp;
 public class Functionality {
@@ -22,6 +23,7 @@ public class Functionality {
 								+ "\nType 0 to quit";
 	static final String WELCOME_MESSAGE = "\nWelcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness";
 	static final String SELECT_USER = "\nSelect user account 1, 2, or 3";
+	static final String SPACER = "             ";
 	private static final int NUM_OPTIONS = 5;
 	private static final int MAX_USERS = 3;
 
@@ -296,6 +298,44 @@ public class Functionality {
 						}	
 					}
 					break; 	
+				case Question.MATCHING:
+					System.out.println("\n"+(i+1) + ") MATCHING QUESTION: " + currQuestion.question);
+					
+					List<String> leftOptions = ((Matching) currQuestion.answer).leftOptions;
+					List<String> rightOptions = ((Matching) currQuestion.answer).rightOptions;
+					Map<String,String> matches = ((Matching) currQuestion.answer).matches;
+					int max = Math.max(leftOptions.size(), rightOptions.size());
+
+					for (int index = 0; index < max; index++) {
+						String leftWord = "";
+						String rightWord = "";
+						if (leftOptions.size() > index)
+							leftWord = leftOptions.get(index);
+						if (rightOptions.size() > index)
+							rightWord = rightOptions.get(index);
+						System.out.println(leftWord + SPACER + rightWord);
+					}
+					
+					numAnswers = matches.size();
+					for (int mindex = 0; mindex < numAnswers; mindex++) {
+						System.out.println("Match Response " +mindex+1+ "of " +numAnswers+ ": ");
+						try {
+							System.out.println("Left-side of match.. ");
+							String line = br.readLine();
+							if (!line.isEmpty()) {
+								if (mindex != 0) answer += "<>";
+								answer += line;
+								answer += "=";
+								System.out.println("Right-side of match.. ");
+								line = br.readLine();
+								if (!line.isEmpty()) {
+									answer += line;
+								}
+							}
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 				default: break; 
 			}
 			numCorrect = currQuestion.checkAnswer(answer);
@@ -429,9 +469,11 @@ public class Functionality {
 		br = new BufferedReader(new InputStreamReader(System.in));
 
 		while (true) {
-			System.out.println("What kind of question would you like to add (Response or Multiple Choice)?, 'quit' to quit");
-			System.out.println("Type 'R' or 'MC' (without the ' ')");
-			
+			System.out.println("What kind of question would you like to add? \n"
+					+ "Type R for Response\n"
+					+ "Type MC for Multiple Choice\n"
+					+ "Type M for Matching\n"
+					+ "Type 'quit' to quit\n");
 			String questionType = "";
 			try {
 				questionType = br.readLine();
@@ -443,6 +485,7 @@ public class Functionality {
 			int type = 0;
 			if (questionType.equals("R")) type = 1;
 			if (questionType.equals("MC")) type = 2;
+			if (questionType.equals("M")) type = 3;
 			
 			System.out.println("DIRECTION: Please type the question");
 			String question = "";
@@ -472,6 +515,21 @@ public class Functionality {
 				try{
 					answerString = br.readLine();
 					answer = new MultiChoice(answerString);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else if (type == 3) {
+				System.out.println("DIRECTIONS: Matching Questions will be of the format\n"
+						+ "high         light\n"
+						+ "heavy       hate\n"
+						+ "love        low\n"
+						+ "and quiz-takers will need to match an option on the left side \n"
+						+ "to an option on the right side. With this in mind, the format of the "
+						+ "answer will be as such: "
+						+ "leftOpt1,leftOpt2,leftOpt3<>rightOpt1,rightOpt2,rightOpt3<>leftOpt1=rightOpt3,leftOpt2=rightOpt1...");
+				try{
+					answerString = br.readLine();
+					answer = new Matching(answerString);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -520,6 +578,13 @@ public class Functionality {
 		String multipleAnswers = "Patrick Young" + Answer.SEPERATOR + "Mehran" + Answer.SEPERATOR + "Keith" + Answer.SEPERATOR + "Cynthia Bailey" + Answer.DELIM + "Mehran" + Answer.SEPERATOR + "Keith";
 		Answer MULTIPLE_answer = createAnswer (Question.MULTICHOICE, multipleAnswers);
 		createQuestion (quiz.quiz_id, multipleQuestion, Question.MULTICHOICE, MULTIPLE_answer);
+		
+		String matchingQuestion = "Match opposites.";
+		String leftOptions = "hot" + Answer.SEPERATOR + "low" + Answer.SEPERATOR + "strong";
+		String rightOptions = "high" + Answer.SEPERATOR + "cold" + Answer.SEPERATOR + "weak";
+		String matches = "hot=cold" + Answer.SEPERATOR + "low=high" + Answer.SEPERATOR + "strong=weak";
+		Answer MATCHING_answer = createAnswer (Question.MATCHING, leftOptions + Answer.DELIM + rightOptions + Answer.DELIM + matches);
+		createQuestion(quiz.quiz_id, matchingQuestion, Question.MATCHING, MATCHING_answer);
 		
 		return quiz; 
 	}	
