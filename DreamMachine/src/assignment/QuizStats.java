@@ -1,7 +1,8 @@
 package assignment;
 
 import java.sql.Date;
-
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,13 +18,13 @@ public class QuizStats {
 		return allScores.size(); 
 	}
 	
-	public static int averageScore(List<Score> allScores ) {
+	public static double averageScore(List<Score> allScores ) {
 		if (allScores.isEmpty()) return 0;
 		int sum = 0; 
 		for (Score score: allScores) {
 			sum+= score.score; 
 		}
-		return sum/allScores.size();
+		return (double)sum/allScores.size();
 	}
 	
 	public static int highScore(List<Score> allScores ) {
@@ -43,22 +44,15 @@ public class QuizStats {
 	public static ArrayList<Score> pastPerformances(int user_id, int quiz_id) {
 		ArrayList<Score> allUserScores = new ArrayList<Score>();
 
-		//Not Connecting for some reason
-//		String query = "SELECT * FROM scores WHERE quiz_id=" + quiz_id + " AND user_id=" + user_id;
-//		ResultSet rs = DBConnection.query(query);
-//		if (rs == null) return allUserScores;
-//		try {
-//			while (rs.next())
-//				allUserScores.add(new Score(rs));
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-		
-		//Remove when DBConnect Works
-		allUserScores.add(new Score(10, new Date((long)1000),new Date((long) 100000), user_id, "mark", quiz_id));
-		allUserScores.add(new Score(20, new Date((long)1000),new Date((long) 100000), user_id, "mark", quiz_id));
-		allUserScores.add(new Score(30, new Date((long)1000),new Date((long) 100000), user_id, "mark", quiz_id));
-		allUserScores.add(new Score(40, new Date((long)1000),new Date((long) 100000), user_id, "mark", quiz_id));
+		String queryStr = "SELECT * FROM scores WHERE quiz_id=" + quiz_id + " AND user_id=" + user_id;
+		ResultSet rs = DBConnection.query(queryStr);
+		if (rs == null) return allUserScores;
+		try {
+			while (rs.next())
+				allUserScores.add(new Score(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		Collections.sort(allUserScores, new Score.DateComparator());
 		return allUserScores; 

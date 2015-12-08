@@ -19,7 +19,7 @@ public class User {
     public String repassword;
     public String retry;
     public Part photoPart;
-    public ErrorMessages errorMessages;
+   // public ErrorMessages errorMessages;
 
     /* info for database entry */
     public int user_id;
@@ -73,7 +73,7 @@ public class User {
     }
     
     public User(String username) {
-        this.errorMessages = new ErrorMessages();
+     //   this.errorMessages = new ErrorMessages();
         this.username = username;
     }
     
@@ -99,8 +99,8 @@ public class User {
         	photo.part = photoPart;
         	if (!photo.save())
         		{
-        			for (String error : photo.errorMessages.errors.get(Photo.PHOTO_ERROR))
-        				errorMessages.addError(PHOTO_ERROR, error);
+        	//		for (String error : photo.errorMessages.errors.get(Photo.PHOTO_ERROR))
+       // 				errorMessages.addError(PHOTO_ERROR, error);
         			return false;
         		}
         	photo_id = photo.id;
@@ -240,7 +240,7 @@ public class User {
      * or empty, this returns true. */
     private boolean usernameEmpty() {
     	if (username == null || username.length() == 0) {
-    		errorMessages.addError(USERNAME_ERROR, USERNAME_EMPTY);
+    		//errorMessages.addError(USERNAME_ERROR, USERNAME_EMPTY);
     		return true;
     	}
         return false;
@@ -250,7 +250,7 @@ public class User {
      * or empty, this returns true. */
     private boolean passwordEmpty() {
     	if (password == null || password.length() == 0) {
-    		errorMessages.addError(PASSWORD_ERROR, PASSWORD_EMPTY);
+    		//errorMessages.addError(PASSWORD_ERROR, PASSWORD_EMPTY);
     		return true;
     	}
         return false;
@@ -260,7 +260,7 @@ public class User {
      * or empty, this returns true. */
     private boolean repasswordEmpty() {
     	if (repassword == null || repassword.length() == 0) {
-    		errorMessages.addError(PASSWORD_DUP_ERROR, REPASSWORD_EMPTY);
+    		//errorMessages.addError(PASSWORD_DUP_ERROR, REPASSWORD_EMPTY);
     		return true;
     	}
         return false;
@@ -278,7 +278,7 @@ public class User {
         if (rs == null) return false;
         try {
             if(rs.first()) {
-                this.errorMessages.addError(USERNAME_ERROR, USERNAME_UNAVAILABLE);
+                //this.errorMessages.addError(USERNAME_ERROR, USERNAME_UNAVAILABLE);
                 return true;
             }
         } catch(SQLException ignored) {}
@@ -289,7 +289,7 @@ public class User {
      * than 8 characters, this returns true. */
     private boolean passwordInsufficient() {
         if(password.length() < MIN_PASSWORD_SIZE) {
-            this.errorMessages.addError(PASSWORD_ERROR, PASSWORD_INSUFFICIENT);
+            //this.errorMessages.addError(PASSWORD_ERROR, PASSWORD_INSUFFICIENT);
             return true;
         }
         return false;
@@ -299,7 +299,7 @@ public class User {
      * any symbols or spaces) this returns true */
     private boolean usernameInvalid() {
     	if (username.matches(".*\\s.*")) {
-    		this.errorMessages.addError(USERNAME_ERROR, USERNAME_INVALID);
+    		//this.errorMessages.addError(USERNAME_ERROR, USERNAME_INVALID);
         	return true;
     	}
     	return false;
@@ -309,7 +309,7 @@ public class User {
      * added unsurance. This returns true is the passwords don't match. */
     private boolean passwordMatchFailed() {
         if(!password.equals(repassword)) {
-            this.errorMessages.addError(PASSWORD_DUP_ERROR, PASSWORD_MATCH_FAILED);
+            //this.errorMessages.addError(PASSWORD_DUP_ERROR, PASSWORD_MATCH_FAILED);
             return true;
         }
         return false;

@@ -13,10 +13,10 @@ public class Functionality {
 	
 	static int user_id; 
 	static final String QUIZ_TAKE_PROMPT = "\nDIRECTIONS: Enter the number by a quiz to take it.";
-	static final String PROMPT = "\nDIRECTIONS: Type 1 to take quiz. Type 2 to make quiz. Type 3 to switch users. Type 0 to quit.";
+	static final String PROMPT = "\nDIRECTIONS: Type 1 to take quiz. Type 2 to make quiz. Type 3 to switch users. Type 4 to see user history. Type 0 to quit.";
 	static final String WELCOME_MESSAGE = "\nWelcome to Dream Creatures Quiz Making Creating Terminal Program of Sadness";
 	static final String SELECT_USER = "\nSelect user account 1, 2, or 3";
-	private static final int NUM_OPTIONS = 3;
+	private static final int NUM_OPTIONS = 4;
 	
 	static BufferedReader br; 
 	
@@ -39,18 +39,28 @@ public class Functionality {
 				case 3:
 					user_id = getUser();
 					break;
-			
+				case 4:
+					userHistory();
+					break;
 			}
 		}
 		
 		System.out.println("Thanks for playing!");
 	}
 	
+	private static void userHistory() {
+		int quizzesMade = Quiz.searchByUserID(user_id).size();
+		int quizzesTaken = Score.searchByUserID(user_id).size();
+		
+		System.out.println("\nhistory for user" + user_id);
+		System.out.println("Quizzes made: " + quizzesMade);
+		System.out.println("Quizzes taken: " + quizzesTaken + "\n");
+	}
+	
 	private static int getUser() {
 		int user;
 		br = new BufferedReader(new InputStreamReader(System.in));
 
-		
 		System.out.println(SELECT_USER);
 		while (true) {
 			System.out.print("Your choice: ");
@@ -91,7 +101,6 @@ public class Functionality {
 		int action;
 		br = new BufferedReader(new InputStreamReader(System.in));
 
-		
 		System.out.println(PROMPT);
 		while (true) {
 			System.out.print("Your choice: ");  
@@ -113,6 +122,7 @@ public class Functionality {
 
 		ArrayList<Quiz >quizzes = populateQuizzesFromDB();
 		if(quizzes.isEmpty()) quizzes.add(makeSampleQuiz());
+		quizzes = populateQuizzesFromDB();
 		listQuizzes(quizzes);
 		
 		int action;
@@ -172,11 +182,11 @@ public class Functionality {
 					numAnswers = ((MultiChoice) currQuestion.answer).allAnswers.size(); 
 					for (int mindex = 0; mindex < numAnswers; mindex++) {
 						if (mindex != 0) answer += "<>";
-						System.out.print("Please letter choice " + (mindex+1) + " of " + numAnswers+ ": ");
+						System.out.print("Letter choice " + (mindex+1) + " of " + numAnswers+ ": ");
 						try {
 							String line = br.readLine();
 							if (!line.isEmpty()) {
-								int index = ((int) br.readLine().toUpperCase().charAt(0) - 'A');
+								int index = ((int) line.toUpperCase().charAt(0) - 'A');
 								if (index >= 0 && index < numAnswers) answer += allOptions.get(index);
 							}
 						} catch (IOException e) {
@@ -194,10 +204,63 @@ public class Functionality {
 		return totalCorrect;
 	}
 
+	private static void showSummaryPage(Quiz quiz) {
+		List<Score> scores = Score.searchByQuizID(quiz.quiz_id);
+		
+		System.out.println("\nHigh Score: " + QuizStats.highScore(scores));
+		
+		System.out.println("\nAverage Score: " + QuizStats.averageScore(scores));
+
+		System.out.println("\nLeaderboard: ");
+		ArrayList<Score> highScores = QuizStats.highestPerformers(scores);
+		for (int i = 0; i < highScores.size(); i++) {
+			Score currScore = highScores.get(i);
+			System.out.print("user" + currScore.user_id);
+			System.out.println("  " + currScore.score);
+		}
+		
+		System.out.println("\nTop Performers of Past Day: ");
+		ArrayList<Score> highScoresDay = QuizStats.highestPerformersPastDay(scores);
+		for (int i = 0; i < highScoresDay.size(); i++) {
+			Score currScore = highScoresDay.get(i);
+			System.out.print("user" + currScore.user_id);
+			System.out.println("  " + currScore.score);
+		}
+		
+		System.out.println("\nLowest Score: " + QuizStats.lowScore(scores));
+		
+		System.out.println("\nYour Past Performances: ");
+		ArrayList<Score> pastScores = QuizStats.pastPerformances(user_id, quiz.quiz_id);
+		for (int i = 0; i < pastScores.size(); i++) {
+			System.out.println(pastScores.get(i).score);
+		}
+		
+		System.out.println("\nTimes Played: " + QuizStats.timesPlayed(scores));
+		
+		System.out.println("\nRecent Performances: ");
+		ArrayList<Score> pastPerformances = QuizStats.recentPerformances(scores);
+		for (int i = 0; i < pastPerformances.size(); i++) {
+			Score currScore = pastPerformances.get(i);
+			System.out.print("user" + currScore.user_id);
+			System.out.println("  " + currScore.score);
+		}
+		
+		System.out.println("\nHit enter to begin taking quiz");
+		
+		try {
+			br.readLine();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private static void takeQuiz() {
 		Quiz currQuiz = selectQuiz();
 		Date startTime = new Date();
 		Timestamp startTimestamp = new Timestamp(startTime.getTime());
+		
+		showSummaryPage(currQuiz);
+		
 		int score = playQuiz(currQuiz); 
 		String insertStr = "INSERT INTO scores (quiz_id, user_id, score, start_time) value(" +
 							currQuiz.quiz_id +","+ user_id +","+ score +", '"+ startTimestamp +"');";
@@ -236,8 +299,6 @@ public class Functionality {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		int user_id = 10;
 		
 		Quiz quiz = createQuiz(user_id, quizName, quizDescription);
 		int quiz_id = quiz.quiz_id;

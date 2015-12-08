@@ -26,13 +26,14 @@ public class Score {
 
 	public Score(ResultSet set) throws SQLException {
 		user_id = set.getInt("user_id");
-		user = new User(DBConnection.query("SELECT * FROM users WHERE user_id =" + user_id));
+		
+		//user = new User(DBConnection.query("SELECT * FROM users WHERE user_id =" + user_id));
 	
 		quiz_id = set.getInt("quiz_id");
 
 		score = set.getInt("score");
 		startTime = set.getDate("start_time");
-		finishTime = set.getDate("finishTime");
+		finishTime = set.getDate("finish_time");
 	}
 	
 	/**
