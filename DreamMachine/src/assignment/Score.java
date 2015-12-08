@@ -1,6 +1,6 @@
 package assignment;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -8,14 +8,14 @@ import java.util.List;
 
 public class Score {
 	public int score; 
-	public Date startTime;
-	public Date finishTime;
+	public Timestamp startTime;
+	public Timestamp finishTime;
 	public int user_id;
 	public int quiz_id; 
 	public User user; 
 	
 	//for debugging
-	public Score(int score, Date startTime, Date finishTime, int user_id, String username, int quiz_id) {
+	public Score(int score, Timestamp startTime, Timestamp finishTime, int user_id, String username, int quiz_id) {
 		this.score = score;
 		this.startTime = startTime;
 		this.finishTime = finishTime;
@@ -32,8 +32,8 @@ public class Score {
 		quiz_id = set.getInt("quiz_id");
 
 		score = set.getInt("score");
-		startTime = set.getDate("start_time");
-		finishTime = set.getDate("finish_time");
+		startTime = set.getTimestamp("start_time");
+		finishTime = set.getTimestamp("finish_time");
 	}
 	
 	/**
