@@ -105,7 +105,7 @@ public class Question {
 	public boolean delete() {
         if (question_id == 0) return false;
         String query = "DELETE FROM " + TABLE_NAME + 
-                       " WHERE question_id = " + question_id + " LIMIT 1";
+                       " WHERE question_id = '" + question_id + "' LIMIT 1";
         DBConnection.update (query);
         List<Answer> answers = Answer.searchByID(answer_id);
         if (answers.isEmpty())
@@ -116,7 +116,7 @@ public class Question {
 	
 	public static List<Question> searchByQuizID(int quiz_id, boolean order) {
 		List<Question> questions = new ArrayList<Question>();
-		String query = "SELECT * FROM " + TABLE_NAME + " WHERE quiz_id = " + quiz_id;
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE quiz_id = '" + quiz_id + "'";
 		if (order) query += " ORDER BY question_id ASC";
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return questions;

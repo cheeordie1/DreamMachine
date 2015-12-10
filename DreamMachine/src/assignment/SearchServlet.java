@@ -27,19 +27,30 @@ public class SearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String text = request.getParameter("term");
-		List<User> list = User.searchBySubstring(text);
-		
-		/* decide who to inlude in the list based on block list */
-		ArrayList<Integer> blockedList = (ArrayList<Integer>) request.getSession().getAttribute("blockCache");
-		if(blockedList == null) blockedList = new ArrayList<Integer>();
-		ArrayList<String> result = new ArrayList<String>();
-		for(User u : list) {
-			if(!blockedList.contains(u.user_id))
-				result.add(u.username);
+		String searchTerm;
+		if (request.getParameter("term") == null)
+			searchTerm = "";
+		else
+			searchTerm = request.getParameter("term").toString();
+		String forward = "";
+		if (request.getParameter("search-by").toString().equals("quiz")) {
+			forward = "/content/search/quiz-search.jsp";
+			List<Quiz> searches = new ArrayList<Quiz>();
+			searches.addAll(Quiz.searchByName(searchTerm, true));
+			if (request.getParameter("by-tag") != null)
+				searches.addAll(Quiz.searchByTag(searchTerm, true));
+			if (request.getParameter("by-creator") != null)
+				searches.addAll(Quiz.searchByUsername(searchTerm, true));
+			request.setAttribute("searchResults", searches);
+		} else {
+			forward = "/content/search/name-search.jsp";
+			List<User> searches = new ArrayList<User>();
+			if (request.getParameter("friends-only") != null)
+				searches.addAll(User.searchByUsername(searchTerm, true));
+			else
+				searches.addAll(User.searchByUsername(searchTerm, true));
+			request.setAttribute("searchResults", searches);
 		}
-		request.setAttribute("searchResults", result);
-		String forward = "/content/search/search.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);
 	}

@@ -104,7 +104,7 @@ public class Quiz {
 	public boolean delete() {
         if (quiz_id == 0) return false;
         String update = "DELETE FROM " + TABLE_NAME + 
-                        " WHERE quiz_id = " + quiz_id + " LIMIT 1";
+                        " WHERE quiz_id = '" + quiz_id + "' LIMIT 1";
         DBConnection.update(update);
         return true;
 	}
@@ -127,16 +127,9 @@ public class Quiz {
 	 */
 	public static List<Quiz> searchByID(int quiz_id) {
 		List<Quiz> quizzes = new ArrayList<Quiz>();
-		String query = "SELECT * FROM " + TABLE_NAME + " WHERE quiz_id = " + quiz_id;
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE quiz_id = '" + quiz_id + "'";
 		ResultSet rs = DBConnection.query(query);
-		if (rs == null) return quizzes;
-		try {
-			while (rs.next())
-				quizzes.add(new Quiz(rs));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return quizzes;
+		return fromResultSet(rs);
 	}
 	
 	/**
@@ -146,16 +139,56 @@ public class Quiz {
 	 */
 	public static List<Quiz> searchByUserID(int user_id) {
 		List<Quiz> quizzes = new ArrayList<Quiz>();
-		String query = "SELECT * FROM " + TABLE_NAME + " WHERE user_id = " + user_id;
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE user_id = '" + user_id + "'";
 		ResultSet rs = DBConnection.query(query);
-		if (rs == null) return quizzes;
-		try {
-			while (rs.next())
-				quizzes.add(new Quiz(rs));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return quizzes;
+		return fromResultSet(rs);
+	}
+	
+	/**
+	 * Search for a list of quizzes from the database. Return a list by the name
+	 * of the quiz.Set substring to true if the search matches substrings
+	 * @return  list of quizzes searched by name
+	 */
+	public static List<Quiz> searchByName(String name, boolean substring) {
+		List<Quiz> quizzes = new ArrayList<Quiz>();
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE name LIKE '" + 
+					   (substring ? "%" : "") + name + (substring ? "%" : "") + "'";
+		ResultSet rs = DBConnection.query(query);
+		return fromResultSet(rs);
+	}
+	
+	/**
+	 * Search for a quiz in the database with a tag that contains the tag name. Able to
+	 * set whether to search by substring.
+	 * @param tagname name of tag to match in quiz search
+	 * @param substring boolean whether to match by substring
+	 * @return a list of quizzes that have matching tags
+	 */
+	public static List<Quiz> searchByTag(String tagname, boolean substring) {
+		String query = "SELECT * FROM " + TABLE_NAME + " INNER JOIN " + Tag.TABLE_NAME + 
+					   " ON " + Tag.TABLE_NAME + ".tag LIKE '" +
+				   	   (substring ? "%" : "") + tagname + (substring ? "%" : "") + "'" +
+					   " AND (" + TABLE_NAME + ".quiz_id = " + Tag.TABLE_NAME + ".quiz_id)";
+		System.out.println(query);
+		ResultSet rs = DBConnection.query(query);
+		return fromResultSet(rs);
+	}
+	
+	/**
+	 * Search the database for quizzes by the username of the creator. Able to set whether
+	 * to search by substring or not.
+	 * @param username the name of the quiz creator to search by
+	 * @param substring whether or not to search by substring
+	 * @return a list of Quizzes that have the same creator as the search term
+	 */
+	public static List<Quiz> searchByUsername(String username, boolean substring) {
+		String query = "SELECT * FROM " + TABLE_NAME + " INNER JOIN " + User.TABLE_NAME + 
+					   " ON " + User.TABLE_NAME + ".username LIKE '" +
+					   (substring ? "%" : "") + username + (substring ? "%" : "") + "'" +
+					   " AND (" + TABLE_NAME + ".user_id = " + User.TABLE_NAME + ".user_id)";
+		System.out.println(query);
+		ResultSet rs = DBConnection.query(query);
+		return fromResultSet(rs);
 	}
 	
 	/**
@@ -188,5 +221,21 @@ public class Quiz {
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Returns a list of quizzes from the result set. Could be empty
+	 * @return List of quizzes from the result set
+	 */
+	private static List<Quiz> fromResultSet(ResultSet rs) {
+		List<Quiz> quizzes = new ArrayList<Quiz>();
+		if (rs == null) return quizzes;
+		try {
+			while (rs.next())
+				quizzes.add(new Quiz(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return quizzes;
 	}
 }

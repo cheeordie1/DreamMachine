@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("/DreamMachine/login");
 			return;
 		}
-		List<User> users = User.searchByUsername(username);
+		List<User> users = User.searchByUsername(username, false);
 		if (users.isEmpty()) {
 			errors.addError(User.LOGIN_ERROR, User.LOGIN_FAILED);
 		} else {

@@ -62,9 +62,9 @@ public class Friend {
 	public static List<Friend> searchByUserIDStatus(int user_id, int status) {
 	List<Friend> friends = new ArrayList<Friend>();
 	String query = "SELECT * FROM " + TABLE_NAME + 
-                   " WHERE (sender = " + user_id + 
-                   " OR reciever = " + user_id + 
-                   ") AND status = " + status; 
+                   " WHERE (sender = '" + user_id + "'" + 
+                   " OR reciever = '" + user_id + "'" +
+                   ") AND status = '" + status + "'"; 
 	ResultSet rs = DBConnection.query(query);
 	if (rs == null) return friends;
 	try {
@@ -86,9 +86,9 @@ public class Friend {
 	public static List<Integer> getFriends (int user_id) {
     	List<Integer> friends = new ArrayList<Integer>();
 		String query = "SELECT * FROM " + TABLE_NAME + 
-	               " WHERE (sender = " + user_id + 
-	               " OR reciever = " + user_id + 
-	               ") AND status = " + ACCEPTED; 
+	               " WHERE (sender = '" + user_id + "'" +
+	               " OR reciever = '" + user_id + "'" +
+	               ") AND status = '" + ACCEPTED + "'"; 
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return friends;
     	try {
@@ -115,9 +115,9 @@ public class Friend {
 	public static ArrayList <Integer> getAllPendingRequests (int user_id) {
 		ArrayList<Integer> pending = new ArrayList<Integer>();
 		String query = "SELECT * FROM " + TABLE_NAME + 
-						" WHERE (sender = " + user_id + 
-	               		" OR reciever = " + user_id +  
-	               		") AND status = " + PENDING;
+						" WHERE (sender = '" + user_id + "'" + 
+	               		" OR reciever = '" + user_id + "'" + 
+	               		") AND status = '" + PENDING + "'";
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return pending;
 		try {
@@ -143,8 +143,8 @@ public class Friend {
 	public static ArrayList <Integer> getFriendRequests (int user_id) {
 		ArrayList<Integer> pendingRequests = new ArrayList<Integer>();
 		String query = "SELECT * FROM " + TABLE_NAME + 
-						" WHERE reciever = " + user_id + 
-						" AND status = " + PENDING;
+					   " WHERE reciever = '" + user_id + "'" + 
+					   " AND status = '" + PENDING + "'";
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return pendingRequests;
 		try {
@@ -167,9 +167,9 @@ public class Friend {
 	public static List <Integer> getBlockedFriends (int user_id) {
 		List<Integer> blocked = new ArrayList<Integer>();
 		String query = "SELECT * FROM " + TABLE_NAME + 
-	               " WHERE (sender = " + user_id + 
-	               " OR reciever = " + user_id + 
-	               ") AND status = " + BLOCKED;
+	               " WHERE (sender = '" + user_id + "'" + 
+	               " OR reciever = '" + user_id + "'" + 
+	               ") AND status = '" + BLOCKED + "'";
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return blocked;
 		try {

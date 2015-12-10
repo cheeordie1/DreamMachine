@@ -56,7 +56,7 @@ public class Tag {
 	public boolean delete() {
         if (tag_id == 0) return false;
         String query = "DELETE FROM " + TABLE_NAME + 
-                       " WHERE tag_id = " + tag_id + " LIMIT 1";
+                       " WHERE tag_id = '" + tag_id + "' LIMIT 1";
         DBConnection.update (query);
 		return true;
 	}
@@ -67,7 +67,7 @@ public class Tag {
 	 */
 	public static List<Tag> searchByQuizID(int quiz_id) {
 		List<Tag> tags = new ArrayList<Tag>();
-		String query = "SELECT * FROM " + TABLE_NAME + " WHERE quiz_id = " + quiz_id;
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE quiz_id = '" + quiz_id + "'";
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return tags;
 		try {
@@ -85,7 +85,7 @@ public class Tag {
 	 */
 	public static List<Tag> searchByID(int tag_id) {
 		List<Tag> tags = new ArrayList<Tag>();
-		String query = "SELECT * FROM " + TABLE_NAME + " WHERE tag_id = " + tag_id;
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE tag_id = '" + tag_id + "'";
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return tags;
 		try {
@@ -100,7 +100,7 @@ public class Tag {
 	public static List<Tag> searchByTagQuizID(String tag, int quiz_id) {
 		List<Tag> tags = new ArrayList<Tag>();
 		String query = "SELECT * FROM " + TABLE_NAME + " WHERE tag = '" + tag +
-				       "' AND " + "quiz_id = " + quiz_id;
+				       "' AND " + "quiz_id = '" + quiz_id + "'";
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return tags;
 		try {

@@ -134,7 +134,7 @@ public class User {
     public boolean delete() {
         if (user_id == 0) return false;
         String query = "DELETE FROM " + TABLE_NAME + 
-                       " WHERE user_id = " + user_id + " LIMIT 1";
+                       " WHERE user_id = '" + user_id + "' LIMIT 1";
         DBConnection.update (query);
         return true;
     }
@@ -147,58 +147,27 @@ public class User {
     public static List<User> searchByID(int user_id) {
     	List<User> users = new ArrayList<User>();
     	String query = "SELECT * FROM " + TABLE_NAME + 
-    	               " WHERE user_id = " + user_id;
+    	               " WHERE user_id = '" + user_id + "'";
     	ResultSet rs = DBConnection.query(query);
-    	if (rs == null) return users;
-    	try {
-			while (rs.next())
-				users.add(new User(rs));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	return users;
+    	return fromResultSet(rs);
     }
     
     /**
-     * Static method to search for a User by their username.
+     * Static method to search for a User by their username. Choose whether it is by 
+     * substring.
+     * @param username the username to search by
+     * @param substring whether or not to search by substring
      * @return a list containing all of the users in the search
      *         result.
      */
-    public static List<User> searchByUsername(String username) {
+    public static List<User> searchByUsername(String username, boolean substring) {
     	List<User> users = new ArrayList<User>();
     	String query = "SELECT * FROM " + TABLE_NAME + 
-    	               " WHERE username LIKE " + "'" + username + "'";
+    	               " WHERE username LIKE '" + 
+    	               (substring ? "%" : "") + username + (substring ? "%" : "") + "'";
     	ResultSet rs = DBConnection.query(query);
-		if (rs == null) return users;
-    	try {
-			while (rs.next())
-				users.add(new User(rs));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	return users;
+		return fromResultSet(rs);
     }
-    
-    /**
-     * Static method to search for a User by a substring of their username.
-     * @return a list containing all of the users in the search
-     *         result.
-     */
-    public static List<User> searchBySubstring(String usernameSub) {
-    	List<User> users = new ArrayList<User>();
-    	String query = "SELECT * FROM " + TABLE_NAME + 
-    	               " WHERE username LIKE " + "'%" + usernameSub + "%'";
-    	ResultSet rs = DBConnection.query(query);
-    	if (rs == null) return users;
-    	try {
-			while (rs.next())
-				users.add(new User(rs));
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-    	return users;
-    }
-    
     
     /**
      * Method checks whether a given password hashes to the correct password
@@ -326,4 +295,21 @@ public class User {
 		}
 		return buff.toString();
 	}
+    
+    /**
+     * return a list of Users from a given result set
+     * @param rs the result set to parse users from.
+     * @return list of users that have been parsed from result set
+     */
+    public static List<User> fromResultSet(ResultSet rs) {
+    	List<User> users = new ArrayList<User>();
+		if (rs == null) return users;
+		try {
+			while (rs.next())
+				users.add(new User(rs));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return users;
+    }
 }

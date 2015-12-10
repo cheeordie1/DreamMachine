@@ -48,11 +48,11 @@ public class FriendResponseServlet extends HttpServlet {
 
 		/* get ourselves */
 		receiverString = (String) request.getSession().getAttribute("username");
-		receiver = User.searchByUsername(receiverString).get(0);
+		receiver = User.searchByUsername(receiverString, false).get(0);
 		
 		/* get the User who sent the request */
 		senderString = request.getParameter("sender");
-		sender = User.searchByUsername(senderString).get(0); 
+		sender = User.searchByUsername(senderString, false).get(0); 
 		
 		if(request.getParameter("accept") != null) {
 			/* add this use to the friendsCache and update the db */
@@ -83,7 +83,7 @@ public class FriendResponseServlet extends HttpServlet {
 		String match = "/friendResponse/";
 		int idx = url.indexOf(match);
 		String name = url.substring(idx + match.length());
-		List<User> pageUser = User.searchByUsername(name);
+		List<User> pageUser = User.searchByUsername(name, false);
 		if (pageUser.isEmpty())
 			return null;
 		else

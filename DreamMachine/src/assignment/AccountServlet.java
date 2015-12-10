@@ -56,7 +56,7 @@ public class AccountServlet extends HttpServlet {
 		String match = "/user/";
 		int idx = url.indexOf(match);
 		String name = url.substring(idx + match.length());
-		List<User> pageUser = User.searchByUsername(name);
+		List<User> pageUser = User.searchByUsername(name, false);
 		if (pageUser.isEmpty())
 			return null;
 		else

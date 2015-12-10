@@ -74,14 +74,14 @@ public class Answer {
 	public boolean delete() {
         if (answer_id == 0) return false;
         String query = "DELETE FROM " + TABLE_NAME + 
-                       " WHERE answer_id = " + answer_id + " LIMIT 1";
+                       " WHERE answer_id = '" + answer_id + "' LIMIT 1";
         DBConnection.update (query);
 		return true;
 	}
 	
 	public static List<Answer> searchByID(int answer_id) {
 		List<Answer> answers = new ArrayList<Answer>();
-		String query = "SELECT * FROM " + TABLE_NAME + " WHERE answer_id = " + answer_id;
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE answer_id = '" + answer_id + "'";
 		ResultSet rs = DBConnection.query(query);
 		if (rs == null) return answers;
 		try {
