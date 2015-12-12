@@ -45,8 +45,14 @@ public class SearchServlet extends HttpServlet {
 		} else {
 			forward = "/content/search/name-search.jsp";
 			List<User> searches = new ArrayList<User>();
-			if (request.getParameter("friends-only") != null)
-				searches.addAll(User.searchByUsername(searchTerm, true));
+			if (request.getParameter("friends-only") != null) {
+				if (request.getSession().getAttribute("loggedIn").toString().equals("false")) {
+					response.sendRedirect("/DreamMachine/signup?notify=Make An Account to Search By Friends");
+					return;
+				}
+				String username = request.getSession().getAttribute("username").toString();
+				searches.addAll(User.searchByUsernameFriends(username, searchTerm, true));
+			}
 			else
 				searches.addAll(User.searchByUsername(searchTerm, true));
 			request.setAttribute("searchResults", searches);

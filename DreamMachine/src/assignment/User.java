@@ -170,6 +170,27 @@ public class User {
     }
     
     /**
+     * Static method to search db for users by username. Only returns users
+     * who are friends with the first user given.
+     * @param username of one the user to search the friends of
+     * @param username of the friend of the user
+     * @param boolean whether or not to search the users by substring
+     * @return a list containing the users who are friends and have the given usernames
+     *         or an empty list if they do not exist
+     */
+    public static List<User> searchByUsernameFriends(String userName, String friendName, boolean substring){
+    	List<User> users = new ArrayList<User>();
+    	String query = "SELECT * FROM " + TABLE_NAME + " friend INNER JOIN " + TABLE_NAME + " as user " +
+    	               "ON user.username LIKE '" + (substring ? "%" : "") + userName + (substring ? "%" : "") + "' " +
+    			       "INNER JOIN " + Friend.TABLE_NAME + " as friendship ON friendship.status = " + Friend.ACCEPTED + 
+    			       " WHERE friend.username LIKE '" + (substring ? "%" : "") + friendName + (substring ? "%" : "") + "' " +
+    			       "AND ((friendship.sender = user.user_id AND friendship.receiver = friend.user_id) " +
+    			       "OR (friendship.sender = friend.user_id AND friendship.receiver = user.user_id))";
+    	ResultSet rs = DBConnection.query(query);
+		return fromResultSet(rs);
+    }
+    
+    /**
      * Method checks whether a given password hashes to the correct password
      * digest, indicating that it is most likely the correct password.
      * @param checkPassword the String to check for correct password

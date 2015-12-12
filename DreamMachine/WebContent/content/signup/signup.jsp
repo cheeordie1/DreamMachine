@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/signup.css">
-<jsp:include page="../app.jsp" />
+<jsp:include page="/content/app.jsp" />
 <title>Enter Account Info</title>
 </head>
 <body>
