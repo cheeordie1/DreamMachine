@@ -1,6 +1,6 @@
 function formButton(formID, buttonID, normalURL, highlightURL, selectedURL) {
 	var obj = this;
-	obj.formID = "#" + formID;
+	obj.formID = formID == null ? null : ("#" + formID);
 	obj.buttonID = "#" + buttonID;
 	obj.normalURL = normalURL;
 	obj.highlightURL = highlightURL;
@@ -8,10 +8,13 @@ function formButton(formID, buttonID, normalURL, highlightURL, selectedURL) {
 	
 	$(obj.buttonID).addClass ("undraggable");
 	
-	$(obj.buttonID).on ("click", function (evt)
+	if (obj.formID != null)
 	  {
-	    $(obj.formID).submit ();
-	  });
+	    $(obj.buttonID).on ("click", function (evt)
+	      {
+	        $(obj.formID).submit ();
+	      });
+	  }
 	
 	$(obj.buttonID).on ("mouseover", function (evt)
 	  {
