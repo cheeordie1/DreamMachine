@@ -11,7 +11,7 @@
 <body>
   <jsp:include page="../header/top-bar.jsp" />
   <% if (request.getSession().getAttribute("loggedIn").toString().equals("true")) { %>
-  <jsp:include page="/content/chat/client-chat.jsp" />
+  <jsp:include page="/content/chat/chat.jsp" />
   <% } %>
   <div id="home-div">
     <jsp:include page="words.jsp" />

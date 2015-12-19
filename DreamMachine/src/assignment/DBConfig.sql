@@ -68,9 +68,11 @@ CREATE TABLE answers (
 );
 
 CREATE TABLE messages (
-	sender CHAR(64),
-	receiver CHAR(64),
-	message TEXT
+	message_id INT NOT NULL AUTO_INCREMENT,
+	sender INT,
+	receiver INT,
+	message TEXT,
+	PRIMARY KEY (message_id)
 );
 
 CREATE TABLE friends (

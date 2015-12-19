@@ -11,7 +11,7 @@
 <body>
   <%@ page import="java.util.List,assignment.*" %>
   <jsp:include page="/content/header/top-bar.jsp" />
-  <jsp:include page="/content/"layout/>
+  <jsp:include page="/content/layout/nature-background.jsp" />
   <% 
     List<User> results = (List<User>) request.getAttribute("searchResults");
     if (results.isEmpty()) {
