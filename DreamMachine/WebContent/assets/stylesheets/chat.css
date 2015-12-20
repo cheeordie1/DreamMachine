@@ -1,0 +1,79 @@
+.chat-container {
+  position: fixed;
+  right: 0px;
+  bottom: 0px;
+  display: inline-flex;
+}
+
+.chat-box-container {
+  position: relative;
+  margin-right: 16px;
+  margin-left: 10px;
+  border: solid 1px #665555;
+  background-color: #FFFFFF;
+}
+
+.chat-box-top-bar {
+  position: relative;
+  height: 30px;
+  width: 250px;
+  background-color: #C280BB;
+}
+
+.chat-box-top-bar-name {
+  position: absolute;
+  left: 3px;
+  color: #FEFA80;
+  font-family: 'Raleway', sans-serif;
+  font-size: 17px;
+}
+
+.chat-box-exit-button {
+  position: absolute;
+  right: 2px;
+  height: 25px;
+}
+
+.chat-box-message-display {
+  position: relative;
+  height: 220px;
+  width: 240px;
+  padding:5px;
+  background-color: #FFFFFF;
+}
+
+.chat-box-message-display-list {
+  position: relative;
+  padding: 0px;
+}
+
+.chat-box-input {
+  position: relative;
+  height: 22px;
+  width: 80%;
+}
+
+.chat-box-button {
+  position: relative;
+  height: 28px;
+}
+
+.chat-msg {
+  list-style-type: none;
+}
+
+.chat-msg-name-theirs {
+  color: #FCF403;
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+}
+
+.chat-msg-name-yours {
+  color: #8F1E83;
+  font-family: 'Raleway', sans-serif;
+  font-size: 15px;
+}
+
+.chat-msg-text {
+  word-break: break-all;
+}
