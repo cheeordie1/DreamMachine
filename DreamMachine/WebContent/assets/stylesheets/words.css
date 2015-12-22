@@ -1,4 +1,9 @@
+.quote-container {
+  display: inline-block;
+}
+
 .quote {
+  display: inline-block;
   font: 20px "PT Sans", sans-serif;
 }
 

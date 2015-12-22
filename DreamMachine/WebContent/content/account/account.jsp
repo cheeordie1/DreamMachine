@@ -12,5 +12,8 @@
   <jsp:include page="/content/header/top-bar.jsp" />
   <jsp:include page="/content/account/profile-box.jsp" />
   <jsp:include page="/content/account/profile-history.jsp" />
+  <% if (request.getSession().getAttribute("loggedIn").toString().equals("true")) { %>
+  <jsp:include page="/content/chat/chat.jsp" />
+  <% } %>
 </body>
 </html>

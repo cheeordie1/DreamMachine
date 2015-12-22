@@ -10,7 +10,12 @@
 </head>
 <body>
   <jsp:include page="/content/header/top-bar.jsp" />
+  <div id="search-div" class="page-div">
   <%
   %>
+  <% if (request.getSession().getAttribute("loggedIn").toString().equals("true")) { %>
+  <jsp:include page="/content/chat/chat.jsp" />
+  <% } %>
+  </div>
 </body>
 </html>

@@ -43,7 +43,7 @@ public class SearchServlet extends HttpServlet {
 				searches.addAll(Quiz.searchByUsername(searchTerm, true));
 			request.setAttribute("searchResults", searches);
 		} else {
-			forward = "/content/search/name-search.jsp";
+			forward = "/content/search/user-search.jsp";
 			List<User> searches = new ArrayList<User>();
 			if (request.getParameter("friends-only") != null) {
 				if (request.getSession().getAttribute("loggedIn").toString().equals("false")) {

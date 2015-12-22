@@ -10,7 +10,7 @@
 </head>
 <body>
   <jsp:include page="../header/top-bar.jsp" />
-  <div id="home-div">
+  <div id="home-div" class="page-div">
     <jsp:include page="words.jsp" />
     <div id="leaderboards-div">
       <div id="top-played-container">
@@ -22,10 +22,10 @@
       <div id="recently-created-container">
         <jsp:include page="recently-created.jsp" />
       </div>
-    </div>
+    </div>  
+  <% if (request.getSession().getAttribute("loggedIn").toString().equals("true")) { %>
+  <jsp:include page="/content/chat/chat.jsp" />
+  <% } %>
   </div>
 </body>
-<% if (request.getSession().getAttribute("loggedIn").toString().equals("true")) { %>
-<jsp:include page="/content/chat/chat.jsp" />
-<% } %>
 </html>

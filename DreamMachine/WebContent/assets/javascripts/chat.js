@@ -1,13 +1,48 @@
-function ChatOpener(receiverName, openerID, factory)
-{
-  this.receiverName = receiverName;
-  this.openerID = "#" + openerID;
-  this.factory = factory;
+function ChatOpener(senderName, containerID) {
+  this.senderName = senderName;
+  this.$chatContainer = $("<div>", { id: "chat-container", class: "chat-container" });
+  $("body").append (this.$chatContainer);
+  this.factory = new ChatFactory(senderName, this.$chatContainer);
   var obj = this;
   
-  $(this.openerID).on("click", function(evt) {
-    obj.factory.addChat(obj.receiverName);
-  });
+  obj.$chatOpenerContainer = $("<div>", { class: "chat-opener-container" });
+  obj.$chatContainer.append (obj.$chatOpenerContainer);
+  obj.$chatOpenerOpener = $("<div>", { class: "chat-opener-opener" });
+  obj.$chatOpenerOpener.append ($("<span>", { text: "Chat", class: "chat-opener-title hori-vert-center" }));
+  obj.$chatOpenerList = $("<div>", { class: "chat-opener-list" });
+  obj.$chatOpenerContainer.append(obj.$chatOpenerOpener);
+  obj.$chatOpenerContainer.append(obj.$chatOpenerList);
+  
+  obj.hideChat = function() {
+	console.log(obj.$chatOpenerContainer.css ("bottom"));
+    if (obj.$chatOpenerContainer.css ("bottom").valueOf() == "77px".valueOf())
+      obj.$chatOpenerContainer.css ("bottom", "-254px");
+    else
+      obj.$chatOpenerContainer.css ("bottom", "77px");
+  }
+  
+  obj.addOpener = function(receiverName, imageURL) {
+	var innerObj = obj;
+	var name = receiverName;
+	var $chatOpenerEntryContainer = $("<div>", { class: "chat-opener-entry-container" });
+	obj.$chatOpenerList.append ($chatOpenerEntryContainer);
+	$chatOpenerEntryContainer.append ($("<img>", { src: imageURL, class: "chat-opener-entry-img" }));
+	$chatOpenerEntryContainer.append ($("<span>", { text: receiverName, class: "chat-opener-entry-name" }));
+
+	$chatOpenerEntryContainer.on ("mouseover", function(evt) {
+	  $chatOpenerEntryContainer.css ("background-color", "#B490BC");
+	});
+	
+	$chatOpenerEntryContainer.on ("mouseout", function(evt) {
+	  $chatOpenerEntryContainer.css ("background-color", "#FFFFFF");
+	});
+	
+	$chatOpenerEntryContainer.on ("click", function(evt) {
+	  innerObj.factory.addChat(receiverName);
+	});
+  }
+  
+  obj.$chatOpenerOpener.on ("click", obj.hideChat);
 }
 
 function ChatCloser(closerID, factory)
@@ -21,12 +56,11 @@ function ChatCloser(closerID, factory)
   })
 }
 
-function ChatFactory(senderName) 
+function ChatFactory(senderName, chatContainer) 
 {
   this.senderName = senderName;
   this.chatArray = [];
-  this.$chatContainer = $("<div>", { id: "chat-container", class: "chat-container" });
-  $("body").append (this.$chatContainer);
+  this.$chatContainer = chatContainer;
   this.count = 0;
   var obj = this;
   
@@ -34,16 +68,24 @@ function ChatFactory(senderName)
 	for (var tuple in obj.chatArray)
 	  if (tuple[0].valueOf () == receiverName.valueOf()) return;
 	obj.chatArray.push([receiverName, null]);
-    var displayID, inputID, sendButtonID, exitButtonID;
+    var displayID, inputID, sendButtonID, exitButtonID, obj1, hideChat;
     displayID = receiverName + "-chat-display";
     inputID = receiverName + "-chat-input";
     sendButtonID = receiverName + "-chat-button";
     exitButtonID = receiverName + "-chat-exit-button";
+    hideChat = function (evt)
+      {
+    	if ($chatBoxContainer.position ().top > 0)
+    	  $chatBoxContainer.css ({ top: 0 });
+    	else
+    	  $chatBoxContainer.css ({ top: 260 });
+      };
     
     // add chat html to chat container
     var $chatBoxContainer = $("<div>", { id: receiverName + "-chat-box-container", class: "chat-box-container" });
     // top bar with name of chatter
     var $chatBoxTopBar = $("<div>", { class: "chat-box-top-bar" });
+    $chatBoxTopBar.on ("click", hideChat);
     $chatBoxTopBar.append ($("<span class='chat-box-top-bar-name vert-center'>" + receiverName + "</span>"));
     var $chatBoxExit = $("<img>", { src: "/DreamMachine/assets/images/exit_button_normal.png", id: exitButtonID, class: "chat-box-exit-button vert-center" });
     $chatBoxExit.on("click", function(evt) { obj.removeChat(receiverName); });

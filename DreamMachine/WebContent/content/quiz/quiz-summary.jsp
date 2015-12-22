@@ -15,7 +15,8 @@
 </head>
 <body>
   <jsp:include page="/content/header/top-bar.jsp" />
-  <div id="quiz-summary-container">
-  </div>
+  <% if (request.getSession().getAttribute("loggedIn").toString().equals("true")) { %>
+  <jsp:include page="/content/chat/chat.jsp" />
+  <% } %>
 </body>
 </html>

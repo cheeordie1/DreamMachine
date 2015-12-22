@@ -2,11 +2,46 @@
   position: fixed;
   right: 0px;
   bottom: 0px;
+  height: 290px;
   display: inline-flex;
+}
+
+.chat-opener-container {
+  position: relative;
+  bottom: -254px;
+  margin-right: 11px;
+  height: 365px;
+  width: 300px;
+  border: solid 1px #665555;
+  background-color: rgba(255,255,255,0);
+}
+
+.chat-opener-opener {
+  position: relative;
+  width: 100%;
+  height: 35px;
+  cursor: pointer;
+  background-color: rgba(180,93,171,.6); 
+}
+
+.chat-opener-list {
+  position: relative;
+  height: 330px;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+.chat-opener-title {
+  position: relative;
+  display: inline-block;
+  font-family: 'Vollkorn', serif;
+  font-size: 21px; 
+  color: #EBF8EA;
 }
 
 .chat-box-container {
   position: relative;
+  height: 288px;
   margin-right: 16px;
   margin-left: 10px;
   border: solid 1px #665555;
@@ -18,14 +53,16 @@
   height: 30px;
   width: 250px;
   background-color: #C280BB;
+  cursor: pointer;
 }
 
 .chat-box-top-bar-name {
   position: absolute;
-  left: 3px;
+  left: 5px;
   color: #FEFA80;
   font-family: 'Raleway', sans-serif;
   font-size: 17px;
+  cursor: pointer;
 }
 
 .chat-box-exit-button {
@@ -71,9 +108,15 @@
 .chat-msg-name-yours {
   color: #8F1E83;
   font-family: 'Raleway', sans-serif;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .chat-msg-text {
   word-break: break-all;
+}
+
+#chat {
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }

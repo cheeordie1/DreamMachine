@@ -42,5 +42,8 @@
       <jsp:include page="<%= questionPageURL %>" />
     </div>
   </div>
+  <% if (request.getSession().getAttribute("loggedIn").toString().equals("true")) { %>
+  <jsp:include page="/content/chat/chat.jsp" />
+  <% } %>
 </body>
 </html>
