@@ -10,8 +10,8 @@
 <title>What Quizzes Do You Conjure</title>
 </head>
 <body>
-  <jsp:include page="/content/header/top-bar.jsp" />
   <jsp:include page="/content/layout/blurry-city-background.jsp" />
+  <jsp:include page="/content/header/top-bar.jsp" />
   <div id="quiz-title" class="hori-center">Make a Quiz</div>
   <div id="quiz-create-form-container" class="hori-center">
     <form id="quiz-create-form" class="hori-center" method="post" action="quiz-create">

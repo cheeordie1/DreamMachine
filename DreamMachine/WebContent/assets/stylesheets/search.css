@@ -1,7 +1,32 @@
-a {
-	display: block;
-	height: 100%;
-	text-decoration: none;
-	font-weight: normal;
-	color: inherit;
+body {
+  position: absolute;
+}
+
+.no-results-container {
+  position: relative;
+  padding: 15vh 0vh 15vh 0vh;
+  width: 75vw;
+  margin-top: 14vh;
+  margin-bottom: 14vh;
+  border-radius: 20px;
+  border: solid 1px #000000;
+  background-color: rgba(255,255,255,.9);
+  box-shadow: -4px 8px 33px 10px;
+}
+
+.no-results-span {
+  position: relative;
+  display: inline-block;
+  width: 80%;
+  word-break: break-all;
+  font-size: 4.3vw;
+  color: #23438D;
+}
+
+.results-container {
+  position: relative;
+  width: 75vw;
+  margin-top: 5vh;
+  padding: 15vh 0vh 15vh 0vh;
+  background-color: rgba(255,255,255,.9);
 }

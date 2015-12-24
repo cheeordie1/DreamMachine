@@ -10,20 +10,20 @@
 </head>
 <body>
   <%@ page import="java.util.List,assignment.*" %>
-  <jsp:include page="/content/header/top-bar.jsp" />
   <jsp:include page="/content/layout/nature-background.jsp" />
-  <div id="search-div" class="page-div">
+  <jsp:include page="/content/header/top-bar.jsp" />
   <% 
-    List<User> results = (List<User>) request.getAttribute("searchResults");
+    List<Quiz> results = (List<Quiz>) request.getAttribute("searchResults");
     if (results.isEmpty()) {
   %>
-    
+    <div class="no-results-container hori-center">
+      <span class="no-results-span hori-center">No Quizzes matched the search "<%= request.getAttribute("term").toString() %>"</span>
+    </div>    
   <% } else { %>
     	
   <% } %>
   <% if (request.getSession().getAttribute("loggedIn").toString().equals("true")) { %>
   <jsp:include page="/content/chat/chat.jsp" />
   <% } %>
-  </div>
 </body>
 </html>

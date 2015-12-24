@@ -32,7 +32,8 @@ public class SearchServlet extends HttpServlet {
 			searchTerm = "";
 		else
 			searchTerm = request.getParameter("term").toString();
-		String forward = "";
+		request.setAttribute("term", searchTerm);
+		String forward;
 		if (request.getParameter("search-by").toString().equals("quiz")) {
 			forward = "/content/search/quiz-search.jsp";
 			List<Quiz> searches = new ArrayList<Quiz>();
@@ -52,8 +53,7 @@ public class SearchServlet extends HttpServlet {
 				}
 				String username = request.getSession().getAttribute("username").toString();
 				searches.addAll(User.searchByUsernameFriends(username, searchTerm, true));
-			}
-			else
+			} else
 				searches.addAll(User.searchByUsername(searchTerm, true));
 			request.setAttribute("searchResults", searches);
 		}

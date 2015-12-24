@@ -40,9 +40,3 @@ body {
   -webkit-user-drag: none; /* Prevents dragging of images/divs etc */
   user-drag: none;
 }
-
-.page-div {
-  position: relative;
-  height: 100%;
-  width: 100%;
-}

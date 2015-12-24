@@ -126,7 +126,6 @@ public class Quiz {
 	 * @return the list of quizzes with the same id
 	 */
 	public static List<Quiz> searchByID(int quiz_id) {
-		List<Quiz> quizzes = new ArrayList<Quiz>();
 		String query = "SELECT * FROM " + TABLE_NAME + " WHERE quiz_id = '" + quiz_id + "'";
 		ResultSet rs = DBConnection.query(query);
 		return fromResultSet(rs);
@@ -138,7 +137,6 @@ public class Quiz {
 	 * @return the list of quizzes with the same user_id
 	 */
 	public static List<Quiz> searchByUserID(int user_id) {
-		List<Quiz> quizzes = new ArrayList<Quiz>();
 		String query = "SELECT * FROM " + TABLE_NAME + " WHERE user_id = '" + user_id + "'";
 		ResultSet rs = DBConnection.query(query);
 		return fromResultSet(rs);
@@ -150,7 +148,6 @@ public class Quiz {
 	 * @return  list of quizzes searched by name
 	 */
 	public static List<Quiz> searchByName(String name, boolean substring) {
-		List<Quiz> quizzes = new ArrayList<Quiz>();
 		String query = "SELECT * FROM " + TABLE_NAME + " WHERE name LIKE '" + 
 					   (substring ? "%" : "") + name + (substring ? "%" : "") + "'";
 		ResultSet rs = DBConnection.query(query);
@@ -165,11 +162,11 @@ public class Quiz {
 	 * @return a list of quizzes that have matching tags
 	 */
 	public static List<Quiz> searchByTag(String tagname, boolean substring) {
-		String query = "SELECT * FROM " + TABLE_NAME + " INNER JOIN " + Tag.TABLE_NAME + 
+		String query = "SELECT " + TABLE_NAME + ".* FROM " + TABLE_NAME +
+				       " INNER JOIN " + Tag.TABLE_NAME + 
 					   " ON " + Tag.TABLE_NAME + ".tag LIKE '" +
 				   	   (substring ? "%" : "") + tagname + (substring ? "%" : "") + "'" +
 					   " AND (" + TABLE_NAME + ".quiz_id = " + Tag.TABLE_NAME + ".quiz_id)";
-		System.out.println(query);
 		ResultSet rs = DBConnection.query(query);
 		return fromResultSet(rs);
 	}
@@ -182,7 +179,8 @@ public class Quiz {
 	 * @return a list of Quizzes that have the same creator as the search term
 	 */
 	public static List<Quiz> searchByUsername(String username, boolean substring) {
-		String query = "SELECT * FROM " + TABLE_NAME + " INNER JOIN " + User.TABLE_NAME + 
+		String query = "SELECT " + TABLE_NAME + ".* FROM " + TABLE_NAME +
+				       " INNER JOIN " + User.TABLE_NAME + 
 					   " ON " + User.TABLE_NAME + ".username LIKE '" +
 					   (substring ? "%" : "") + username + (substring ? "%" : "") + "'" +
 					   " AND (" + TABLE_NAME + ".user_id = " + User.TABLE_NAME + ".user_id)";
