@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/search.css">
 <jsp:include page="/content/app.jsp" />
+<link href='https://fonts.googleapis.com/css?family=Lora|Ubuntu' rel='stylesheet' type='text/css'>
 <title>Search For Quizzes</title>
 </head>
 <body>

@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/search.css">
 <jsp:include page="/content/app.jsp" />
+<link href='https://fonts.googleapis.com/css?family=Lora|Ubuntu' rel='stylesheet' type='text/css'>
 <title>Search for Users</title>
 </head>
 <body>
@@ -21,12 +22,24 @@
   </div>
   <% } else { %>
   <div class="results-container hori-center">
-    <span>
-      <% 
-        String quizzesString = results.size() + (results.size() == 1 ? " User" : " Users");
-      %>
+    <span class="results-title-span hori-center">
+      <% String quizzesString = results.size() + (results.size() == 1 ? " User" : " Users"); %>
       <%= quizzesString %> found matching the search "<%= request.getAttribute("term").toString() %>"
     </span>
+    <hr class="results-divider hori-center">
+    <% for (User user : results) { %>
+    <div class="results-entry-div">
+      <div class="profile-photo-container">
+        <%
+          java.util.List<assignment.Photo> photos = assignment.Photo.searchById(user.photo_id);
+          assignment.Photo photo = photos.get(0);
+          String imgStyle = photo.height > photo.width ? "height:12vmin" : "width:12vmin";
+        %>
+        <img class="profile-photo hori-vert-center" style=<%= imgStyle %> src=<%= "/DreamMachine/image/" + user.photo_id %>>
+      </div>
+    </div>
+    <hr class="results-divider hori-center">
+    <% } %>
   </div>
   <% } %>
   <% if (request.getSession().getAttribute("loggedIn").toString().equals("true")) { %>
