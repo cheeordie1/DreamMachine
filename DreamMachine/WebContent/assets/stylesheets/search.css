@@ -18,16 +18,13 @@ body {
   position: relative;
   display: inline-block;
   width: 80%;
-  word-break: break-all;
+  word-wrap: break-word;
   font-size: 4.3vw;
   color: #23438D;
 }
 
 .results-container {
-  position: fixed;
-  overflow-y: auto;
-  top: 100px;
-  bottom: 0px;
+  position: relative;
   width: 75vw;
   padding: 10vh 0vh 10vh 0vh;
   background-color: rgba(255,255,255,.9);
@@ -59,7 +56,7 @@ body {
 
 .results-entry-div {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
   width: 50vw;
   margin-left: 12vw;
 }
@@ -70,8 +67,62 @@ body {
   width: 12vmin;
   border: 1px solid #B108BC;
   margin: 0px;
+  cursor: pointer;
 }
 
 .profile-photo {
   position: relative;
+}
+
+.profile-info-container {
+  position: relative;
+  margin-left: 4vw;
+}
+
+.profile-name-container {
+  position: relative;
+  margin-top: 1.5vh;
+}
+
+.profile-name-link {
+  text-decoration: none;
+  font-family: 'Lora', serif;
+  font-size: 1.8vw;
+  color: #A121D2;
+}
+
+.profile-name-link:link {
+  color: #590D9A;
+  font-weight: normal;
+}
+
+.profile-name-link:visited {
+  color: #590D9A;
+  font-weight: normal;
+}
+
+.profile-name-link:hover {
+  color: #B849E2;
+  font-weight: normal;
+}
+
+.profile-name-link:active {
+  color: #CD42D4;
+  font-weight: bold;
+}
+
+.profile-info-text {
+  font-family: 'Lora', serif;
+  font-size: 1.4vw;
+  color: #C873E8;
+}
+
+.eck {
+  position:relative;
+  height:1vh;
+}
+
+.profile-date {
+  font-size: 1.2vw;
+  color: #A2A2A2;
 }

@@ -34,7 +34,7 @@ public class SearchServlet extends HttpServlet {
 			searchTerm = request.getParameter("term").toString();
 		request.setAttribute("term", searchTerm);
 		String forward;
-		if (request.getParameter("search-by").toString().equals("quiz")) {
+		if (request.getParameter("search-by") == null || request.getParameter("search-by").toString().equals("quiz")) {
 			forward = "/content/search/quiz-search.jsp";
 			List<Quiz> searches = new ArrayList<Quiz>();
 			searches.addAll(Quiz.searchByName(searchTerm, true));
