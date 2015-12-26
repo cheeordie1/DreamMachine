@@ -10,6 +10,8 @@ public class DBConnection {
 
     private static Connection con;
     
+    private static final int TIMEOUT = 3;
+    
     /**
      * Connects to the database specified in the DBInfo file. TODO: decide when
      * to connect, how long one connection should last, and when to time out
@@ -43,7 +45,8 @@ public class DBConnection {
      */
     public static boolean closeConnection() {
         try {
-            con.close();
+        	if (con.isValid(TIMEOUT))
+              con.close();
             return true;
         } catch(SQLException ignored) {
             return false;
@@ -59,6 +62,7 @@ public class DBConnection {
      */
     public static ResultSet query(String query) {
         try {
+        	if (!con.isValid(TIMEOUT)) connect();
             Statement stmt = con.createStatement();
             return stmt.executeQuery(query);
         } catch(SQLException ignored) {
@@ -75,6 +79,7 @@ public class DBConnection {
      */
     public static ResultSet query(PreparedStatement stmt) {
         try {
+        	if (!con.isValid(TIMEOUT)) connect();
         	return stmt.executeQuery();
         } catch(SQLException ignored) {
             return null;
@@ -90,6 +95,7 @@ public class DBConnection {
 	 */
 	public static int update(String update) {
 		try {
+        	if (!con.isValid(TIMEOUT)) connect();
 			Statement stmt = con.createStatement();
 			stmt.executeUpdate(update, Statement.RETURN_GENERATED_KEYS);
 			ResultSet keys = stmt.getGeneratedKeys();
@@ -111,6 +117,7 @@ public class DBConnection {
 	 */
 	public static int update(PreparedStatement stmt) {
 		try {
+        	if (!con.isValid(TIMEOUT)) connect();
 			stmt.executeUpdate();
 			ResultSet keys = stmt.getGeneratedKeys();
 			if (!keys.first())
@@ -131,6 +138,7 @@ public class DBConnection {
 	public static PreparedStatement beginStatement(String query) {
 		PreparedStatement stmt;
 		try {
+        	if (!con.isValid(TIMEOUT)) connect();
 			stmt = con.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
 			return stmt;
 		} catch (SQLException e) {

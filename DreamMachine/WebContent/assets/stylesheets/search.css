@@ -57,7 +57,7 @@ body {
 .results-entry-div {
   position: relative;
   display: inline-flex;
-  width: 50vw;
+  width: 54vw;
   margin-left: 12vw;
 }
 
@@ -76,6 +76,8 @@ body {
 
 .profile-info-container {
   position: relative;
+  display: inline-flex;
+  word-wrap: break-word;
   margin-left: 4vw;
 }
 
@@ -84,45 +86,107 @@ body {
   margin-top: 1.5vh;
 }
 
-.profile-name-link {
+.name-link {
   text-decoration: none;
   font-family: 'Lora', serif;
   font-size: 1.8vw;
   color: #A121D2;
 }
 
-.profile-name-link:link {
+.name-link:link {
   color: #590D9A;
   font-weight: normal;
 }
 
-.profile-name-link:visited {
+.name-link:visited {
   color: #590D9A;
   font-weight: normal;
 }
 
-.profile-name-link:hover {
+.name-link:hover {
   color: #B849E2;
   font-weight: normal;
 }
 
-.profile-name-link:active {
+.name-link:active {
   color: #CD42D4;
   font-weight: bold;
 }
 
-.profile-info-text {
+.info-text {
   font-family: 'Lora', serif;
   font-size: 1.4vw;
   color: #C873E8;
 }
 
 .eck {
-  position:relative;
-  height:1vh;
+  position: relative;
+  height: .8vh;
+}
+
+.profile-stats-container {
+  position: relative;
+  margin-top: 2.5vh;
 }
 
 .profile-date {
   font-size: 1.2vw;
-  color: #A2A2A2;
+  color: #B4ACAC;
+}
+
+.profile-data {
+  font-weight: bold;
+  font-size: 1.2vw;
+  color: #9F6CBC;
+}
+
+.quiz-info-container {
+  width: 20vw;
+  word-wrap: break-word;
+}
+
+.quiz-data {
+  font-size: 1.2vw;
+  color: #929292;
+}
+
+.quiz-data-link {
+  text-decoration: none;
+  font-size: 1.2vw;
+  font-weight: normal;
+  color: #929292;
+}
+
+.quiz-data-link:link {
+  font-size: 1.2vw;
+  font-weight: normal;
+  color: #929292;
+}
+
+.quiz-data-link:hover {
+  color: #EA64E3;
+  font-weight: normal;
+}
+
+.quiz-data-link:active {
+  color: #F04974;
+  font-weight: bold;
+}
+
+.quiz-description-div {
+  position: relative;
+  display: flex;
+  width: 34vw;
+}
+
+.quiz-tag-container {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 4vh;
+  padding: .5vh .5vw 2vh .5vw;
+  margin-top: 2vh;
+  border: 1px solid #9207B6;
+  border-radius: 5px;
+  background-color: rgba(201, 93, 198, 0.1);
 }

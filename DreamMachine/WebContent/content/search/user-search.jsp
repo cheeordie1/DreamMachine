@@ -48,9 +48,18 @@
         </script>
         <div class="profile-info-container">
           <div class="profile-name-container">
-            <a class="profile-name-link" href="<%= "/DreamMachine/user/" + user.username %>"><%= user.username %></a>
+            <a class="name-link" href="<%= "/DreamMachine/user/" + user.username %>"><%= user.username %></a>
             <br><div class="eck"></div>
-			<span class="profile-info-text">Joined: <span class="profile-date"><%= sdf.format(user.created_at) %></span></span>
+			<span class="info-text">Joined: <span class="profile-date"><%= sdf.format(user.created_at) %></span></span>
+          </div>
+          <div class="profile-stats-container">
+            <% 
+              List<Quiz> quizzesMade = Quiz.searchByUserID(user.user_id); 
+              //List<QuizTaken> quizzesTaken = QuizTaken.searchByUserID(user.user_id);
+            %>
+            <span class="info-text">Number of Quizzes Created: <span class="profile-data"><%= "" + quizzesMade.size() %></span></span>
+            <br><div class="eck"></div>
+			<span class="info-text">Number of Quizzes Taken: <span class="profile-data"><%= "implement quizzes taken" %></span></span>
           </div>
         </div>
       </div>
