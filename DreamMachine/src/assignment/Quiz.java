@@ -162,13 +162,33 @@ public class Quiz {
 	 * @return a list of quizzes that have matching tags
 	 */
 	public static List<Quiz> searchByTag(String tagname, boolean substring) {
-		String query = "SELECT " + TABLE_NAME + ".* FROM " + TABLE_NAME +
+		String query = "SELECT DISTINCT " + TABLE_NAME + ".* FROM " + TABLE_NAME +
 				       " INNER JOIN " + Tag.TABLE_NAME + 
 					   " ON " + Tag.TABLE_NAME + ".tag LIKE '" +
 				   	   (substring ? "%" : "") + tagname + (substring ? "%" : "") + "'" +
-					   " AND (" + TABLE_NAME + ".quiz_id = " + Tag.TABLE_NAME + ".quiz_id)";
+					   " WHERE (" + TABLE_NAME + ".quiz_id = " + Tag.TABLE_NAME + ".quiz_id)";
 		ResultSet rs = DBConnection.query(query);
 		return fromResultSet(rs);
+	}
+	
+	/**
+	 * Search database for a list of quizzes with matching tag name or quiz name
+	 * @param tag name of the tag to search for
+	 * @param name of the quiz to search for
+	 * @param substring wether or not to search by substring
+	 * @return list of quizzes that have matching quiz name or tag
+	 */
+	public static List<Quiz> searchByTagOrName(String tag, String name, boolean substring) {
+		String query = "SELECT DISTINCT " + TABLE_NAME + ".* FROM " + TABLE_NAME +
+			       " INNER JOIN " + Tag.TABLE_NAME + 
+				   " ON " + Tag.TABLE_NAME + ".tag LIKE '" +
+			   	   (substring ? "%" : "") + tag + (substring ? "%" : "") + "'" +
+				   " WHERE (" + TABLE_NAME + ".quiz_id = " + Tag.TABLE_NAME + ".quiz_id) " +
+			   	   "OR ("+ TABLE_NAME + ".name LIKE '" + 
+			   	   (substring ? "%" : "") + name + (substring ? "%" : "") + "')";
+		System.out.println(query);
+	    ResultSet rs = DBConnection.query(query);
+	    return fromResultSet(rs);
 	}
 	
 	/**
@@ -176,25 +196,81 @@ public class Quiz {
 	 * to search by substring or not.
 	 * @param username the name of the quiz creator to search by
 	 * @param substring whether or not to search by substring
-	 * @return a list of Quizzes that have the same creator as the search term
+	 * @return a list of quizzes that have matching creator name
 	 */
 	public static List<Quiz> searchByUsername(String username, boolean substring) {
-		String query = "SELECT " + TABLE_NAME + ".* FROM " + TABLE_NAME +
+		String query = "SELECT DISTINCT " + TABLE_NAME + ".* FROM " + TABLE_NAME +
 				       " INNER JOIN " + User.TABLE_NAME + 
 					   " ON " + User.TABLE_NAME + ".username LIKE '" +
 					   (substring ? "%" : "") + username + (substring ? "%" : "") + "'" +
-					   " AND (" + TABLE_NAME + ".user_id = " + User.TABLE_NAME + ".user_id)";
-		System.out.println(query);
+					   " WHERE (" + TABLE_NAME + ".user_id = " + User.TABLE_NAME + ".user_id)";
 		ResultSet rs = DBConnection.query(query);
 		return fromResultSet(rs);
 	}
 	
 	/**
-	 * This function loads all of the questions into the Quiz object
-	 * from the database.
+	 * Search the database for a list of quizzes that match the quiz name or creator name
+	 * @param username name of the creator of the quiz
+	 * @param name of the quiz to search by
+	 * @param substring whether or not to search by substring
+	 * @return list of quizzes that matches the specifications
 	 */
-	public void loadQuestions() {
-		
+	public static List<Quiz> searchByUsernameOrName(String username, String name, boolean substring) {
+		String query = "SELECT DISTINCT " + TABLE_NAME + ".* FROM " + TABLE_NAME +
+			       " INNER JOIN " + User.TABLE_NAME + 
+				   " ON " + User.TABLE_NAME + ".username LIKE '" +
+				   (substring ? "%" : "") + username + (substring ? "%" : "") + "'" +
+				   " WHERE (" + TABLE_NAME + ".user_id = " + User.TABLE_NAME + ".user_id) " +
+				   "OR ("+ TABLE_NAME + ".name LIKE '" + 
+			   	   (substring ? "%" : "") + name + (substring ? "%" : "") + "')";
+		ResultSet rs = DBConnection.query(query);
+		return fromResultSet(rs);
+	}
+	
+	/**
+	 * Search the database for all quizzes that have matching tags or usernames
+	 * @param tag the name of the tag to search by
+	 * @param username the name of the user to search by
+	 * @param substring whether or not to search by substring
+	 * @return a list of quizzes that have matching tag or username
+	 */
+	public static List<Quiz> searchByTagOrUsername(String tag, String username, boolean substring) {
+		String query = "SELECT DISTINCT " + TABLE_NAME + ".* FROM " + TABLE_NAME +
+			       " INNER JOIN " + User.TABLE_NAME + 
+				   " ON " + User.TABLE_NAME + ".username LIKE '" +
+				   (substring ? "%" : "") + username + (substring ? "%" : "") + "'" +
+				   " INNER JOIN " + Tag.TABLE_NAME + 
+				   " ON " + Tag.TABLE_NAME + ".tag LIKE '" +
+				   (substring ? "%" : "") + tag + (substring ? "%" : "") + "'" +
+				   " WHERE (" + TABLE_NAME + ".user_id = " + User.TABLE_NAME + ".user_id) " + 
+				   "OR (" + TABLE_NAME + ".quiz_id = " + Tag.TABLE_NAME + ".quiz_id)";
+		ResultSet rs = DBConnection.query(query);
+		return fromResultSet(rs);
+	}
+	
+	/**
+	 * Search the database for all quizzes that have matching tags or usernames or quiz names
+	 * @param tag the name of the tag to search by
+	 * @param username the name of the user to search by
+	 * @param name the name of the quiz to search by
+	 * @param substring whether or not to search by substring
+	 * @return a list of quizzes that have matching tag or username or quiz name
+	 */
+	public static List<Quiz> searchByTagOrUsernameOrName(String tag, String username, String name, boolean substring) {
+		String query = "SELECT DISTINCT " + TABLE_NAME + ".* FROM " + TABLE_NAME +
+			       " INNER JOIN " + User.TABLE_NAME + 
+				   " ON " + User.TABLE_NAME + ".username LIKE '" +
+				   (substring ? "%" : "") + username + (substring ? "%" : "") + "'" +
+				   " INNER JOIN " + Tag.TABLE_NAME + 
+				   " ON " + Tag.TABLE_NAME + ".tag LIKE '" +
+				   (substring ? "%" : "") + tag + (substring ? "%" : "") + "'" +
+				   " WHERE (" + TABLE_NAME + ".user_id = " + User.TABLE_NAME + ".user_id) " + 
+				   "OR (" + TABLE_NAME + ".quiz_id = " + Tag.TABLE_NAME + ".quiz_id) " +
+				   "OR ("+ TABLE_NAME + ".name LIKE '" + 
+			   	   (substring ? "%" : "") + name + (substring ? "%" : "") + "')";
+		System.out.println(query);
+		ResultSet rs = DBConnection.query(query);
+		return fromResultSet(rs);
 	}
 	
 	/**

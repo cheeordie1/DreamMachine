@@ -36,12 +36,15 @@ public class SearchServlet extends HttpServlet {
 		String forward;
 		if (request.getParameter("search-by") == null || request.getParameter("search-by").toString().equals("quiz")) {
 			forward = "/content/search/quiz-search.jsp";
-			List<Quiz> searches = new ArrayList<Quiz>();
-			searches.addAll(Quiz.searchByName(searchTerm, true));
-			if (request.getParameter("by-tag") != null)
-				searches.addAll(Quiz.searchByTag(searchTerm, true));
-			if (request.getParameter("by-creator") != null)
-				searches.addAll(Quiz.searchByUsername(searchTerm, true));
+			List<Quiz> searches;
+			if (request.getParameter("by-tag") != null && request.getParameter("by-creator") != null)
+			    searches = Quiz.searchByTagOrUsernameOrName(searchTerm, searchTerm, searchTerm, true);
+			else if (request.getParameter("by-tag") != null)
+				searches = Quiz.searchByTagOrName(searchTerm, searchTerm, true);
+			else if (request.getParameter("by-creator") != null)
+				searches = Quiz.searchByUsernameOrName(searchTerm, searchTerm, true);
+			else
+				searches = Quiz.searchByName(searchTerm, true);
 			request.setAttribute("searchResults", searches);
 		} else {
 			forward = "/content/search/user-search.jsp";
