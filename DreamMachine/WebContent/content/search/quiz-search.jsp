@@ -47,15 +47,21 @@
             <span class="quiz-description-hdr">Description: </span>
             <span class="quiz-description"><%= quiz.description %></span>
           </div>
+          <% if (!tags.isEmpty()) { %>
           <div id="<%= quizTagContainerID %>" class="quiz-tag-container"><span class="quiz-tag-span">Tags: </span></div>
+          <script>
+            var tagger = new TagBox ("<%= quizTagContainerID %>", null);
+            tagger.nullify ();
+          </script>
+          <% for (Tag tag : tags) { %>
+            <script>tagger.manualAddTag("<%= tag.tag %>");</script>
+          <% 
+              }
+            } else {
+          %>
+            <div class="no-tags-div hori-center"><span class="no-tags">No Tags for this Quiz</span></div>
+          <% } %>
         </div>
-        <script>
-          var tagger = new TagBox ("<%= quizTagContainerID %>", null);
-          tagger.nullify ();
-        </script>
-        <% for (Tag tag : tags) { %>
-          <script>tagger.manualAddTag("<%= tag.tag %>");</script>
-        <% } %>
       </div>
       <hr class="results-divider hori-center">
     <% } %>
