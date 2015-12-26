@@ -59,7 +59,7 @@
             %>
             <span class="info-text">Number of Quizzes Created: <span class="profile-data"><%= "" + quizzesMade.size() %></span></span>
             <br><div class="eck"></div>
-			<span class="info-text">Number of Quizzes Taken: <span class="profile-data"><%= "implement quizzes taken" %></span></span>
+			<span class="info-text">Number of Quizzes Taken: <span class="profile-data"><%= "implement" %></span></span>
           </div>
         </div>
       </div>

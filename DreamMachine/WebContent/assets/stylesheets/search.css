@@ -127,6 +127,7 @@ body {
 .profile-stats-container {
   position: relative;
   margin-top: 2.5vh;
+  margin-left: 1vw;
 }
 
 .profile-date {
