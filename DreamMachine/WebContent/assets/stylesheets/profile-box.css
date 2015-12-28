@@ -43,15 +43,3 @@
   left: 320px;
   border: 1px solid #E8CEE1;
 }
-
-.profile-info-title {
-  color: #1141FA;
-  font-size: 26px;
-  font-family: "Roboto", sans-serif;
-}
-
-#profile-info-title {
-  position: relative;
-  display: inline-block;
-  margin-top: 10px;
-}

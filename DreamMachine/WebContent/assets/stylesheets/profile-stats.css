@@ -1,0 +1,39 @@
+.profile-stats-container {
+  position: relative;
+  width: 50%;
+  height: 100%;
+}
+
+.profile-stats-title {
+  color: #1141FA;
+  font-size: 26px;
+  font-family: "Roboto", sans-serif;
+}
+
+.profile-stats-div {
+  
+}
+
+#profile-stats-title {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.profile-statistic {
+  position: relative;
+  margin-top: 3vh;
+  margin-bot: 3vh;
+  margin-left: 2vw;
+}
+
+.profile-statistic-hdr {
+  font-family: 'Roboto', sans-serif;
+  font-size: 20px;
+  color: #D41CD4;
+}
+
+.profile-data {
+  font-size: 18px;
+  color: #B6C4C9;
+}

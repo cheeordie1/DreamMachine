@@ -143,6 +143,21 @@ public class Quiz {
 	}
 	
 	/**
+	 * Search for a list of quizes by the id of the creator. Sort them by the date they were
+	 * created at.
+	 * @param user_id the creator to search for quizzes by
+	 * @param ascending whether to sort the quizzes ascending or descending
+	 * @return a list of quizzes made by a user with the user id sorted by created at
+	 */
+	public static List<Quiz> searchByUserIDSortByCreatedAt(int user_id, boolean ascending) {
+		String query = "SELECT * FROM " + TABLE_NAME + " WHERE user_id = '" + user_id + "' " +
+				       "ORDER BY created_at " + (ascending ? "ASC" : "DESC" );
+		System.out.println(query);
+		ResultSet rs = DBConnection.query(query);
+		return fromResultSet(rs);
+	}
+	
+	/**
 	 * Search for a list of quizzes from the database. Return a list by the name
 	 * of the quiz.Set substring to true if the search matches substrings
 	 * @return  list of quizzes searched by name
@@ -268,7 +283,6 @@ public class Quiz {
 				   "OR (" + TABLE_NAME + ".quiz_id = " + Tag.TABLE_NAME + ".quiz_id) " +
 				   "OR ("+ TABLE_NAME + ".name LIKE '" + 
 			   	   (substring ? "%" : "") + name + (substring ? "%" : "") + "')";
-		System.out.println(query);
 		ResultSet rs = DBConnection.query(query);
 		return fromResultSet(rs);
 	}

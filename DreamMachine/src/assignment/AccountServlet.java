@@ -34,9 +34,7 @@ public class AccountServlet extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_NOT_FOUND);
 			return;
 		}
-		request.setAttribute("pageUser", userRequested.username);
-		request.setAttribute("pageUserID", userRequested.user_id);
-		request.setAttribute("profilePic", userRequested.photo_id);
+		request.setAttribute("pageUser", userRequested);
 		String forward = "/content/account/account.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(forward);
 		rd.forward(request, response);
