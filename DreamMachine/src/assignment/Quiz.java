@@ -152,7 +152,6 @@ public class Quiz {
 	public static List<Quiz> searchByUserIDSortByCreatedAt(int user_id, boolean ascending) {
 		String query = "SELECT * FROM " + TABLE_NAME + " WHERE user_id = '" + user_id + "' " +
 				       "ORDER BY created_at " + (ascending ? "ASC" : "DESC" );
-		System.out.println(query);
 		ResultSet rs = DBConnection.query(query);
 		return fromResultSet(rs);
 	}
@@ -201,7 +200,6 @@ public class Quiz {
 				   " WHERE (" + TABLE_NAME + ".quiz_id = " + Tag.TABLE_NAME + ".quiz_id) " +
 			   	   "OR ("+ TABLE_NAME + ".name LIKE '" + 
 			   	   (substring ? "%" : "") + name + (substring ? "%" : "") + "')";
-		System.out.println(query);
 	    ResultSet rs = DBConnection.query(query);
 	    return fromResultSet(rs);
 	}

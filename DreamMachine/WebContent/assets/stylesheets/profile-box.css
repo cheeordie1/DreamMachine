@@ -37,6 +37,7 @@
 
 #profile-info-container {
   position: absolute;
+  display: inline-flex;
   height: 350px;
   width: 670px;
   top: 10px;

@@ -22,9 +22,9 @@
 
 .profile-statistic {
   position: relative;
-  margin-top: 3vh;
-  margin-bot: 3vh;
-  margin-left: 2vw;
+  margin-top: 30px;
+  margin-bot: 30px;
+  margin-left: 18px;
 }
 
 .profile-statistic-hdr {
@@ -36,4 +36,19 @@
 .profile-data {
   font-size: 18px;
   color: #B6C4C9;
+}
+
+.friend-request-container {
+  height: 100%;
+  width: 50%;
+}
+
+.friend-request-div {
+  position: absolute;
+  bottom: 0px;
+}
+
+.friend-button {
+  height: 35px;
+  width: 100px;
 }

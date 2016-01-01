@@ -78,7 +78,7 @@ CREATE TABLE messages (
 CREATE TABLE friends (
 	friend_id INT NOT NULL AUTO_INCREMENT,
 	sender INT,
-	reciever INT,
+	receiver INT,
 	status INT,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY (friend_id)
