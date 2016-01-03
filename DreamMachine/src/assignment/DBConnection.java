@@ -23,11 +23,23 @@ public class DBConnection {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
+            String url, username, password, db;
+            
+            if (System.getenv("DEPLOY").equals("dev")) {
+            	url = DBInfo.LOCAL_DATABASE_SERVER;
+            	username = DBInfo.LOCAL_USERNAME;
+            	password = DBInfo.LOCAL_PASSWORD;
+            	db = DBInfo.LOCAL_DATABASE_NAME;
+            } else {
+            	url = DBInfo.MYSQL_DATABASE_SERVER;
+            	username = DBInfo.MYSQL_USERNAME;
+            	password = DBInfo.MYSQL_PASSWORD;
+            	db = DBInfo.MYSQL_DATABASE_NAME;
+            }
+            
             con = DriverManager.getConnection(
-                "jdbc:mysql://" + DBInfo.MYSQL_DATABASE_SERVER,
-                DBInfo.MYSQL_USERNAME,
-                DBInfo.MYSQL_PASSWORD);
-  		    query("USE " + DBInfo.MYSQL_DATABASE_NAME);
+                "jdbc:mysql://" + url, username, password);
+  		    query("USE " + db);
             return true;
         } catch(SQLException ignored) {
             return false;

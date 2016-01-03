@@ -73,7 +73,7 @@ public class Friend {
 	 * @return true if update succeeds
 	 */
 	public boolean update() {
-		
+		return true;
 	}
 	
 	/**
@@ -81,7 +81,7 @@ public class Friend {
 	 * @return true if the delete works, false otherwise
 	 */
 	public boolean delete() {
-		
+		return true;
 	}
 	
 	/**
