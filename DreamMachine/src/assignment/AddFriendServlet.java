@@ -36,6 +36,7 @@ public class AddFriendServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int sender = Integer.parseInt(request.getParameter("sender"));
 		int receiver = Integer.parseInt(request.getParameter("receiver"));
+		String pageURL = request.getParameter("pageURL");
 		List<Friend> friendList = Friend.searchByUserIDUserID(sender, receiver);
 		if (friendList.isEmpty()) {
 			Friend friendRequest = new Friend();
@@ -48,10 +49,11 @@ public class AddFriendServlet extends HttpServlet {
 		    if (sender == friendship.receiver) {
 		    	if (friendship.status == Friend.PENDING) {
 		    		friendship.status = Friend.ACCEPTED;
+		    		friendship.update();
 		  	  	}
 		    }
 		}
-		response.sendRedirect("/DreamMachine/user/");
+		response.sendRedirect(pageURL);
 	}
 
 }

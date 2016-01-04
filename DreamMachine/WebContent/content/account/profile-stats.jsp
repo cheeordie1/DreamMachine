@@ -25,19 +25,27 @@
       List<Friend> friendshipList = Friend.searchByUserIDUserID(loggedInUserID, pageUser.user_id);
       if (friendshipList.isEmpty()) {
     %>
-      <div id="add-friend-container" class="friend-request-div">
-        <form id="add-friend-form" method="post" action="add-friend">
+      <div id="add-friend-container" class="friend-request-div hori-center">
+        <form id="add-friend-form" method="post" action="/DreamMachine/add-friend">
           <input type="hidden" name="sender" value="<%= loggedInUserID %>">
           <input type="hidden" name="receiver" value="<%= pageUser.user_id %>">
+          <input type="hidden" name="pageURL" value="<%= "/DreamMachine/user/" + pageUser.username %>">
  		  <input id="send-friend-request" class="friend-button" type="submit" value="Add Friend">
         </form>
       </div>
     <%
       } else {
     	Friend friendship = friendshipList.get(0);
+    	if (loggedInUserID == friendship.sender) {
     %>
-    	
-    <% } %>
+      <div class="pending-request-div">
+        <div class="pending-request hori-center">
+          <span class="pending-request-span">Friend Request Sent...</span>
+        </div>
+      </div>    
+    <% } else { %>
+ 
+    <% }} %>
   </div>
 <% 
     }

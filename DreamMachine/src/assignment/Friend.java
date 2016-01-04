@@ -81,7 +81,11 @@ public class Friend {
 	 * @return true if the delete works, false otherwise
 	 */
 	public boolean delete() {
-		return true;
+        if (friend_id == 0) return false;
+        String query = "DELETE FROM " + TABLE_NAME + 
+                       " WHERE friend_id = '" + friend_id + "' LIMIT 1";
+        DBConnection.update (query);
+        return true;
 	}
 	
 	/**
@@ -103,7 +107,7 @@ public class Friend {
 	public static List<Friend> searchByUserIDStatus(int user_id, int status) {
 		String query = "SELECT * FROM " + TABLE_NAME + 
 					   " WHERE (sender = '" + user_id + "'" + 
-					   " OR reciever = '" + user_id + "'" +
+					   " OR receiver = '" + user_id + "'" +
 					   ") AND status = '" + status + "'"; 
 		ResultSet rs = DBConnection.query(query);
 		return fromResultSet(rs);
@@ -118,9 +122,9 @@ public class Friend {
 	public static List<Friend> searchByUserIDUserID(int user_id_a, int user_id_b) {
 		String query = "SELECT * FROM " + TABLE_NAME + 
 				       " WHERE (sender = '" + user_id_a + "' " + 
-				       "AND reciever = '" + user_id_b + "') " +
+				       "AND receiver = '" + user_id_b + "') " +
 				       "OR (sender = '" + user_id_b + "' " + 
-				       "AND reciever = '" + user_id_a + "')"; 
+				       "AND receiver = '" + user_id_a + "')";
 		ResultSet rs = DBConnection.query(query);
 		return fromResultSet(rs);
 	}
@@ -131,10 +135,10 @@ public class Friend {
 	 * @param user_id_B The id of the second user in the friendship
 	 * @param decision The decision (accepted, denied, blocked) that the user chose
 	 */
-	public static void updateFriendRequest (int sender, int reciever, int decision) {
+	public static void updateFriendRequest (int sender, int receiver, int decision) {
 		String entry = "UPDATE " + TABLE_NAME + " SET status = " 
 					   + decision + " WHERE sender = " + sender 
-					   + " AND reciever = " + reciever;
+					   + " AND receiver = " + receiver;
 		DBConnection.update(entry);
 	}
 	

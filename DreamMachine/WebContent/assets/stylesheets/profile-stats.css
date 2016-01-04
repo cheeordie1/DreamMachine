@@ -39,16 +39,42 @@
 }
 
 .friend-request-container {
+  position: relative;
   height: 100%;
   width: 50%;
 }
 
 .friend-request-div {
   position: absolute;
-  bottom: 0px;
+  bottom: 15px;
 }
 
 .friend-button {
-  height: 35px;
-  width: 100px;
+  height: 50px;
+  width: 130px;
+  border-radius: 7px;
+  outline: none;
+  border-width: 1px;
+  background: -webkit-linear-gradient(top, #DCE8E9 0%,#C088E3 100%);
+  font-size: 18px;
+  color: #55675E;
+  font-family: "Tahoma";
+}
+
+.pending-request {
+  position: absolute;
+  bottom: 15px;
+  padding: 15px;
+  background: -webkit-linear-gradient(top, #DCE8E9 0%,#C088E3 100%);
+  border-radius: 7px;
+  border: solid 1px #AEA7A7;
+}
+
+.pending-request-span {
+  position: relative;
+  display: inline-block;
+  width: 200px;
+  font-size: 18px;
+  color: #55675E;
+  font-family: "Tahoma";
 }
