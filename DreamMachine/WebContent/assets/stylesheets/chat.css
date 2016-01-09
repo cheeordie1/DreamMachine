@@ -8,7 +8,7 @@
 
 .chat-opener-container {
   position: relative;
-  bottom: -254px;
+  bottom: -255px;
   margin-right: 11px;
   height: 365px;
   width: 300px;
@@ -29,6 +29,26 @@
   height: 330px;
   width: 100%;
   background-color: #FFFFFF;
+}
+
+.chat-opener-entry-container {
+  position: relative;
+  height: 36px;
+  padding: 2px;
+}
+
+.chat-opener-entry-img {
+  position: relative;
+  -webkit-clip-path: circle(15px at 50% 50%);
+  margin-left: 2px;
+}
+
+.chat-opener-entry-name {
+  position: absolute;
+  margin-left: 5px;
+  color: #BB35F0;
+  font-family: "Tahoma";
+  font-size: 18px;
 }
 
 .chat-opener-title {
@@ -75,12 +95,16 @@
   position: relative;
   height: 220px;
   width: 240px;
-  padding:5px;
+  margin: 5px;
+  margin-right: 0px;
+  padding-right: 5px;
+  overflow-y: auto;
   background-color: #FFFFFF;
 }
 
 .chat-box-message-display-list {
   position: relative;
+  margin: 0px;
   padding: 0px;
 }
 

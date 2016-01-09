@@ -15,7 +15,7 @@ function ChatOpener(senderName, containerID) {
   
   obj.hideChat = function() {
     if (obj.$chatOpenerContainer.css ("bottom").valueOf() == "77px".valueOf())
-      obj.$chatOpenerContainer.css ("bottom", "-254px");
+      obj.$chatOpenerContainer.css ("bottom", "-255px");
     else
       obj.$chatOpenerContainer.css ("bottom", "77px");
   }
@@ -25,8 +25,13 @@ function ChatOpener(senderName, containerID) {
 	var name = receiverName;
 	var $chatOpenerEntryContainer = $("<div>", { class: "chat-opener-entry-container" });
 	obj.$chatOpenerList.append ($chatOpenerEntryContainer);
-	$chatOpenerEntryContainer.append ($("<img>", { src: imageURL, class: "chat-opener-entry-img" }));
-	$chatOpenerEntryContainer.append ($("<span>", { text: receiverName, class: "chat-opener-entry-name" }));
+	var $chatOpenerEntryImage = $("<img>", { src: imageURL, class: "chat-opener-entry-img vert-center" });
+	if ($chatOpenerEntryImage.height () > $chatOpenerEntryImage.width ())
+	  $chatOpenerEntryImage.height ("35px");
+	else
+	  $chatOpenerEntryImage.width ("35px");
+	$chatOpenerEntryContainer.append ($chatOpenerEntryImage);
+	$chatOpenerEntryContainer.append ($("<span>", { text: receiverName, class: "chat-opener-entry-name vert-center" }));
 
 	$chatOpenerEntryContainer.on ("mouseover", function(evt) {
 	  $chatOpenerEntryContainer.css ("background-color", "#B490BC");
