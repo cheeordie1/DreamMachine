@@ -168,10 +168,10 @@ function Chat(factory, displayID, inputID, sendButtonID, exitButtonID, sender, r
 	var text = $(obj.inputID).val ();
 	if (/\S/.test(text) == false) return;
 	$(obj.inputID).val ("");
-	obj.addMessage (sender, text);
-	obj.client.publish ('/' + receiver, JSON.stringify ({
-	  sender: sender,
-	  receiver: receiver,
+	obj.addMessage (obj.sender, text);
+	obj.client.publish ('/' + obj.receiver, JSON.stringify ({
+	  sender: obj.sender,
+	  receiver: obj.receiver,
 	  message: text
 	}));
   };
@@ -181,6 +181,11 @@ function Chat(factory, displayID, inputID, sendButtonID, exitButtonID, sender, r
 	  obj.sendMessage (evt);
 	}
   }
+  
+  obj.client.subscribe ('/' + obj.sender, function(data) {
+	var jData = jQuery.parseJSON (data);
+    obj.addMessage (jData.sender, jData.message);
+  });
   
   $(obj.exitButtonID).on ("click", obj.exitChat);
   $(obj.sendButtonID).on ("click", obj.sendMessage);
