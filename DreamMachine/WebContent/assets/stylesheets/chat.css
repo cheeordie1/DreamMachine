@@ -33,14 +33,23 @@
 
 .chat-opener-entry-container {
   position: relative;
+  display: inline-flex;
   height: 36px;
+  width: 100%;
   padding: 2px;
+  cursor: pointer;
+}
+
+.chat-opener-entry-img-div {
+  position: relative;
+  margin-left: 2px;	
+  height: 35px;
+  width: 50px;
 }
 
 .chat-opener-entry-img {
   position: relative;
   -webkit-clip-path: circle(15px at 50% 50%);
-  margin-left: 2px;
 }
 
 .chat-opener-entry-name {

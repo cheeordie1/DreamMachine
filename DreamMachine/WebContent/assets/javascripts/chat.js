@@ -25,12 +25,16 @@ function ChatOpener(senderName, containerID) {
 	var name = receiverName;
 	var $chatOpenerEntryContainer = $("<div>", { class: "chat-opener-entry-container" });
 	obj.$chatOpenerList.append ($chatOpenerEntryContainer);
-	var $chatOpenerEntryImage = $("<img>", { src: imageURL, class: "chat-opener-entry-img vert-center" });
-	if ($chatOpenerEntryImage.height () > $chatOpenerEntryImage.width ())
-	  $chatOpenerEntryImage.height ("35px");
-	else
-	  $chatOpenerEntryImage.width ("35px");
-	$chatOpenerEntryContainer.append ($chatOpenerEntryImage);
+	var $chatOpenerEntryImageDiv = $("<div>", { class: "chat-opener-entry-img-div" });
+	var $chatOpenerEntryImage = $("<img>", { src: imageURL, class: "chat-opener-entry-img hori-center" });
+	$chatOpenerEntryImageDiv.append ($chatOpenerEntryImage);
+	$chatOpenerEntryContainer.append ($chatOpenerEntryImageDiv);
+	$chatOpenerEntryImage.on("load", function () {
+	  if ($chatOpenerEntryImage.height () > $chatOpenerEntryImage.width ())
+	    $chatOpenerEntryImage.width ("35px");
+	  else
+	    $chatOpenerEntryImage.height ("35px");
+	});
 	$chatOpenerEntryContainer.append ($("<span>", { text: receiverName, class: "chat-opener-entry-name vert-center" }));
 
 	$chatOpenerEntryContainer.on ("mouseover", function(evt) {
