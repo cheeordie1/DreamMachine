@@ -61,6 +61,12 @@
   font-family: "Tahoma";
 }
 
+.respond-request-div {
+  position: absolute;
+  display: inline-flex;
+  bottom: 15px;
+}
+
 .pending-request {
   position: absolute;
   bottom: 15px;
@@ -73,8 +79,23 @@
 .pending-request-span {
   position: relative;
   display: inline-block;
-  width: 200px;
+  width: 162px;
   font-size: 18px;
   color: #55675E;
   font-family: "Tahoma";
+}
+
+.friend-text-div {
+  position: absolute;
+  display: inline-block;
+  bottom: 15px;
+}
+
+.friend-text-span {
+  font-family: 'Krona One', sans-serif;
+  font-size: 30px;
+  color: red;
+  background: linear-gradient(to right, #ff247a 9%,#ff4cb1 51%,#ff247a 88%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }

@@ -14,7 +14,6 @@ function ChatOpener(senderName, containerID) {
   obj.$chatOpenerContainer.append(obj.$chatOpenerList);
   
   obj.hideChat = function() {
-	console.log(obj.$chatOpenerContainer.css ("bottom"));
     if (obj.$chatOpenerContainer.css ("bottom").valueOf() == "77px".valueOf())
       obj.$chatOpenerContainer.css ("bottom", "-254px");
     else
@@ -65,8 +64,11 @@ function ChatFactory(senderName, chatContainer)
   var obj = this;
   
   obj.addChat = function(receiverName) {
-	for (var tuple in obj.chatArray)
-	  if (tuple[0].valueOf () == receiverName.valueOf()) return;
+	var exists = false;
+	obj.chatArray.forEach (function (val, idx) {
+	  if (val[0].valueOf () == receiverName.valueOf()) exists = true;
+	});
+	if (exists) return;
 	obj.chatArray.push([receiverName, null]);
     var displayID, inputID, sendButtonID, exitButtonID, obj1, hideChat;
     displayID = receiverName + "-chat-display";

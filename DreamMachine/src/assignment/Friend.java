@@ -73,6 +73,11 @@ public class Friend {
 	 * @return true if update succeeds
 	 */
 	public boolean update() {
+		if (friend_id == 0) return false;
+		String query = "UPDATE " + TABLE_NAME + 
+				       " SET status='" + status + "'" +
+				       " WHERE friend_id = " + friend_id;
+		DBConnection.update(query);
 		return true;
 	}
 	
@@ -84,7 +89,7 @@ public class Friend {
         if (friend_id == 0) return false;
         String query = "DELETE FROM " + TABLE_NAME + 
                        " WHERE friend_id = '" + friend_id + "' LIMIT 1";
-        DBConnection.update (query);
+        DBConnection.update(query);
         return true;
 	}
 	

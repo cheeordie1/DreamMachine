@@ -178,7 +178,7 @@ public class User {
      *         or an empty list if they do not exist
      */
     public static List<User> searchByUsernameFriends(String userName, String friendName, boolean substring){
-    	String query = "SELECT " + TABLE_NAME + ".* FROM " + TABLE_NAME + " friend INNER JOIN " + TABLE_NAME + " as user " +
+    	String query = "SELECT friend.* FROM " + TABLE_NAME + " friend INNER JOIN " + TABLE_NAME + " as user " +
     	               "ON user.username LIKE '" + (substring ? "%" : "") + userName + (substring ? "%" : "") + "' " +
     			       "INNER JOIN " + Friend.TABLE_NAME + " as friendship ON friendship.status = " + Friend.ACCEPTED + 
     			       " WHERE friend.username LIKE '" + (substring ? "%" : "") + friendName + (substring ? "%" : "") + "' " +
@@ -195,7 +195,7 @@ public class User {
      * @return list of users who are friends with the user specified
      */
     public static List<User> searchByUsernameFriends(String userName, boolean substring) {
-    	String query = "SELECT " + TABLE_NAME + ".* FROM " + TABLE_NAME + " friend INNER JOIN " + TABLE_NAME + " as user " +
+    	String query = "SELECT friend.* FROM " + TABLE_NAME + " friend INNER JOIN " + TABLE_NAME + " as user " +
 	               		"ON user.username LIKE '" + (substring ? "%" : "") + userName + (substring ? "%" : "") + "' " +
 	               		"INNER JOIN " + Friend.TABLE_NAME + " as friendship ON friendship.status = " + Friend.ACCEPTED + 
                         " WHERE ((friendship.sender = user.user_id AND friendship.receiver = friend.user_id) " +

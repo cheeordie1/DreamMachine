@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/DreamMachine/assets/stylesheets/profile-stats.css">
+<link href='https://fonts.googleapis.com/css?family=Krona+One' rel='stylesheet' type='text/css'>
 <%@ page import="java.util.List,assignment.*, java.text.*" %>
 <%
   User pageUser = (User) request.getAttribute("pageUser");
@@ -36,15 +37,38 @@
     <%
       } else {
     	Friend friendship = friendshipList.get(0);
-    	if (loggedInUserID == friendship.sender) {
+    	if (friendship.status == Friend.ACCEPTED) {
+    %>
+      <div class="friend-text-div hori-center">
+        <span class="friend-text-span">Friend</span>
+      </div>
+    <%
+        } else if (loggedInUserID == friendship.sender) {
     %>
       <div class="pending-request-div">
         <div class="pending-request hori-center">
-          <span class="pending-request-span">Friend Request Sent...</span>
+          <span class="pending-request-span">Friend Request Sent</span>
         </div>
       </div>    
     <% } else { %>
- 
+      <div class="respond-request-div">
+        <div class="accept-request-div">
+          <form method="post" action="/DreamMachine/add-friend">
+            <input type="hidden" name="sender" value="<%= loggedInUserID %>">
+            <input type="hidden" name="receiver" value="<%= pageUser.user_id %>">
+            <input type="hidden" name="pageURL" value="<%= "/DreamMachine/user/" + pageUser.username %>">
+ 		    <input class="friend-button" type="submit" value="Accept Friend">
+          </form>
+        </div>
+        <div class="ignore-request-div">
+          <form method="post" action="/DreamMachine/remove-friend">
+            <input type="hidden" name="sender" value="<%= loggedInUserID %>">
+            <input type="hidden" name="receiver" value="<%= pageUser.user_id %>">
+            <input type="hidden" name="pageURL" value="<%= "/DreamMachine/user/" + pageUser.username %>">
+ 		    <input class="friend-button" type="submit" value="Ignore Friend">
+          </form>        
+        </div>
+      </div>
     <% }} %>
   </div>
 <% 
