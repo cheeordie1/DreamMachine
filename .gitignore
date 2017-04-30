@@ -14,3 +14,4 @@ RemoteSystemsTempFiles.*
 .settings/*
 .recommenders/*
 *.swp
+/build/

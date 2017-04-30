@@ -45,5 +45,6 @@
 #create-quiz-button {
   position: absolute;
   height: 90px;
+  right: -95px;
   top: -20px;
 }
